@@ -11,21 +11,10 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-fixed-top navbar-default" role="navigation">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html">ProTester</a>
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header navbar-right">
-				<ul class="nav navbar-nav">
-					<li><a>2:34 min</a></li>
-					<li><a href="#">Stefan <span
-							class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container-fluid -->
-	</nav>
+	<?php 
+	include navbar.php;
+	?>
+	
 	<div class="progress" style="margin-top: -20px; height: 5px;">
 		<div class="progress-bar progress-bar-info" role="progressbar"
 			aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
@@ -33,6 +22,7 @@
 			<span class="sr-only">30% Complete</span>
 		</div>
 	</div>
+	
 	<form action="finishedTest.php" method="POST">
 		<div class="container">
 			<div class="row">
