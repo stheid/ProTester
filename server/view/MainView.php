@@ -13,20 +13,50 @@
 				support frames.</p>
     <?php
 				include 'navbar.php';
+				class MainView{
+					public static $tabs[] = new NewsTab ();
+				}
+				
 				$isStudent = true;
 				if ($isStudent) {
-					include StudentMain . php;
+					MainView::$tabs[]=new ViewResultTab();
 				}
-				$isLecturer = true;
+				
+				$isLecturer = false;
 				if ($isLecturer) {
-					include StudentMain . php;
+					MainView::$tabs[]=new TestManagementTab();
+					MainView::$tabs[]=new EvaluateTestTab();
 				}
-				$isAdmin = true;
+				
+				$isAdmin = false;
 				if ($isAdmin) {
-					include StudentMain . php;
+					MainView::$tabs[]=new CourseManagementTab();
+					MainView::$tabs[]=new AccountManagementTab();
 				}
+				
+				$navtabs='<ul class="nav nav-tabs" role="tablist">';
+				foreach(MainView::$tabs as $tab){
+					$navtabs= $navtabs.'<li role="presentation" class="active"><a
+						href="#'.$tab->$id.'"
+						aria-controls="'.$tab->$title.'" role="tab"
+						data-toggle="tab">' .$tab->$title.'</a></li>'; 
+				}
+				$navtabs=	$navtabs."</ul>";
+
+				
+				
+				$navpanes='<div class="tab-content">';
+				foreach(MainView::$tabs as $tab){
+					$navtabs= $navtabs.'<div role="tabpanel" class="tab-pane active" id="'.$tab->$id.
+					'">'.$tab->$content.'</div>';
+				}
+				
+				$navpanes=$navpanes.'</div>';
+
+				
+				echo $navtabs.$navpanes;
 				?>
-    </body>
+		</body>
 	</noframes>
 </frameset>
 </html>
