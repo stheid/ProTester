@@ -1,6 +1,7 @@
 <?php
-echo SITE_PATH;
-/*
+
+include ("settings.php");
+
 $hasNowTest=false;
 if ($hasNowTest) {
 	$target=PATH."";
@@ -8,5 +9,5 @@ if ($hasNowTest) {
 	$target=PATH."server/view/MainView.php";
 }
 header("Location: $target");
-die();*/
+die();
 ?>
