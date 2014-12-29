@@ -1,5 +1,5 @@
 <?php
-interface Tab {
+class Tab {
 	public $id;
 	public $title;
 	// contains the whole content of the tab,

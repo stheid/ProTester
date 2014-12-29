@@ -1,5 +1,6 @@
 <?php
-class CourseManagementTab implements Tab{
+include_once 'Tab.php';
+class CourseManagementTab extends Tab{
 	public $id = "course_mgr";
 	public $title = "Manage Courses";
 	//TODO
