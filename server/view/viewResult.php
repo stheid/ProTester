@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>View Test</title>
+<title>View Result</title>
 <link rel="stylesheet"
 	href="../../client/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -12,7 +12,7 @@
 </head>
 <body>
 	<?php 
-	include navbar.php;
+	include "navbar.php";
 	?>
 
 	<div class="container">
