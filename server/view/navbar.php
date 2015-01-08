@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="index.html">ProTester</a>
+		<a class="navbar-brand" href="<?php echo PATH; ?>index.php">ProTester</a>
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header navbar-right">
 			<ul class="nav navbar-nav">

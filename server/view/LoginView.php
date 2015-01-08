@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Login</title>
-<link rel="stylesheet" href="client/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="client/navbar_mod.css">
+<link rel="stylesheet" href="<?php echo PATH;?>client/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo PATH;?>client/navbar_mod.css">
 
 </head>
 <body>
@@ -26,10 +26,12 @@
 	  <button type="submit" class="btn btn-default pull-right">Login</button>
 	</form></div>
 </div>
+
+
 	
 
-	<script src="client/jquery-2.1.1-min.js" type="text/javascript"></script>
-	<script src="client/bootstrap/js/bootstrap.min.js"
+	<script src="<?php echo PATH;?>client/jquery-2.1.1-min.js" type="text/javascript"></script>
+	<script src="<?php echo PATH;?>client/bootstrap/js/bootstrap.min.js"
 		type="text/javascript"></script>
 </body>
 </html>

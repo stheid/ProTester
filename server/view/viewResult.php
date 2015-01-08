@@ -1,3 +1,6 @@
+<?php
+include '../controller/settings.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,9 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>View Result</title>
 <link rel="stylesheet"
-	href="../../client/bootstrap/css/bootstrap.min.css">
+	href="<?php echo PATH;?>client/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-	href="../../client/navbar_mod.css">
+	href="<?php echo PATH;?>client/navbar_mod.css">
 
 </head>
 <body>
@@ -166,8 +169,8 @@
 		</div>
 	</div>
 
-	<script src="../../client/jquery-2.1.1-min.js"></script>
-	<script src="../../client/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?php echo PATH;?>client/jquery-2.1.1-min.js"></script>
+	<script src="<?php echo PATH;?>client/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>
