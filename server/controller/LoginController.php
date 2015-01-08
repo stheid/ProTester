@@ -1,6 +1,6 @@
 <?php
 
-include ("settings.php");
+define("PATH", "http://localhost/ProTester/");
 
 $hasNowTest=false;
 if ($hasNowTest) {
