@@ -76,7 +76,7 @@ include '../controller/TestManager.php';
 						</div>
 					</div>
 					<div class="panel panel-danger">
-						<a class="panel-danger" data-toggle="collapse"
+						<a class="panel-danger" data-toggle="collapse" 
 							data-parent="#accordion1" href="#collapse3">
 							<div class="panel-heading">
 								<h4 class="panel-title">

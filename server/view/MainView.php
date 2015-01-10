@@ -30,7 +30,7 @@ $isStudent = false;
 if ($isStudent) {
 	MainView::$tabs [] = new ViewResultTab ();
 }
-
+ 
 $isLecturer = true;
 if ($isLecturer) {
 //	MainView::$tabs [] = new TestManagementTab ();
