@@ -37,9 +37,9 @@ include '../controller/TestManager.php';
 							<div class="panel-body">
 								<textarea class="bg-success" style="width: 100%" disabled>Student Answer</textarea>
 								<form action='../controller/TestManager.php' method="post"  size="2">
-								<div align="right"></form><input type="points" points="points">/3</div>
+								<div align="right" ></form><input style="width: 2em" type="points" points="points">/3</div>
 								<p class="bg-info" style="width: 100%" disabled="disabled">Critarias:
-									Spirituality means waking up. Most people, even though they
+									Spirituality means waking up. Most people, even tho ugh they
 									don't know it, are asleep. They're born asleep, they live
 									asleep, they marry in their sleep, they breed children in their
 									sleep, they die in their sleep without ever waking up. They
@@ -173,7 +173,7 @@ include '../controller/TestManager.php';
 				</div>
 				<div style="position: absolute; bottom: 0; width: 262px;">
 					<div style="position: fixed;">
-						<strong style="width: 200px; display: block">Result: 30/50</strong>
+						<a href="main.html" class="btn btn-default">Prevoius test</a> 
 						<a href="main.html" class="btn btn-default">Next test</a> 
 						<a href="main.html" class="btn btn-default">Back to Homepage</a>
 					</div>
