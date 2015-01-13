@@ -2,6 +2,7 @@
 
 body { 
 	padding-top: 70px;
+	background-color:pink;
 }
 
 @media (max-width: 768px) {
