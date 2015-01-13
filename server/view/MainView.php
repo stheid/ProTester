@@ -26,12 +26,12 @@ class MainView {
 
 MainView::$tabs [] = new NewsTab ();
 
-$isStudent = false;
+$isStudent = true;
 if ($isStudent) {
 	MainView::$tabs [] = new ViewResultTab ();
 }
  
-$isLecturer = true;
+$isLecturer = false;
 if ($isLecturer) {
 	MainView::$tabs [] = new TestManagementTab ();
 	MainView::$tabs [] = new EvaluateTestTab ();
