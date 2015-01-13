@@ -33,7 +33,7 @@ if ($isStudent) {
  
 $isLecturer = true;
 if ($isLecturer) {
-//	MainView::$tabs [] = new TestManagementTab ();
+	MainView::$tabs [] = new TestManagementTab ();
 	MainView::$tabs [] = new EvaluateTestTab ();
 }
 
