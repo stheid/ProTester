@@ -1,5 +1,21 @@
 @CHARSET "UTF-8";
 
+.list-group .list-group {
+    margin-bottom: 0px;
+}
+
+.btn-list>li{
+	padding:0;
+}
+
+.btn.disabled{
+	color:#b7b7b7;
+}
+
+.btn-block{
+	text-align:left;
+}
+
 body { 
 	padding-top: 70px;
 	background-color:pink;

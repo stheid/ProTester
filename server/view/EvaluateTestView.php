@@ -1,25 +1,14 @@
 <?php
-include '../controller/settings.php';
-include '../controller/TestManager.php';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>View Result</title>
-<link rel="stylesheet"
-	href="<?php echo PATH;?>client/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="<?php echo PATH;?>client/navbar_mod.css">
-
-</head>
-<body>
-	<?php
-	include "navbar.php";
-	?>
-
-	<div class="container">
+include_once 'View.php';
+class EvaluateTestView extends View {
+	static $tabs;
+	protected static $title = 'Evaluate Tests';
+	static protected function includes() {
+		parent::includes ();
+		include '../controller/TestManager.php';
+	}
+	static protected function content() {
+		echo '<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">
 				<div class="panel-group">
@@ -36,17 +25,17 @@ include '../controller/TestManager.php';
 						<div id="collapseOne" class="panel-collapse collapse">
 							<div class="panel-body">
 								<textarea class="bg-success" style="width: 100%" disabled>Student Answer</textarea>
-								<form action='../controller/TestManager.php' method="post"  size="2">
+								<form action="../controller/TestManager.php" method="post"  size="2">
 								<div align="right"></form><input type="points" points="points">/3</div>
 								<p class="bg-info" style="width: 100%" disabled="disabled">Critarias:
 									Spirituality means waking up. Most people, even though they
-									don't know it, are asleep. They're born asleep, they live
+									don\'t know it, are asleep. They\'re born asleep, they live
 									asleep, they marry in their sleep, they breed children in their
 									sleep, they die in their sleep without ever waking up. They
 									never understand the loveliness and the beauty of this thing
-									that we call human existence. You know — all mystics —
+									that we call human existence. You know ï¿½ all mystics ï¿½
 									Catholic, Christian, non-Christian, no matter what their
-									theology, no matter what their religion — are unanimous on one
+									theology, no matter what their religion ï¿½ are unanimous on one
 									thing: that all is well, all is well. Though everything is a
 									mess, all is well. Strange paradox, to be sure. But,
 									tragically, most people never get to see that all is well
@@ -180,10 +169,9 @@ include '../controller/TestManager.php';
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<script src="<?php echo PATH;?>client/jquery-2.1.1-min.js"></script>
-	<script src="<?php echo PATH;?>client/bootstrap/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+	</div>';
+	}
+	}
+	
+	new EvaluateTestView ();
+?>

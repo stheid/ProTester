@@ -1,24 +1,13 @@
 <?php
-include '../controller/settings.php';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>View Result</title>
-<link rel="stylesheet"
-	href="<?php echo PATH;?>client/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="<?php echo PATH;?>client/navbar_mod.css">
-
-</head>
-<body>
-	<?php 
-	include "navbar.php";
-	?>
-
-	<div class="container">
+include_once 'View.php';
+class ResultView extends View {
+	static $tabs;
+	protected static $title = 'View Results';
+	static protected function includes() {
+		parent::includes ();
+	}
+	static protected function content() {
+		echo '<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">
 				<div class="panel-group">
@@ -166,11 +155,9 @@ include '../controller/settings.php';
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div>';
+	}
+}
 
-	<script src="<?php echo PATH;?>client/jquery-2.1.1-min.js"></script>
-	<script src="<?php echo PATH;?>client/bootstrap/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+new ResultView ();
+?>
