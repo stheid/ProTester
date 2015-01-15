@@ -3,6 +3,7 @@ include '../controller/settings.php';
 include 'navbar.php';
 include 'tabs/NewsTab.php';
 include 'tabs/ViewResultTab.php';
+include 'tabs/TestManagementTab.php';
 include 'tabs/EvaluateTestTab.php';
 ?>
 
@@ -26,14 +27,14 @@ class MainView {
 
 MainView::$tabs [] = new NewsTab ();
 
-$isStudent = false;
+$isStudent = true;
 if ($isStudent) {
 	MainView::$tabs [] = new ViewResultTab ();
 }
  
 $isLecturer = true;
 if ($isLecturer) {
-//	MainView::$tabs [] = new TestManagementTab ();
+	MainView::$tabs [] = new TestManagementTab ();
 	MainView::$tabs [] = new EvaluateTestTab ();
 }
 
