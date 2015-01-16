@@ -6,13 +6,11 @@ class Tab {
 	// generated with information, stored in the database
 	public $content;
 }
-
 class NewsTab extends Tab {
 	public $id = "news";
 	public $title = "News";
 	public $content = "no news atm.";
 }
-
 class ViewResultTab extends Tab {
 	function __construct() {
 		$this->content = '<h1>November 2014</h1>
@@ -63,43 +61,67 @@ Nov - Software System Development Exam<span style="float: right">35/40</span>
 	// TODO
 	public $content;
 }
-
 class EvaluateTestTab extends Tab {
 	function __construct() {
 		$this->content = '<h1>Course 1</h1>
 <ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Lecture
+<li class="list-group-item">
+<p><strong>Lecture</strong></p>
 		<ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-First exam
-</a></li><li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Second exam
-</a></li></ul>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Proj 1
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Proj 2
-</a></li>
+			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
+				First exam
+			</a></li>
+			<li class="list-group-item">
+				<a href="' . PATH . 'server/view/EvaluateTestView.php">
+					Second exam
+				</a>
+			</li>
+		</ul>
+</li>
+						<li class="list-group-item">
+<p><strong>Project1</strong></p>
+		<ul class="list-group">
+			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
+				First exam
+			</a></li>
+			<li class="list-group-item">
+				<a href="' . PATH . 'server/view/EvaluateTestView.php">
+					Second exam
+				</a>
+			</li>
+		</ul>
+</li>
 </ul>
 		<h1>Course 2</h1>
-<ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Lecture
+						<ul class="list-group">
+<li class="list-group-item">
+<p><strong>Lecture</strong></p>
 		<ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Lecture
-</a></li></ul>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Proj 1
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewEvaluateTest.php">
-Proj 2
-</a></li>
-</ul>';
+			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
+				First exam
+			</a></li>
+			<li class="list-group-item">
+				<a href="' . PATH . 'server/view/EvaluateTestView.php">
+					Second exam
+				</a>
+			</li>
+		</ul>
+</li>
+						<li class="list-group-item">
+<p><strong>Project1</strong></p>
+		<ul class="list-group">
+			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
+				First exam
+			</a></li>
+			<li class="list-group-item">
+				<a href="' . PATH . 'server/view/EvaluateTestView.php">
+					Second exam
+				</a>
+			</li>
+		</ul>
+</li>
+</ul>'
+		;
 	}
 	public $id = "eval";
 	public $title = "Evaluate Tests";
