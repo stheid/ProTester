@@ -6,11 +6,13 @@ class Tab {
 	// generated with information, stored in the database
 	public $content;
 }
+
 class NewsTab extends Tab {
 	public $id = "news";
 	public $title = "News";
 	public $content = "no news atm.";
 }
+
 class ViewResultTab extends Tab {
 	function __construct() {
 		$this->content = '<h1>November 2014</h1>
