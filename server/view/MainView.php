@@ -26,7 +26,7 @@ class MainView {
 
 MainView::$tabs [] = new NewsTab ();
 
-$isStudent = true;
+$isStudent =true;
 if ($isStudent) {
 	MainView::$tabs [] = new ViewResultTab ();
 }
