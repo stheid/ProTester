@@ -4,7 +4,9 @@
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header navbar-right">
 			<ul class="nav navbar-nav">
-				<li><a> <span class="glyphicon glyphicon-user"
+				<li><a> <?php echo $_SESSION['username']; ?> <span class="glyphicon glyphicon-user"
+						aria-hidden="true"></span></a></li>
+				<li><a><span class="glyphicon glyphicon-off"
 						aria-hidden="true"></span></a></li>
 			</ul>
 		</div>

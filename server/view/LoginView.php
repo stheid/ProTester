@@ -32,7 +32,5 @@ class LoginView extends View{
 		</div>';
 	}
 }
-
-session_start();
 new LoginView();
 	?>
