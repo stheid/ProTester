@@ -1,5 +1,6 @@
 <?php
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/OpenQuestion.php');
+require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Answer.php');
 
 /**
  * @access public
@@ -8,8 +9,21 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/OpenQuestion.php
  */
 class Evaluation_Rule {
 	/**
+	 * @AttributeType int
+	 */
+	private $_iD;
+	/**
+	 * @AttributeType String
+	 */
+	private $_evaluationRule;
+	/**
 	 * @AssociationType Server.Model.OpenQuestion
 	 */
-	public $;
+	public $_unnamed_OpenQuestion_;
+	/**
+	 * @AssociationType Server.Model.Answer
+	 * @AssociationMultiplicity 1
+	 */
+	public $_answers;
 }
 ?>

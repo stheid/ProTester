@@ -7,7 +7,10 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Question.php');
  * @package Server.Model
  */
 class ClosedQuestion extends Question {
-	private $_solution_String_0..4_;
+	/**
+	 * @AttributeType Integer
+	 */
+	private $_solution_String;
 	/**
 	 * @AttributeType String[0..4]
 	 */

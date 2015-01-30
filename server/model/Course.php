@@ -1,5 +1,5 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Student.php');
+require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/CourseManager.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Teacher.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/TestTemplate.php');
@@ -10,15 +10,31 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/TestTemplate.php
  * @package Server.Model
  */
 class Course {
+	/**
+	 * @AttributeType int
+	 */
 	private $_courseID;
+	/**
+	 * @AttributeType String
+	 */
 	private $_name;
+	/**
+	 * @AttributeType String
+	 */
 	private $_syllabus;
+	/**
+	 * @AttributeType String
+	 */
 	private $_schedule;
 	/**
-	 * @AssociationType Server.Model.Student
+	 * @AttributeType int
+	 */
+	private $_group;
+	/**
+	 * @AssociationType Server.Model.Person
 	 * @AssociationMultiplicity *
 	 */
-	public $_is_in__ = array();
+	public $_students = array();
 	/**
 	 * @AssociationType Server.Controller.CourseManager
 	 */
@@ -27,11 +43,12 @@ class Course {
 	 * @AssociationType Server.Model.Teacher
 	 * @AssociationMultiplicity 1
 	 */
-	public $_runs__;
+	public $_courses;
 	/**
 	 * @AssociationType Server.Model.TestTemplate
+	 * @AssociationMultiplicity 1..*
 	 * @AssociationKind Aggregation
 	 */
-	public $_.._;
+	public $_templates = array();
 }
 ?>

@@ -7,6 +7,9 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Question.php');
  * @package Server.Model
  */
 class GapQuestion extends Question {
+	/**
+	 * @AttributeType String
+	 */
 	private $_solution;
 }
 ?>

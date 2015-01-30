@@ -1,8 +1,5 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/CourseManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/ActiveTestManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/TestManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Course.php');
+require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/FindAnswerableTestsManager.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Test.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
 
@@ -12,29 +9,19 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
  * @package Server.Model
  */
 class Student extends Person {
+	/**
+	 * @AttributeType int
+	 */
 	private $_studentID;
 	/**
-	 * @AssociationType Server.Controller.CourseManager
-	 */
-	public $_unnamed_CourseManager_;
-	/**
-	 * @AssociationType Server.Controller.ActiveTestManager
+	 * @AssociationType Server.Controller.FindAnswerableTestsManager
 	 * @AssociationMultiplicity 1
 	 */
-	public $_unnamed_ActiveTestManager_;
-	/**
-	 * @AssociationType Server.Controller.TestManager
-	 * @AssociationMultiplicity 1
-	 */
-	public $_unnamed_TestManager_;
-	/**
-	 * @AssociationType Server.Model.Course
-	 * @AssociationMultiplicity *
-	 */
-	public $_is_in__ = array();
+	public $_unnamed_FindAnswerableTestsManager_;
 	/**
 	 * @AssociationType Server.Model.Test
+	 * @AssociationMultiplicity 0..2
 	 */
-	public $_..2;
+	public $_tests = array();
 }
 ?>

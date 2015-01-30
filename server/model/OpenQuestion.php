@@ -10,8 +10,9 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Question.php');
 class OpenQuestion extends Question {
 	/**
 	 * @AssociationType Server.Model.Evaluation Rule
+	 * @AssociationMultiplicity 1
 	 * @AssociationKind Aggregation
 	 */
-	public $;
+	public $_unnamed_Evaluation_Rule_;
 }
 ?>

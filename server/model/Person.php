@@ -1,7 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/TestController.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/TestManager.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Test.php');
+require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Course.php');
 
 /**
  * @access public
@@ -9,23 +8,31 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Test.php');
  * @package Server.Model
  */
 class Person {
+	/**
+	 * @AttributeType int
+	 */
+	private $_iD;
+	/**
+	 * @AttributeType String
+	 */
 	private $_name;
+	/**
+	 * @AttributeType String
+	 */
 	private $_surname;
 	/**
 	 * @AssociationType Server.Model.Person
 	 */
 	public $_unnamed_Person_;
 	/**
-	 * @AssociationType Server.Controller.TestController
-	 */
-	public $_checks_;
-	/**
-	 * @AssociationType Server.Controller.TestManager
-	 */
-	public $_unnamed_TestManager_;
-	/**
 	 * @AssociationType Server.Model.Test
+	 * @AssociationMultiplicity 1
 	 */
-	public $_can_access_;
+	public $_tests = array();
+	/**
+	 * @AssociationType Server.Model.Course
+	 * @AssociationMultiplicity *
+	 */
+	public $_courses = array();
 }
 ?>

@@ -8,11 +8,14 @@ require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
  * @package Server.Model
  */
 class Teacher extends Person {
+	/**
+	 * @AttributeType int
+	 */
 	private $_personalID;
 	/**
 	 * @AssociationType Server.Model.Course
 	 * @AssociationMultiplicity *
 	 */
-	public $_runs__ = array();
+	public $_teachers = array();
 }
 ?>
