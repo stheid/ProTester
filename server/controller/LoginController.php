@@ -3,6 +3,13 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
 class LoginController extends Controller {
 	public static function main() {
 		parent::includes ();
+		if (isset($_SESSION['id'])){
+			if (static::personHasTests ()) {
+				$target = PATH . "server/view/TestRunnerView.php";
+			} else {
+				$target = PATH . "server/view/MainView.php";
+			}
+		} else {
 		
 		$server = "localhost";
 		$username = "root";
@@ -26,10 +33,11 @@ class LoginController extends Controller {
 			}
 		} else {
 			$target = PATH . "server/view/LoginView.php";
-		}
+		}}
 		header ( "Location: $target" );
 	}
 	public static function hasPermission($user, $password, $mysqli) {
+		$exitcode = false;
 		if (empty ( $user ) || empty ( $password )) {
 			$_SESSION ['loginError'] = "Password or Username was empty. Please provide in all information";
 		} else {
@@ -40,15 +48,15 @@ class LoginController extends Controller {
 					$row = $result->fetch_array(MYSQLI_ASSOC);
 					$_SESSION['id'] = $row['id'];
 					$_SESSION['username'] = $row['name'];
+
+					$exitcode = true;
 				}
 				
 				/* free result set */
 				$result->close ();
-				return true;
-			} else {
-				return false;
-			}
+			} 
 		}
+		return $exitcode;
 	}
 	public static function personHasTests() {
 		return false;
