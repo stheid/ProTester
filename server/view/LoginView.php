@@ -11,9 +11,12 @@ class LoginView extends View{
 	
 	static protected function content(){
 		echo '<div class="row">';
-				if (isset(Session::$loginError)){
-				echo '<div class="alert alert-danger" role="alert">No Username</div>';
-		};
+		if (isset($_SESSION['loginError'])){
+				echo '<div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
+						<div class="alert alert-danger" role="alert">'.$_SESSION['loginError'].'</div>
+								</div>';
+				unset($_SESSION['loginError']);
+		}
 		echo '<div class="col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3">
 				<form action="'.PATH.'server/controller/LoginController.php" method="post">
 		<div class="form-group">
@@ -30,5 +33,6 @@ class LoginView extends View{
 	}
 }
 
+session_start();
 new LoginView();
 	?>

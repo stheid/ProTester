@@ -13,13 +13,15 @@ class LoginController extends Controller {
 				$target=PATH."server/view/MainView.php";
 			}
 		} else {
-			Session::$loginError="You could not be logged in, Try again";
 			$target=PATH."server/view/LoginView.php";
 		}
 		header("Location: $target");
 	}
 	
 	public static function hasPermission($user, $password){
+		if (empty($user)&&empty($password)){
+			$_SESSION['loginError']="Password or Username was empty. Please provide in all information";
+		}
 		return false;
 	}
 
@@ -27,5 +29,6 @@ class LoginController extends Controller {
 		return false;
 	}
 }
+session_start();
 LoginController::main();
 ?>
