@@ -1,10 +1,10 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/TestTemplate.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Student.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/TestManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/AnswerPointsManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Answer.php');
+require_once(realpath(dirname(__FILE__)) . '/TestTemplate.php');
+require_once(realpath(dirname(__FILE__)) . '/Student.php');
+require_once(realpath(dirname(__FILE__)) . '/Person.php');
+require_once(realpath(dirname(__FILE__)) . '/../controller/TestManager.php');
+require_once(realpath(dirname(__FILE__)) . '/../controller/AnswerPointsManager.php');
+require_once(realpath(dirname(__FILE__)) . '/Answer.php');
 
 /**
  * @access public

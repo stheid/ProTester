@@ -1,7 +1,7 @@
 <?php
 require_once(realpath(dirname(__FILE__)) . '/../../Server/View/ViewResultTab.php');
 require_once(realpath(dirname(__FILE__)) . '/../../Server/View/ViewTest.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/TestManager.php');
+require_once(realpath(dirname(__FILE__)) . '/TestManager.php');
 
 /**
  * @access public

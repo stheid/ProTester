@@ -1,7 +1,7 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/FindAnswerableTestsManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Test.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
+require_once(realpath(dirname(__FILE__)) . '/../controller/FindAnswerableTestsManager.php');
+require_once(realpath(dirname(__FILE__)) . '/Test.php');
+require_once(realpath(dirname(__FILE__)) . '/Person.php');
 
 /**
  * @access public

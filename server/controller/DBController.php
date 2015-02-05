@@ -1,9 +1,9 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
 
-class DBcontroller extends controller{
+class DBController extends Controller{
 	
-	public function getConnection(){
+	public static function getConnection(){
 
 		$mysqli = new mysqli (DB_SERVER,DB_USER,DB_PASSWORD,DB_NAME);
 		

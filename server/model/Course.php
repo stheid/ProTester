@@ -1,8 +1,8 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Person.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/CourseManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Teacher.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/TestTemplate.php');
+require_once(realpath(dirname(__FILE__)) . '/Person.php');
+require_once(realpath(dirname(__FILE__)) . '/../controller/CourseManager.php');
+require_once(realpath(dirname(__FILE__)) . '/Teacher.php');
+require_once(realpath(dirname(__FILE__)) . '/TestTemplate.php');
 
 /**
  * @access public

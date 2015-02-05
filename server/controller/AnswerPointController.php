@@ -1,9 +1,8 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/View/LoginView.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/View/TestRunnerView.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/FindAnswerableTestsManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/CourseManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../../View/EvaluateTestView.php');
+require_once(realpath(dirname(__FILE__)) . '/../view/LoginView.php');
+require_once(realpath(dirname(__FILE__)) . '/../view/TestRunnerView.php');
+require_once(realpath(dirname(__FILE__)) . '/FindAnswerableTestsManager.php');
+require_once(realpath(dirname(__FILE__)) . '/../view/EvaluateTestView.php');
 
 /**
  * @access public

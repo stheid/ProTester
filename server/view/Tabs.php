@@ -13,7 +13,18 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$this->content = '<h1>November 2014</h1>
+		$mysqli = new mysqli (DB_SERVER,DB_USER,DB_PASSWORD,DB_NAME);
+		
+		/* check connection */
+		if ($mysqli->connect_errno) {
+			echo "Connect failed:  " . $mysqli->connect_error;
+			exit ();
+		}
+		$result = $mysqli->query ( "SELECT DATE_FORMAT(date,'%M %Y') as date  FROM testtemplate order by testid;" );
+		$row = $result->fetch_array(MYSQLI_ASSOC);
+		
+		
+		$this->content = '<h1>' .$row['date']. '</h1>
 <ul class="list-group">
 <li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
 Nov - Software System Development Exam<span style="float: right">35/40</span>

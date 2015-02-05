@@ -1,6 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/Test.php');
-require_once(realpath(dirname(__FILE__)) . '/Course.php');
+// require_once(realpath(dirname(__FILE__)) . '/Test.php');
+// require_once(realpath(dirname(__FILE__)) . '/Course.php');
 
 /**
  * @access public
@@ -37,11 +37,12 @@ class Person {
 	
 	public static function hasPermission($user, $password, $mysqli) {
 		$exitcode = false;
+
 		if (empty ( $user ) || empty ( $password )) {
 			$_SESSION ['loginError'] = "Password or Username was empty. Please provide in all information";
-		} else {
-			if ($result = $mysqli->query ( "SELECT id,name,discriminator FROM Person WHERE id='".$user."' AND pwd='".$password."';" )) {
-				if ($result->num_rows == 0){
+		} else {			
+			if ($result = $mysqli->query ( "SELECT id,name,discriminator FROM person WHERE id='".$user."' AND pwd='".$password."';" )) {
+			 	if ($result->num_rows == 0){
 					$_SESSION ['loginError'] = "Username or Password wrong.";
 				} else {
 					$row = $result->fetch_array(MYSQLI_ASSOC);
@@ -60,10 +61,11 @@ class Person {
 					$exitcode = true;
 				}
 	
-				/* free result set */
+				// free result set 
 				$result->close ();
 			}
 		}
+		
 		return $exitcode;
 	}
 	public static function personHasTests() {

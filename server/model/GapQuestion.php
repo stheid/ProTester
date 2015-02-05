@@ -1,5 +1,5 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Question.php');
+require_once(realpath(dirname(__FILE__)) . '/Question.php');
 
 /**
  * @access public

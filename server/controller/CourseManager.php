@@ -1,7 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/CourseController.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Controller/AnswerPointController.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Course.php');
+require_once(realpath(dirname(__FILE__)) . '/AnswerPointController.php');
+require_once(realpath(dirname(__FILE__)) . '/../model/Course.php');
 
 /**
  * @access public

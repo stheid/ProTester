@@ -1,6 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/OpenQuestion.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Answer.php');
+require_once(realpath(dirname(__FILE__)) . '/OpenQuestion.php');
+require_once(realpath(dirname(__FILE__)) . '/Answer.php');
 
 /**
  * @access public
