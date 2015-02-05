@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `Question` (
   `Solution:String[0..4]` int(10) DEFAULT NULL,
   `Answers` text,
   `Solution` varchar(255) DEFAULT NULL,
-  `Discriminator` varchar(255) NOT NULL
+  `Discriminator` SET('Closed','Gap','Open') NOT NULL DEFAULT 'Closed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -137,9 +137,6 @@ CREATE TABLE IF NOT EXISTS `TestTemplate` (
   `Date` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `Answer`
