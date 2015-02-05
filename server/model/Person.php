@@ -1,6 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Test.php');
-require_once(realpath(dirname(__FILE__)) . '/../../Server/Model/Course.php');
+require_once(realpath(dirname(__FILE__)) . '/Test.php');
+require_once(realpath(dirname(__FILE__)) . '/Course.php');
 
 /**
  * @access public
@@ -34,5 +34,40 @@ class Person {
 	 * @AssociationMultiplicity *
 	 */
 	public $_courses = array();
+	
+	public static function hasPermission($user, $password, $mysqli) {
+		$exitcode = false;
+		if (empty ( $user ) || empty ( $password )) {
+			$_SESSION ['loginError'] = "Password or Username was empty. Please provide in all information";
+		} else {
+			if ($result = $mysqli->query ( "SELECT id,name,discriminator FROM Person WHERE id='".$user."' AND pwd='".$password."';" )) {
+				if ($result->num_rows == 0){
+					$_SESSION ['loginError'] = "Username or Password wrong.";
+				} else {
+					$row = $result->fetch_array(MYSQLI_ASSOC);
+					$_SESSION['id'] = $row['id'];
+					$_SESSION['username'] = $row['name'];
+					if (strpos($row['discriminator'],"Student")!==false){
+						$_SESSION['isStudent'] = true;
+					}
+					if (strpos($row['discriminator'],"Lecturer")!==false) {
+						$_SESSION['isLecturer'] = true;
+					}
+					if (strpos($row['discriminator'],"Admin")!==false){
+						$_SESSION['isAdmin'] = true;
+					}
+	
+					$exitcode = true;
+				}
+	
+				/* free result set */
+				$result->close ();
+			}
+		}
+		return $exitcode;
+	}
+	public static function personHasTests() {
+		return false;
+	}
 }
 ?>
