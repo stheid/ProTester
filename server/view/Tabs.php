@@ -16,7 +16,7 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$tests = Person::getWritlenTests($_SESSION['id']);
+		//$tests = Person::getWritlenTests($_SESSION['id']);
 	
 		$oldestDate="";
 		//for each test check 

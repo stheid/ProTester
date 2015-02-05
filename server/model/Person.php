@@ -42,7 +42,7 @@ class Person {
 		if (empty ( $user ) || empty ( $password )) {
 			$_SESSION ['loginError'] = "Password or Username was empty. Please provide in all information";
 		} else {
-			if ($result = $mysqli->query ( "SELECT id,name,discriminator FROM person WHERE id='" . $user . "' AND pwd='" . $password . "';" )) {
+			if ($result = $mysqli->query ( "SELECT PersonID as id,name,discriminator FROM Person WHERE PersonID='" . $user . "' AND Password='" . $password . "';" )) {
 				if ($result->num_rows == 0) {
 					$_SESSION ['loginError'] = "Username or Password wrong.";
 				} else {
@@ -78,19 +78,19 @@ class Person {
 	/**
 	 * returns a testarray to create ViewTestTab
 	 */
-	public static function getWritlenTests($personid) {
+/*	public static function getWritlenTests($personid) {
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		
 		$result = $mysqli->query ( "SELECT id FROM test,testtemplate WHERE PersonID=" . $personid . " ORDER BY date" );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$tests = array ();
-		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+		while ( $row = $result->fetch_array( MYSQLI_ASSOC ) ) {
 			array_push ( $tests, new Test ( $row ['id'] ) );
 		}
 		// return this array of objects
 		
 		return $tests;
-	}
+	}*/
 }
 ?>
