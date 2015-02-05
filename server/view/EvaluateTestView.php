@@ -5,7 +5,7 @@ class EvaluateTestView extends View {
 	protected static $title = 'Evaluate Tests';
 	static protected function includes() {
 		parent::includes ();
-		include '../controller/TestManager.php';
+	//	include '../controller/TestManager.php';
 	}
 	static protected function content() {
 		echo '<div class="container">
