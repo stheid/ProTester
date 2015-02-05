@@ -13,19 +13,16 @@ class MainView extends View{
 	static protected function content(){
 		MainView::$tabs [] = new NewsTab ();
 		
-		$isStudent = true;
-		if ($isStudent) {
+		if (isset($_SESSION['isStudent'])) {
 			MainView::$tabs [] = new ViewResultTab ();
 		}
 		
-		$isLecturer = true;
-		if ($isLecturer) {
+		if (isset($_SESSION['isLecturer'])) {
 			MainView::$tabs [] = new TestManagementTab ();
 			MainView::$tabs [] = new EvaluateTestTab ();
 		}
 		
-		$isAdmin = false;
-		if ($isAdmin) {
+		if (isset($_SESSION['isAdmin'])) {
 			MainView::$tabs [] = new CourseManagementTab ();
 			MainView::$tabs [] = new AccountManagementTab ();
 		}
