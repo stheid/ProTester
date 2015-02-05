@@ -59,6 +59,5 @@ class MainView extends View{
 	</div>';
 	}
 }
-
 new MainView();
 ?>
