@@ -1,4 +1,7 @@
 <?php
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
+
 class Tab {
 	public $id;
 	public $title;
@@ -13,18 +16,17 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$mysqli = new mysqli (DB_SERVER,DB_USER,DB_PASSWORD,DB_NAME);
+		$tests = Person::getWritlenTests($_SESSION['id']);
+	
+		$oldestDate="";
+		//for each test check 
+			//if date is oldest date in month
+				//if oldestdate not empty (its not the first heading)
+					// close ul
+				//print heading open new list-group and set oldestDate
+			//Create list entry
 		
-		/* check connection */
-		if ($mysqli->connect_errno) {
-			echo "Connect failed:  " . $mysqli->connect_error;
-			exit ();
-		}
-		$result = $mysqli->query ( "SELECT DATE_FORMAT(date,'%M %Y') as date  FROM testtemplate order by testid;" );
-		$row = $result->fetch_array(MYSQLI_ASSOC);
-		
-		
-		$this->content = '<h1>' .$row['date']. '</h1>
+		$this->content = '<h1> NOV 2014</h1>
 <ul class="list-group">
 <li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
 Nov - Software System Development Exam<span style="float: right">35/40</span>
@@ -47,15 +49,6 @@ Nov - Software System Development Exam<span style="float: right">35/40</span>
 </ul>
 <h1>October 2014</h1>
 <ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
 <li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
 Nov - Software System Development Exam<span style="float: right">35/40</span>
 </a></li>

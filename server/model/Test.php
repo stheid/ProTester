@@ -1,12 +1,14 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/TestTemplate.php');
-require_once(realpath(dirname(__FILE__)) . '/Student.php');
-require_once(realpath(dirname(__FILE__)) . '/Person.php');
-require_once(realpath(dirname(__FILE__)) . '/../controller/TestManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../controller/AnswerPointsManager.php');
-require_once(realpath(dirname(__FILE__)) . '/Answer.php');
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/DBController.php');
+// require_once(realpath(dirname(__FILE__)) . '/TestTemplate.php');
+// require_once(realpath(dirname(__FILE__)) . '/Student.php');
+// require_once(realpath(dirname(__FILE__)) . '/Person.php');
+// require_once(realpath(dirname(__FILE__)) . '/../controller/TestManager.php');
+// require_once(realpath(dirname(__FILE__)) . '/../controller/AnswerPointsManager.php');
+// require_once(realpath(dirname(__FILE__)) . '/Answer.php');
 
 /**
+ *
  * @access public
  * @author gamer01
  * @package Server.Model
@@ -73,21 +75,47 @@ class Test {
 	 * @AssociationMultiplicity *
 	 * @AssociationKind Aggregation
 	 */
-	public $_answers = array();
-
+	public $_answers = array ();
+	
 	/**
+	 *
 	 * @access public
-	 * @param aAnswers
+	 * @param
+	 *        	aAnswers
 	 */
 	public function setAnswers($aAnswers) {
 		// Not yet implemented
 	}
-
+	
 	/**
+	 *
 	 * @access public
 	 */
 	public function getAnswers() {
 		// Not yet implemented
+	}
+	public function __construct($id) {
+		$mysqli = DBController::getConnection ();
+		
+		$result = $mysqli->query ( "SELECT * FROM test WHERE ID=" . $id );
+		$row = $result->fetch_array ( MYSQLI_ASSOC );
+		
+		$this->_iD = $row ['ID'];
+		$this->_result = $row ['Result'];
+		$this->_grade = $row ['Grade'];
+		$this->_answerID = $row ['AnswerID'];
+		$this->_personID = $row ['PersonID'];
+		$this->_personPersonalID = $row ['PersonPersonalID'];
+		$this->_personStudentID = $row ['PersonStudentID'];
+		$this->_testID = $row ['TestID'];
+	}
+	
+	// read from testtemplate
+	public function getDate() {
+		$mysqli = DBController::getConnection ();
+		
+		$result = $mysqli->query ( "SELECT date FROM testtemplate WHERE TestID=" . $this->_testID );
+		return $result->fetch_array ( MYSQLI_ASSOC )['date'];
 	}
 }
 ?>
