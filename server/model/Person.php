@@ -78,19 +78,20 @@ class Person {
 	/**
 	 * returns a testarray to create ViewTestTab
 	 */
-/*	public static function getWritlenTests($personid) {
+	public static function getWrittenTests($personid) {
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( "SELECT id FROM test,testtemplate WHERE PersonID=" . $personid . " ORDER BY date" );
+		$result = $mysqli->query ( "SELECT TestID FROM Test,TestTemplate WHERE PersonID=" . $personid . " ORDER BY date" );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$tests = array ();
-		while ( $row = $result->fetch_array( MYSQLI_ASSOC ) ) {
+		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
 			array_push ( $tests, new Test ( $row ['id'] ) );
 		}
 		// return this array of objects
+		$result->close ();
 		
 		return $tests;
-	}*/
+	}
 }
 ?>

@@ -45,7 +45,7 @@ class Test {
 	/**
 	 * @AttributeType int
 	 */
-	private $_testID;
+	private $_testTemplateID;
 	/**
 	 * @AssociationType Server.Model.TestTemplate
 	 * @AssociationMultiplicity 1
@@ -107,14 +107,14 @@ class Test {
 		$this->_personID = $row ['PersonID'];
 		$this->_personPersonalID = $row ['PersonPersonalID'];
 		$this->_personStudentID = $row ['PersonStudentID'];
-		$this->_testID = $row ['TestID'];
+		$this->_testID = $row ['TestTemplateID'];
 	}
 	
 	// read from testtemplate
 	public function getDate() {
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( "SELECT date FROM testtemplate WHERE TestID=" . $this->_testID );
+		$result = $mysqli->query ( "SELECT date FROM TestTemplate WHERE TestTemplateID=" . $this->_testTemplateID );
 		return $result->fetch_array ( MYSQLI_ASSOC )['date'];
 	}
 }
