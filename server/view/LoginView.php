@@ -1,15 +1,15 @@
 <?php
 include_once 'View.php';
+
 class LoginView extends View{
 	
-	static $tabs;
-	protected static $title='Login';
+	protected $title='Login';
 	
-	static protected function includes(){
+	protected function includes(){
 		parent::includes();
 	}
 	
-	static protected function content(){
+	protected function content(){
 		echo '<div class="row">';
 		if (isset($_SESSION['loginError'])){
 				echo '<div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
@@ -33,4 +33,4 @@ class LoginView extends View{
 	}
 }
 new LoginView();
-	?>
+?>

@@ -30,15 +30,14 @@ class ViewResultTab extends Tab {
 							<ul class="list-group">';
 			}
 			$this->content .= '<li class="list-group-item">';
-			$this->content .= '<a href="' . PATH . 'server/view/viewResult.php">';
-			$this->content .= $test->getTestTemplate()->getDayMonth() . ' - '. $test->getTestTemplate()->getCourse()->getName();
+			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php">';
+			$this->content .= $test->getTestTemplate()->getDayMonth() . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;'. $test->getTestTemplate()->getCourse()->getName();
 			$this->content .= '<span style="float: right">'.$test->getResult().'/'.$test->getTestTemplate()->getMaxPoints().'</span>';
 			$this->content .= '</a></li>';
 		}
 	}
 	public $id = "view_res";
 	public $title = "View Results";
-	// TODO
 	public $content;
 }
 class EvaluateTestTab extends Tab {
@@ -110,19 +109,16 @@ class EvaluateTestTab extends Tab {
 class TestManagementTab extends Tab {
 	public $id = "test_mgr";
 	public $title = "Manage Tests";
-	// TODO
 	public $content = "";
 }
 class CourseManagementTab extends Tab {
 	public $id = "course_mgr";
 	public $title = "Manage Courses";
-	// TODO
 	public $content = "";
 }
 class AccountManagementTab extends Tab {
 	public $id = "acc_mgr";
 	public $title = "Manage Accounts";
-	// TODO
 	public $content = "";
 }
 

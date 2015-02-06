@@ -2,35 +2,35 @@
 include_once 'View.php';
 class MainView extends View{
 	
-	static $tabs;
-	protected static $title='Main';
+	private $tabs = array();
+	protected $title='Main';
 	
-	static protected function includes(){
+	protected function includes(){
 		parent::includes();
 		include 'Tabs.php';
 	}
 	
-	static protected function content(){
-		MainView::$tabs [] = new NewsTab ();
+	protected function content(){
+		$this->tabs [] = new NewsTab ();
 		
 		if (isset($_SESSION['isStudent'])) {
-			MainView::$tabs [] = new ViewResultTab ();
+			$this->tabs [] = new ViewResultTab ();
 		}
 		
 		if (isset($_SESSION['isLecturer'])) {
-			MainView::$tabs [] = new TestManagementTab ();
-			MainView::$tabs [] = new EvaluateTestTab ();
+			$this->tabs [] = new TestManagementTab ();
+			$this->tabs [] = new EvaluateTestTab ();
 		}
 		
 		if (isset($_SESSION['isAdmin'])) {
-			MainView::$tabs [] = new CourseManagementTab ();
-			MainView::$tabs [] = new AccountManagementTab ();
+			$this->tabs [] = new CourseManagementTab ();
+			$this->tabs [] = new AccountManagementTab ();
 		}
 		
 		$navtabs = '
 			<ul class="nav nav-tabs" role="tablist">';
 		$i = 0;
-		foreach ( MainView::$tabs as $tab ) {
+		foreach ( $this->tabs as $tab ) {
 		
 			$navtabs = $navtabs . '
 				<li role="presentation"' . ($i == 0 ? ' class="active"' : '') . '>
@@ -44,7 +44,7 @@ class MainView extends View{
 		
 		$navpanes = '<div class="tab-content">';
 		$i = 0;
-		foreach ( MainView::$tabs as $tab ) {
+		foreach ( $this->tabs as $tab ) {
 			$navpanes = $navpanes . '
 				<div role="tabpanel" class="tab-pane' . ($i == 0 ? ' active' : '') . '" id="' . $tab->id . '">
 						' . $tab->content . '
