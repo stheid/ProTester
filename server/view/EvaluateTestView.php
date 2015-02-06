@@ -1,13 +1,12 @@
 <?php
 include_once 'View.php';
 class EvaluateTestView extends View {
-	static $tabs;
-	protected static $title = 'Evaluate Tests';
-	static protected function includes() {
+	protected $title = 'Evaluate Tests';
+	protected function includes() {
 		parent::includes ();
-	//	include '../controller/TestManager.php';
+		// include '../controller/TestManager.php';
 	}
-	static protected function content() {
+	protected function content() {
 		echo '<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">
@@ -190,7 +189,7 @@ class EvaluateTestView extends View {
 		</div>
 	</div>';
 	}
-	}
-	
-	new EvaluateTestView ();
+}
+
+new EvaluateTestView ();
 ?>

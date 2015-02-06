@@ -1,7 +1,10 @@
-/*
- $(document).ready(function(){
-    $(".panel-group > .panel").click(function(){
-        $(this).css("color", "red");
-    });
+$(document).ready(function() {
+	$(".panel-group > .panel>textarea").change(function() {
+		if ($(this).text() == "") {
+				$(this).removeClass('panel-info');
+			} else {
+				$(this).addClass('panel-info');
+			}
+		}
+	});
 });
-*/

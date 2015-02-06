@@ -38,6 +38,8 @@ class View {
 				type="text/javascript"></script>
 				<script src="' . PATH . 'client/bootstrap/js/bootstrap.min.js"
 						type="text/javascript"></script>
+				<script src="' . PATH . 'client/colorResponse.js"
+						type="text/javascript"></script>
 						</body>
 						</html>';
 	}

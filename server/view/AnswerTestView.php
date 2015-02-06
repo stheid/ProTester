@@ -1,12 +1,11 @@
 <?php
 include_once 'View.php';
 class AnswerTestView extends View {
-	static $tabs;
-	protected static $title = 'Answer Test';
-	static protected function includes() {
+	protected $title = 'Answer Test';
+	protected function includes() {
 		parent::includes ();
 	}
-	static protected function content() {
+	protected function content() {
 		echo '<div class="progress" style="margin-top: -20px; height: 5px;">
 		<div class="progress-bar progress-bar-info" role="progressbar"
 			aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
