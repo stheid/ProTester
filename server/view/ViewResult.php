@@ -14,7 +14,10 @@ class ResultView extends View {
 	}
 	
 	public function content($test) {
-		echo $test->getResult();
+		if ($test->ownedBy($_SESSION['id'])){
+			echo $test->getResult();
+			
+		}
 	}
 	
 // 	static protected function content() {

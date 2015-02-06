@@ -105,5 +105,9 @@ class Person {
 		
 		return $tests;
 	}
+	
+	public function equals($person){
+		return $this->_personID==$person;
+	}
 }
 ?>

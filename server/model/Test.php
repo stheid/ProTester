@@ -68,9 +68,13 @@ class Test {
 	public function getResult(){
 		return $this->_result;
 	}
-	
+
 	public function getID(){
 		return $this->_iD;
+	}
+	
+	public function ownedBy($person){
+		return $this->person->equals($person);
 	}
 }
 ?>
