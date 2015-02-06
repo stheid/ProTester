@@ -54,7 +54,7 @@ class Test {
 		
 		$this->_iD = $row ['TestID'];
 		$this->testTemplate = new TestTemplate($row ['TestTemplateID']);
-		$this->person = new Person($row ['PersonID'],$row ['PersonPersonalID'],$row ['PersonStudentID']);
+		$this->person = new Person($row ['PersonID']);
 		$this->_result = $row ['Result'];
 		$this->_grade = $row ['Grade'];
 				

@@ -14,8 +14,6 @@ class Person {
 	 * @AttributeType int
 	 */
 	private $_personID;
-	private $_personPersonalID;
-	private $_personStudentID;
 	/**
 	 * @AttributeType String
 	 */
@@ -43,8 +41,6 @@ class Person {
 		$row = $result->fetch_array ( MYSQLI_ASSOC );
 
 		$this->_personID = $row ['PersonID'];
-		$this->_personPersonalID = $row ['PersonPersonalID'];
-		$this->_personStudentID = $row ['PersonStudentID'];
 		$this->_name = $row ['Name'];
 		$this->_surname = $row ['Surname'];
 	

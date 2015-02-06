@@ -36,37 +36,37 @@ INSERT INTO `Course` (`CourseID`, `GroupID`, `Name`, `Syllabus`, `Schedule`) VAL
 -- Dumping data for table `Person`
 --
 
-INSERT INTO `Person` (`PersonID`, `PersonPersonalID`, `PersonStudentID`, `Name`, `Surname`, `Password`, `Discriminator`) VALUES
-(1, 0, 1, 'Fritz', 'Dieder', 'jurgen', 'Student'),
-(2, 1, 0, 'jan', 'Kwiatkowski', 'nice', 'Lecturer');
+INSERT INTO `Person` (`PersonID`, `Name`, `Surname`, `Password`, `Discriminator`) VALUES
+(1, 'Fritz', 'Dieder', 'jurgen', 'Student'),
+(2, 'jan', 'Kwiatkowski', 'nice', 'Lecturer');
 
 --
 -- Dumping data for table `Person_Course`
 --
 
-INSERT INTO `Person_Course` (`PersonID`, `PersonPersonalID`, `PersonStudentID`, `CourseID`, `GroupID`) VALUES
-(2, 1, 0, 1, 1),
-(2, 1, 0, 1, 2),
-(2, 1, 0, 1, 3),
-(2, 1, 0, 2, 1),
-(2, 1, 0, 2, 2),
-(2, 1, 0, 2, 3);
+INSERT INTO `Person_Course` (`PersonID`, `CourseID`, `GroupID`) VALUES
+(2, 1, 1),
+(2, 1, 2),
+(2, 1, 3),
+(2, 2, 1),
+(2, 2, 2),
+(2, 2, 3);
+
+--
+-- Dumping data for table `TestTemplate`
+--
+INSERT INTO `TestTemplate` (`TestTemplateID`, `CourseID`, `GroupID`, `Duration`, `Date`) VALUES
+(1, 1, 1, 60, '2015-02-11'),
+(2, 2, 2, 30, '2015-01-07');
 
 --
 -- Dumping data for table `Test`
 --
 
-INSERT INTO `Test` (`TestID`, `TestTemplateID`, `PersonID`, `PersonPersonalID`, `PersonStudentID`, `Grade`, `Result`) VALUES
-(1, 1, 1, 0, 1, '5.0', NULL),
-(2, 2, 1, 0, 1, '4.5', 43);
+INSERT INTO `Test` (`TestID`, `TestTemplateID`, `PersonID`, `Grade`, `Result`) VALUES
+(1, 1, 1, '5.0', NULL),
+(2, 2, 1, '4.5', 43);
 
---
--- Dumping data for table `TestTemplate`
---
-
-INSERT INTO `TestTemplate` (`TestTemplateID`, `CourseID`, `GroupID`, `Duration`, `Date`) VALUES
-(1, 1, 1, 60, '2015-02-11'),
-(2, 2, 2, 30, '2015-01-07');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

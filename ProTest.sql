@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2015 at 01:45 
+-- Generation Time: Feb 06, 2015 at 03:40 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -68,8 +68,6 @@ CREATE TABLE IF NOT EXISTS `Evaluation Rule` (
 
 CREATE TABLE IF NOT EXISTS `Person` (
   `PersonID` int(10) NOT NULL,
-  `PersonPersonalID` int(10) NOT NULL,
-  `PersonStudentID` int(10) NOT NULL,
   `Name` varchar(255) NOT NULL,
   `Surname` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
@@ -84,8 +82,6 @@ CREATE TABLE IF NOT EXISTS `Person` (
 
 CREATE TABLE IF NOT EXISTS `Person_Course` (
   `PersonID` int(10) NOT NULL,
-  `PersonPersonalID` int(10) NOT NULL,
-  `PersonStudentID` int(10) NOT NULL,
   `CourseID` int(10) NOT NULL,
   `GroupID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -117,8 +113,6 @@ CREATE TABLE IF NOT EXISTS `Test` (
 `TestID` int(11) NOT NULL,
   `TestTemplateID` int(10) NOT NULL,
   `PersonID` int(10) NOT NULL,
-  `PersonPersonalID` int(10) NOT NULL,
-  `PersonStudentID` int(10) NOT NULL,
   `Grade` decimal(2,1) DEFAULT NULL,
   `Result` int(10) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -157,37 +151,37 @@ ALTER TABLE `Course`
 -- Indexes for table `Evaluation Rule`
 --
 ALTER TABLE `Evaluation Rule`
- ADD PRIMARY KEY (`RuleID`), ADD KEY `FKEvaluation148495` (`QuestionID`);
+ ADD PRIMARY KEY (`RuleID`), ADD KEY `evaluates>` (`QuestionID`);
 
 --
 -- Indexes for table `Person`
 --
 ALTER TABLE `Person`
- ADD PRIMARY KEY (`PersonID`,`PersonPersonalID`,`PersonStudentID`);
+ ADD PRIMARY KEY (`PersonID`);
 
 --
 -- Indexes for table `Person_Course`
 --
 ALTER TABLE `Person_Course`
- ADD PRIMARY KEY (`PersonID`,`PersonPersonalID`,`PersonStudentID`,`CourseID`,`GroupID`), ADD KEY `is in >` (`PersonID`,`PersonPersonalID`,`PersonStudentID`), ADD KEY `is in >2` (`CourseID`,`GroupID`);
+ ADD PRIMARY KEY (`PersonID`,`CourseID`,`GroupID`), ADD KEY `is in >` (`PersonID`), ADD KEY `is in >2` (`CourseID`,`GroupID`);
 
 --
 -- Indexes for table `Question`
 --
 ALTER TABLE `Question`
- ADD PRIMARY KEY (`QuestionID`), ADD KEY `FKQuestion871462` (`TestTemplateID`);
+ ADD PRIMARY KEY (`QuestionID`), ADD KEY `isPartOf>` (`TestTemplateID`);
 
 --
 -- Indexes for table `Test`
 --
 ALTER TABLE `Test`
- ADD PRIMARY KEY (`TestID`), ADD KEY `FKTest269860` (`TestTemplateID`), ADD KEY `FKTest200877` (`PersonID`,`PersonPersonalID`,`PersonStudentID`), ADD KEY `PersonID` (`PersonID`,`PersonPersonalID`,`PersonStudentID`);
+ ADD PRIMARY KEY (`TestID`), ADD KEY `instanciates>` (`TestTemplateID`), ADD KEY `answerdBy>` (`PersonID`);
 
 --
 -- Indexes for table `TestTemplate`
 --
 ALTER TABLE `TestTemplate`
- ADD PRIMARY KEY (`TestTemplateID`), ADD KEY `FKTestTempla145338` (`CourseID`,`GroupID`);
+ ADD PRIMARY KEY (`TestTemplateID`), ADD KEY `partOf>` (`CourseID`,`GroupID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -239,7 +233,7 @@ ADD CONSTRAINT `FKEvaluation148495` FOREIGN KEY (`QuestionID`) REFERENCES `Quest
 -- Constraints for table `Person_Course`
 --
 ALTER TABLE `Person_Course`
-ADD CONSTRAINT `is in >` FOREIGN KEY (`PersonID`, `PersonPersonalID`, `PersonStudentID`) REFERENCES `Person` (`PersonID`, `PersonPersonalID`, `PersonStudentID`),
+ADD CONSTRAINT `is in >` FOREIGN KEY (`PersonID`) REFERENCES `Person` (`PersonID`),
 ADD CONSTRAINT `is in >2` FOREIGN KEY (`CourseID`, `GroupID`) REFERENCES `Course` (`CourseID`, `GroupID`);
 
 --
@@ -252,7 +246,7 @@ ADD CONSTRAINT `FKQuestion871462` FOREIGN KEY (`TestTemplateID`) REFERENCES `Tes
 -- Constraints for table `Test`
 --
 ALTER TABLE `Test`
-ADD CONSTRAINT `FKTest200877` FOREIGN KEY (`PersonID`, `PersonPersonalID`, `PersonStudentID`) REFERENCES `Person` (`PersonID`, `PersonPersonalID`, `PersonStudentID`),
+ADD CONSTRAINT `FKTest200877` FOREIGN KEY (`PersonID`) REFERENCES `Person` (`PersonID`),
 ADD CONSTRAINT `FKTest269860` FOREIGN KEY (`TestTemplateID`) REFERENCES `TestTemplate` (`TestTemplateID`);
 
 --
