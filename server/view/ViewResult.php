@@ -14,7 +14,7 @@ class ResultView extends View {
 	}
 	
 	public function content($test) {
-		echo 'not implemented';
+		echo $test->getResult();
 	}
 	
 // 	static protected function content() {
@@ -170,5 +170,5 @@ class ResultView extends View {
 // 	}
 }
 
-new ResultView (new Test("1"));
+new ResultView (new Test($_GET['TestID']));
 ?>

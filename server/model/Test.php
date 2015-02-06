@@ -64,9 +64,13 @@ class Test {
 	public function getTestTemplate() {
 		return $this->testTemplate;
 	}
-	
+
 	public function getResult(){
 		return $this->_result;
+	}
+	
+	public function getID(){
+		return $this->_iD;
 	}
 }
 ?>

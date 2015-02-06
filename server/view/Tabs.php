@@ -30,7 +30,7 @@ class ViewResultTab extends Tab {
 							<ul class="list-group">';
 			}
 			$this->content .= '<li class="list-group-item">';
-			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php">';
+			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID='.$test->getID().'">';
 			$this->content .= $test->getTestTemplate()->getDayMonth() . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;'. $test->getTestTemplate()->getCourse()->getName();
 			$this->content .= '<span style="float: right">'.$test->getResult().'/'.$test->getTestTemplate()->getMaxPoints().'</span>';
 			$this->content .= '</a></li>';
