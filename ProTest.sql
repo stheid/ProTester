@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2015 at 03:40 
+-- Generation Time: Feb 06, 2015 at 11:30 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `Person` (
   `Name` varchar(255) NOT NULL,
   `Surname` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `Discriminator` set('Student','Lecturer','Admin') NOT NULL
+  `Discriminator` set('Student','Lecturer','Admin') NOT NULL DEFAULT 'Student'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -83,7 +83,8 @@ CREATE TABLE IF NOT EXISTS `Person` (
 CREATE TABLE IF NOT EXISTS `Person_Course` (
   `PersonID` int(10) NOT NULL,
   `CourseID` int(10) NOT NULL,
-  `GroupID` int(10) NOT NULL
+  `GroupID` int(10) NOT NULL,
+  `Discriminator` enum('hears','teaches') NOT NULL DEFAULT 'teaches'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

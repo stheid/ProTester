@@ -90,6 +90,7 @@ class Person {
 	 * returns a testarray to create ViewTestTab
 	 */
 	public static function getWrittenTests($personid) {
+		
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		

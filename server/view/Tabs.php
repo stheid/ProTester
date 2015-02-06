@@ -42,6 +42,48 @@ class ViewResultTab extends Tab {
 }
 class EvaluateTestTab extends Tab {
 	function __construct() {
+		/*
+		 * SSD
+			groupid1
+				testtemplateid
+				testtemplateid
+		
+		
+		getTestTemplates for a teacher sorted by course and groupid
+		
+		courseid ""
+		groupid ""
+		
+		foreach testtemplate
+			if thiscourseid != courseid
+				set courseid thiscourseid
+				print testtemplate->getcourse()->name as heading
+			if thisgroupid != groupid
+				set groupid thisgroupid
+				print testtemplate->getcourse()->name as strong paragraph//enum name
+		list element for this testtemplate*/
+		
+		$testTemplates = Person::getCreatedTestTemplates( $_SESSION ['id'] );
+		
+		$this->content = "";
+		$actualCourseID = "";
+		$actualGroupID = "";
+		/*foreach ( $testTemplates as $testTempl ) {
+			if ($actualDate != $test->getTestTemplate()->getMonthYear ()) {
+				// if it's not the first heading
+				if (empty ( $actualDate )) {
+					$this->content .= '</ul>';
+				}
+				$actualDate = $test->getTestTemplate()->getMonthYear ();
+				$this->content .= '<h1>'.$actualDate.'</h1>
+							<ul class="list-group">';
+			}
+			$this->content .= '<li class="list-group-item">';
+			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID='.$test->getID().'">';
+			$this->content .= $test->getTestTemplate()->getDayMonth() . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;'. $test->getTestTemplate()->getCourse()->getName();
+			$this->content .= '<span style="float: right">'.$test->getResult().'/'.$test->getTestTemplate()->getMaxPoints().'</span>';
+			$this->content .= '</a></li>';
+		}*/
 		$this->content = '<h1>Course 1</h1>
 <ul class="list-group">
 <li class="list-group-item">
