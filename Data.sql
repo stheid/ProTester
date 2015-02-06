@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 05, 2015 at 11:57 
+-- Generation Time: Feb 06, 2015 at 01:45 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -37,7 +37,7 @@ INSERT INTO `Course` (`CourseID`, `GroupID`, `Name`, `Syllabus`, `Schedule`) VAL
 --
 
 INSERT INTO `Person` (`PersonID`, `PersonPersonalID`, `PersonStudentID`, `Name`, `Surname`, `Password`, `Discriminator`) VALUES
-(1, 0, 22189, 'Fritz', 'Dieder', 'jurgen', 'Student'),
+(1, 0, 1, 'Fritz', 'Dieder', 'jurgen', 'Student'),
 (2, 1, 0, 'jan', 'Kwiatkowski', 'nice', 'Lecturer');
 
 --
@@ -53,11 +53,20 @@ INSERT INTO `Person_Course` (`PersonID`, `PersonPersonalID`, `PersonStudentID`, 
 (2, 1, 0, 2, 3);
 
 --
+-- Dumping data for table `Test`
+--
+
+INSERT INTO `Test` (`TestID`, `TestTemplateID`, `PersonID`, `PersonPersonalID`, `PersonStudentID`, `Grade`, `Result`) VALUES
+(1, 1, 1, 0, 1, '5.0', NULL),
+(2, 2, 1, 0, 1, '4.5', 43);
+
+--
 -- Dumping data for table `TestTemplate`
 --
 
 INSERT INTO `TestTemplate` (`TestTemplateID`, `CourseID`, `GroupID`, `Duration`, `Date`) VALUES
-(1, 1, 1, 60, '2015-02-11');
+(1, 1, 1, 60, '2015-02-11'),
+(2, 2, 2, 30, '2015-01-07');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

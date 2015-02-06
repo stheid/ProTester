@@ -1,11 +1,24 @@
 <?php
 include_once 'View.php';
 class ResultView extends View {
-	static $tabs;
+	
 	protected static $title = 'View Results';
-	static protected function includes() {
-		parent::includes ();
+	
+	public function __construct() {
+		parent::__construct ();
 	}
+	
+	public function __construct($test) {
+		parent::includes();
+		parent::header();
+		$this->content($test);
+		parent::footer();
+	}
+	
+	public function content($test) {
+		echo 'not implemented';
+	}
+	
 	static protected function content() {
 		echo '<div class="container">
 		<div class="row">

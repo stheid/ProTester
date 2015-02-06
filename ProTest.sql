@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 05, 2015 at 11:29 
+-- Generation Time: Feb 06, 2015 at 01:45 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `Question` (
   `Solution:String[0..4]` int(10) DEFAULT NULL,
   `Answers` text,
   `Solution` varchar(255) DEFAULT NULL,
-  `Discriminator` SET('Closed','Gap','Open') NOT NULL DEFAULT 'Closed'
+  `Discriminator` set('Closed','Gap','Open') NOT NULL DEFAULT 'Closed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -119,9 +119,9 @@ CREATE TABLE IF NOT EXISTS `Test` (
   `PersonID` int(10) NOT NULL,
   `PersonPersonalID` int(10) NOT NULL,
   `PersonStudentID` int(10) NOT NULL,
-  `Grade` decimal(1,0) DEFAULT NULL,
+  `Grade` decimal(2,1) DEFAULT NULL,
   `Result` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -135,8 +135,11 @@ CREATE TABLE IF NOT EXISTS `TestTemplate` (
   `GroupID` int(10) DEFAULT NULL,
   `Duration` int(10) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `Answer`
@@ -178,7 +181,7 @@ ALTER TABLE `Question`
 -- Indexes for table `Test`
 --
 ALTER TABLE `Test`
- ADD PRIMARY KEY (`TestID`), ADD KEY `FKTest269860` (`TestTemplateID`), ADD KEY `FKTest200877` (`PersonID`,`PersonPersonalID`,`PersonStudentID`);
+ ADD PRIMARY KEY (`TestID`), ADD KEY `FKTest269860` (`TestTemplateID`), ADD KEY `FKTest200877` (`PersonID`,`PersonPersonalID`,`PersonStudentID`), ADD KEY `PersonID` (`PersonID`,`PersonPersonalID`,`PersonStudentID`);
 
 --
 -- Indexes for table `TestTemplate`
@@ -209,12 +212,12 @@ MODIFY `QuestionID` int(10) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `Test`
 --
 ALTER TABLE `Test`
-MODIFY `TestID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `TestID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `TestTemplate`
 --
 ALTER TABLE `TestTemplate`
-MODIFY `TestTemplateID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `TestTemplateID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --

@@ -1,7 +1,6 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
-
 class Tab {
 	public $id;
 	public $title;
@@ -16,49 +15,26 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$tests = Person::getWrittenTests($_SESSION['id']);
-	
-		$oldestDate="";
-		//for each test check 
-			//if date is oldest date in month
-				//if oldestdate not empty (its not the first heading)
-					// close ul
-				//print heading open new list-group and set oldestDate
-			//Create list entry
+		$tests = Person::getWrittenTests ( $_SESSION ['id'] );
 		
-		$this->content = '<h1> NOV 2014</h1>
-<ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-</ul>
-<h1>October 2014</h1>
-<ul class="list-group">
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-<li class="list-group-item"><a href="' . PATH . 'server/view/viewResult.php">11.
-Nov - Software System Development Exam<span style="float: right">35/40</span>
-</a></li>
-</ul>';
+		$this->content = "";
+		$actualDate = "";
+		foreach ( $tests as $test ) {
+			if ($actualDate != $test->getTestTemplate()->getMonthYear ()) {
+				// if it's not the first heading
+				if (empty ( $actualDate )) {
+					$this->content .= '</ul>';
+				}
+				$actualDate = $test->getTestTemplate()->getMonthYear ();
+				$this->content .= '<h1>'.$actualDate.'</h1>
+							<ul class="list-group">';
+			}
+			$this->content .= '<li class="list-group-item">';
+			$this->content .= '<a href="' . PATH . 'server/view/viewResult.php">';
+			$this->content .= $test->getTestTemplate()->getDayMonth() . ' - '. $test->getTestTemplate()->getCourse()->getName();
+			$this->content .= '<span style="float: right">'.$test->getResult().'/'.$test->getTestTemplate()->getMaxPoints().'</span>';
+			$this->content .= '</a></li>';
+		}
 	}
 	public $id = "view_res";
 	public $title = "View Results";
@@ -124,8 +100,7 @@ class EvaluateTestTab extends Tab {
 			</li>
 		</ul>
 </li>
-</ul>'
-		;
+</ul>';
 	}
 	public $id = "eval";
 	public $title = "Evaluate Tests";

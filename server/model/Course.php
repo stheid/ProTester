@@ -1,8 +1,8 @@
 <?php
 require_once(realpath(dirname(__FILE__)) . '/Person.php');
-require_once(realpath(dirname(__FILE__)) . '/../controller/CourseManager.php');
-require_once(realpath(dirname(__FILE__)) . '/Teacher.php');
-require_once(realpath(dirname(__FILE__)) . '/TestTemplate.php');
+// require_once(realpath(dirname(__FILE__)) . '/../controller/CourseManager.php');
+// require_once(realpath(dirname(__FILE__)) . '/Teacher.php');
+// require_once(realpath(dirname(__FILE__)) . '/TestTemplate.php');
 
 /**
  * @access public
@@ -14,22 +14,14 @@ class Course {
 	 * @AttributeType int
 	 */
 	private $_courseID;
+	private $_groupID;
 	/**
 	 * @AttributeType String
 	 */
 	private $_name;
-	/**
-	 * @AttributeType String
-	 */
 	private $_syllabus;
-	/**
-	 * @AttributeType String
-	 */
 	private $_schedule;
-	/**
-	 * @AttributeType int
-	 */
-	private $_group;
+	
 	/**
 	 * @AssociationType Server.Model.Person
 	 * @AssociationMultiplicity *
@@ -50,5 +42,23 @@ class Course {
 	 * @AssociationKind Aggregation
 	 */
 	public $_templates = array();
+	
+	public function __construct($courseID,$groupID) {
+		$mysqli = DBController::getConnection ();
+		$result = $mysqli->query ( 'SELECT * FROM Course WHERE CourseID="' . $courseID . '" AND GroupID="'. $groupID .'"');
+		$row = $result->fetch_array ( MYSQLI_ASSOC );
+	
+		$this->_courseID = $row ['CourseID'];
+		$this->_groupID = $row ['GroupID'];
+		$this->_name = $row ['Name'];
+		$this->_syllabus = $row ['Syllabus'];
+		$this->_schedule = $row ['Schedule'];
+	
+		$result->close();
+	}
+	
+	public function getName(){
+		return $this->_name;
+	}
 }
 ?>

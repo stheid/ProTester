@@ -13,15 +13,15 @@ class Person {
 	/**
 	 * @AttributeType int
 	 */
-	private $_iD;
+	private $_personID;
+	private $_personPersonalID;
+	private $_personStudentID;
 	/**
 	 * @AttributeType String
 	 */
 	private $_name;
-	/**
-	 * @AttributeType String
-	 */
 	private $_surname;
+
 	/**
 	 * @AssociationType Server.Model.Person
 	 */
@@ -36,6 +36,21 @@ class Person {
 	 * @AssociationMultiplicity *
 	 */
 	public $_courses = array ();
+	
+	public function __construct($id) {
+		$mysqli = DBController::getConnection ();
+		$result = $mysqli->query ( "SELECT * FROM Person WHERE PersonID=" . $id);
+		$row = $result->fetch_array ( MYSQLI_ASSOC );
+
+		$this->_personID = $row ['PersonID'];
+		$this->_personPersonalID = $row ['PersonPersonalID'];
+		$this->_personStudentID = $row ['PersonStudentID'];
+		$this->_name = $row ['Name'];
+		$this->_surname = $row ['Surname'];
+	
+		$result->close();
+	}	
+	
 	public static function hasPermission($user, $password, $mysqli) {
 		$exitcode = false;
 		
@@ -82,11 +97,12 @@ class Person {
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( "SELECT TestID FROM Test,TestTemplate WHERE PersonID=" . $personid . " ORDER BY date" );
+		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $personid .
+				 '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date DESC');
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$tests = array ();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
-			array_push ( $tests, new Test ( $row ['id'] ) );
+			array_push ( $tests, new Test ( $row ['TestID'] ) );
 		}
 		// return this array of objects
 		$result->close ();
