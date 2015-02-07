@@ -15,7 +15,8 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$tests = Person::getWrittenTests ( $_SESSION ['id'] );
+		$person=new Person($_SESSION ['id'] );
+		$tests = $person->getWrittenTests ();
 		
 		$this->content = "";
 		$actualDate = "";
@@ -57,7 +58,8 @@ class EvaluateTestTab extends Tab {
 		 * print testtemplate->getcourse()->name as strong paragraph//enum name
 		 * list element for this testtemplate
 		 */
-		$testTemplates = Person::getCreatedTestTemplates ( $_SESSION ['id'] );
+		$person = new Person( $_SESSION ['id']);
+		$testTemplates = $person->getCreatedTestTemplates ();
 		
 		$this->content = "";
 		$actualCourseID = "";

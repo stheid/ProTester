@@ -15,9 +15,6 @@ class TestTemplate {
 	 * @AttributeType int
 	 */
 	private $_testTemplateID;
-	/**
-	 * @AttributeType int
-	 */
 	private $_duration;
 	/**
 	 * @AttributeType Date
@@ -65,13 +62,8 @@ class TestTemplate {
 	}
 	
 	// read from testtemplate
-	public function getExactDate() {
-		$mysqli = DBController::getConnection ();
-		
-		$result = $mysqli->query ( "SELECT date FROM TestTemplate WHERE TestTemplateID=" . $this->_testTemplateID );
-		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
-		$result->close ();
-		return $row;
+	public function getDate() {
+		return $this->_date;
 	}
 	
 	// read from testtemplate
@@ -103,6 +95,17 @@ class TestTemplate {
 	// return the course
 	public function getCourse() {
 		return $this->_course;
+	}
+	
+	public function hasWritten(){
+		
+	}
+	
+	public static function isLater($a,$b){
+		if(strtotime($a->getDate()) == strtotime($b->getDate())) {
+			return 0;
+		}
+		return (strtotime($a->getDate()) < strtotime($b->getDate())) ? -1 : 1;
 	}
 	
 	public function getID(){

@@ -84,29 +84,25 @@ class Person {
 	
 	//
 	public function hasTestsToday() {
-		$mysqli = DBController::getConnection ();
+		$tests=$this->getScheduledTests();
 		$exitcode = false;
-		if ($result = $mysqli->query ( 'SELECT TestTemplateID FROM Person_Course as p JOIN (TestTemplate as t)
-			ON p.CourseID = t.CourseID AND p.GroupID = t.GroupID
-			WHERE p.Discriminator="hears" AND p.PersonID="' . $this->_personID . '"
-			NOT IN (SELECT TestTemplateID FROM Test WHERE PersonID="' . $this->_personID . '");' )) {
-			if (! $result->num_rows == 0) {
+		foreach ($tests as $test){
+			if (strtotime($test->getDate ())==strtotime(date ( "Y-m-d" ) )) {
 				$exitcode = true;
 			}
 		}
-		$result->close ();
 		return $exitcode;
 	}
 	
 	/**
 	 * returns a testarray to create ViewTestTab
 	 */
-	public static function getWrittenTests($personid) {
+	public function getWrittenTests() {
 		
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $personid . '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date DESC' );
+		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $this->_personID . '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date DESC' );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$tests = array ();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
@@ -126,6 +122,23 @@ class Person {
 		foreach ( $teachingCourses as $course ) {
 			$testTemplates = array_merge ( $testTemplates, $course->getTestTemplates () );
 		}
+		
+
+		usort($testTemplates, 'TestTemplate::isLater');
+		// return this array of objects
+		return $testTemplates;
+	}
+	
+	//
+	public function getScheduledTests() {
+		$teachingCourses = $this->getHearingCourses ();
+	
+		$testTemplates = array ();
+		foreach ( $teachingCourses as $course ) {
+			$testTemplates = array_merge ( $testTemplates, $course->getTestTemplates () );
+		}
+		
+		usort($testTemplates, 'TestTemplate::isLater');
 		// return this array of objects
 		return $testTemplates;
 	}
