@@ -1,8 +1,8 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Course.php');
+require_once(realpath(dirname(__FILE__)) . '/Question.php');
 // require_once(realpath(dirname(__FILE__)) . '/../controller/AnswerPointsManager.php');
 // require_once(realpath(dirname(__FILE__)) . '/Test.php');
-// require_once(realpath(dirname(__FILE__)) . '/Question.php');
 
 /**
  *
@@ -70,7 +70,7 @@ class TestTemplate {
 	public function getMonthYear() {
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%M %Y") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID.'"' );
+		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%M %Y") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID . '"' );
 		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
 		$result->close ();
 		return $row;
@@ -80,7 +80,7 @@ class TestTemplate {
 	public function getDayMonth() {
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%D %b") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID.'"');
+		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%D %b") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID . '"' );
 		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
 		$result->close ();
 		
@@ -96,20 +96,40 @@ class TestTemplate {
 	public function getCourse() {
 		return $this->_course;
 	}
-	
-	public function hasWritten(){
-		
+	public function hasWritten() {
 	}
-	
-	public static function isLater($a,$b){
-		if(strtotime($a->getDate()) == strtotime($b->getDate())) {
+	public static function isLater($a, $b) {
+		if (strtotime ( $a->getDate () ) == strtotime ( $b->getDate () )) {
 			return 0;
 		}
-		return (strtotime($a->getDate()) < strtotime($b->getDate())) ? -1 : 1;
+		return (strtotime ( $a->getDate () ) < strtotime ( $b->getDate () )) ? - 1 : 1;
+	}
+	public function getID() {
+		return $this->_testTemplateID;
+	}
+	public function answerableFor($person) {
+		$mysqli = DBController::getConnection ();
+		
+		$result = $mysqli->query ( 'SELECT PersonID FROM Person_Course as p JOIN TestTemplate as t 
+				ON p.CourseID=t.CourseID AND p.GroupID=t.GroupID 
+				WHERE TestTemplateID="' . $this->_testTemplateID . '" AND Discriminator="hears" AND PersonID="' . $person->getID () . '"' );
+		if ($row = $result->fetch_array ( MYSQLI_ASSOC )['PersonID']) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
-	public function getID(){
-		return $this->_testTemplateID;
+	public function getQuestions(){
+		$mysqli = DBController::getConnection ();
+		
+		$result = $mysqli->query ( 'SELECT QuestionID FROM Question
+				WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY QuestionID' );
+		$questions=array();
+		while ($row = $result->fetch_array ( MYSQLI_ASSOC )) {
+			array_push($questions,Question::getQuestion($row['QuestionID']));
+		} 
+		return $questions;
 	}
 }
 ?>

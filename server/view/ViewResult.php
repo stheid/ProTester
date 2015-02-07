@@ -10,7 +10,8 @@ class ResultView extends View {
 		parent::footer ();
 	}
 	public function content($test) {
-		if ($test->ownedBy ( $_SESSION ['id'] )) {
+		$person= new Person($_SESSION ['id'] );
+		if ($test->ownedBy ( $person)) {
 			//TODO implement html generation
 			echo $test->getResult ();
 		} else {

@@ -1,8 +1,4 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../view/LoginView.php');
-require_once(realpath(dirname(__FILE__)) . '/../view/TestRunnerView.php');
-require_once(realpath(dirname(__FILE__)) . '/FindAnswerableTestsManager.php');
-require_once(realpath(dirname(__FILE__)) . '/../view/EvaluateTestView.php');
 
 /**
  * @access public

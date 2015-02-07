@@ -176,8 +176,13 @@ class Person {
 	}
 	
 	//
+	public function getID(){
+		return $this->_personID;
+	}
+	
+	//
 	public function equals($person) {
-		return $this->_personID == $person;
+		return $this->_personID == $person->getID();
 	}
 }
 ?>
