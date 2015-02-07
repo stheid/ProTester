@@ -76,5 +76,10 @@ class Test {
 	public function ownedBy($person){
 		return $this->person->equals($person);
 	}
+	public static function getTestContent($Testid) {
+	
+		 
+		return $tests;
+	}
 }
 ?>

@@ -14,6 +14,7 @@ class ResultView extends View {
 		if ($test->ownedBy ( $person)) {
 			//TODO implement html generation
 			echo $test->getResult ();
+			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		} else {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}

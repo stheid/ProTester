@@ -13,9 +13,6 @@ class Answer {
 	 * @AttributeType int
 	 */
 	private $_iD;
-	/**
-	 * @AttributeType String
-	 */
 	private $_answer;
 	/**
 	 * @AttributeType Integer
@@ -41,5 +38,35 @@ class Answer {
 	 * @AssociationMultiplicity 1
 	 */
 	public $_questions;
+	
+	 
+		  
+	
+	public function __construct($id) {
+		$mysqli = DBController::getConnection ();
+		$result = $mysqli->query ( "SELECT * FROM Answer WHERE AnswerID=" . $id );
+		$row = $result->fetch_array ( MYSQLI_ASSOC );
+	
+		$this->_answerID = $row ['AnswerID'];
+		$this->_testTemplate = new TestTemplate ( $row ['TestTemplateID'] );
+		$this->_answer = $row ['Answer']; 
+	
+		$result->close ();
+	}
+	
+	//
+	public function getAnswer() {
+		return $this->_answer;
+	}
+/*	public static function getAnswer($id) {
+		$mysqli = DBController::getConnection ();
+		$result = $mysqli->query ( "SELECT Discriminator FROM Question WHERE AnswerID=" . $id );
+		$row = $result->fetch_array ( MYSQLI_ASSOC );
+	
+		
+		$result->close ();
+		$this->_solution = $row ['Solution'];
+		return $answer;
+	}*/
 }
 ?>

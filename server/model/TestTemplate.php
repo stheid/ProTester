@@ -131,5 +131,16 @@ class TestTemplate {
 		} 
 		return $questions;
 	}
+	public function getAnswers(){
+		$mysqli = DBController::getConnection ();
+	
+		$result = $mysqli->query ( 'SELECT AnswerID FROM Answer
+				WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY AnswerID' );
+		$answers=array();
+		while ($row = $result->fetch_array ( MYSQLI_ASSOC )) {
+			array_push($answers,Answer::getAnswer($row['AnswerID']));
+		}
+		return $answers;
+	}
 }
 ?>
