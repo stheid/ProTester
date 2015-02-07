@@ -81,6 +81,9 @@ class ClosedQuestion extends Question {
 		$this->_answerSet = explode ( ";;;", $row ['AnswerSet'] );
 		$this->_solutionSet = explode ( ";;;", $row ['SolutionSet'] );
 	}
+	public function getAnswerSet(){
+		return $this->_answerSet;
+	}
 }
 
 /**
