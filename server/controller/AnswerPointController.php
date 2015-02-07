@@ -26,7 +26,17 @@ class AnswerPointController {
 	 * @AssociationType View.EvaluateTestView
 	 */
 	public $_unnamed_EvaluateTestView_;
+	
+	
+	public static function main(){
+		$_POST['answer']
+		//initalize answerobjects from the answers
+		//calculate their points using the QuestionTable
+			//destinguish different kinds of questions
+		//put data to the db
+		
+		//calculate result
+		//redirect to after test view
+	}
 }
-
-echo var_dump($_POST['answer']);
 ?>

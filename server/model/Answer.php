@@ -1,7 +1,6 @@
 <?php
 require_once(realpath(dirname(__FILE__)) . '/Question.php');
 require_once(realpath(dirname(__FILE__)) . '/Test.php');
-require_once(realpath(dirname(__FILE__)) . '/Evaluation_Rule.php');
 
 /**
  * @access public
@@ -39,20 +38,11 @@ class Answer {
 	 */
 	public $_questions;
 	
-	 
-		  
-	
-	public function __construct($id) {
-		$mysqli = DBController::getConnection ();
-		$result = $mysqli->query ( "SELECT * FROM Answer WHERE AnswerID=" . $id );
-		$row = $result->fetch_array ( MYSQLI_ASSOC );
-	
-		$this->_answerID = $row ['AnswerID'];
-		$this->_testTemplate = new TestTemplate ( $row ['TestTemplateID'] );
-		$this->_answer = $row ['Answer']; 
-	
-		$result->close ();
+	public function __construct() {
+		
 	}
+	
+	public function loafro
 	
 	//
 	public function getAnswer() {
