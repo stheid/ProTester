@@ -1,4 +1,4 @@
-  <?php
+<?php
 include_once 'View.php';
 include_once '../model/Test.php';
 class ResultView extends View {
@@ -10,14 +10,15 @@ class ResultView extends View {
 		parent::footer ();
 	}
 	public function content($test) {
-		if ($test->ownedBy ( $_SESSION ['id'] )) {
+		$person= new Person($_SESSION ['id'] );
+		if ($test->ownedBy ( $person)) {
 			//TODO implement html generation
 			echo $test->getResult ();
+			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		} else {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
-	 
 	
 	// static protected function content() {
 	// echo '<div class="container">
