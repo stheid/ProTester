@@ -27,7 +27,7 @@ class TestRunnerView extends View {
 				<ul class="list-group btn-list">';
 		foreach ( $todayTests as $test ) {
 			echo '<li class="list-group-item">
-					<a class="btn btn-lg btn-block" href="' . PATH . 'server/view/AnswerTest.php?TestTemplateID=' . $test->getID () . '" role="button">' . $test->getCourse ()->getName () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getCourse ()->getGroupName () . '</a></li>';
+					<a class="btn btn-lg btn-block" href="' . PATH . 'server/view/AnswerTestView.php?TestTemplateID=' . $test->getID () . '" role="button">' . $test->getCourse ()->getName () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getCourse ()->getGroupName () . '</a></li>';
 		}
 		echo '</ul>';
 		
@@ -36,7 +36,7 @@ class TestRunnerView extends View {
 					<ul class="list-group btn-list disabled">';
 			foreach ( $laterTests as $test ) {
 				echo '<li class="list-group-item disabled">
-						<a class="btn btn-lg btn-block disabled" href="' . PATH . 'server/view/AnswerTest.php?TestTemplateID=' . $test->getID () . '" role="button">' . $test->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getCourse ()->getName () . ' ' . $test->getCourse ()->getGroupName () . '</a></li>';
+						<a class="btn btn-lg btn-block disabled" href="' . PATH . 'server/view/AnswerTestView.php?TestTemplateID=' . $test->getID () . '" role="button">' . $test->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getCourse ()->getName () . ' ' . $test->getCourse ()->getGroupName () . '</a></li>';
 			}
 		}
 	}
