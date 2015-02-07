@@ -1,11 +1,11 @@
 <?php
 include_once 'View.php';
 class TestRunnerView extends View {
-	protected static $title = 'Tests';
-	static protected function includes() {
+	protected $title = 'Tests';
+	protected function includes() {
 		parent::includes ();
 	}
-	static protected function content() {
+	protected function content() {
 		echo '<div class="container">
 		<div role="tabpanel">' . '
 			<h1>Today</h1>

@@ -5,17 +5,19 @@ class LoginController extends Controller {
 	public static function main() {
 		parent::includes ();
 		include_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
-		
+				
 		if (isset ( $_SESSION ['id'] )) {
-			if (Person::personHasTests ()) {
+			$person=new Person($_SESSION['id']);
+			if ($person->hasTestsToday ()) {
 				$target = PATH . "server/view/TestRunnerView.php";
 			} else {
 				$target = PATH . "server/view/MainView.php";
 			}
 		} else {
 			// Select queries return a resultset
-			if (Person::hasPermission ( $_POST ["usr"], $_POST ["pwd"], DBController::getConnection() )) {
-				if (Person::personHasTests ()) {
+			if (Person::hasPermission ( $_POST ["usr"], $_POST ["pwd"])) {
+				$person=new Person($_SESSION['id']);
+				if ($person->hasTestsToday  ()) {
 					$target = PATH . "server/view/TestRunnerView.php";
 				} else {
 					$target = PATH . "server/view/MainView.php";

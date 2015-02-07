@@ -19,7 +19,7 @@ class Person {
 	 */
 	private $_name;
 	private $_surname;
-
+	
 	/**
 	 * @AssociationType Server.Model.Person
 	 */
@@ -34,20 +34,19 @@ class Person {
 	 * @AssociationMultiplicity *
 	 */
 	public $_courses = array ();
-	
 	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
-		$result = $mysqli->query ( "SELECT * FROM Person WHERE PersonID=" . $id);
+		$result = $mysqli->query ( "SELECT * FROM Person WHERE PersonID=" . $id );
 		$row = $result->fetch_array ( MYSQLI_ASSOC );
-
+		
 		$this->_personID = $row ['PersonID'];
 		$this->_name = $row ['Name'];
 		$this->_surname = $row ['Surname'];
-	
-		$result->close();
-	}	
-	
-	public static function hasPermission($user, $password, $mysqli) {
+		
+		$result->close ();
+	}
+	public static function hasPermission($user, $password) {
+		$mysqli = DBController::getConnection ();
 		$exitcode = false;
 		
 		if (empty ( $user ) || empty ( $password )) {
@@ -82,8 +81,21 @@ class Person {
 		
 		return $exitcode;
 	}
-	public static function personHasTests() {
-		return false;
+	
+	//
+	public function hasTestsToday() {
+		$mysqli = DBController::getConnection ();
+		$exitcode = false;
+		if ($result = $mysqli->query ( 'SELECT TestTemplateID FROM Person_Course as p JOIN (TestTemplate as t)
+			ON p.CourseID = t.CourseID AND p.GroupID = t.GroupID
+			WHERE p.Discriminator="hears" AND p.PersonID="' . $this->_personID . '"
+			NOT IN (SELECT TestTemplateID FROM Test WHERE PersonID="' . $this->_personID . '");' )) {
+			if (! $result->num_rows == 0) {
+				$exitcode = true;
+			}
+		}
+		$result->close ();
+		return $exitcode;
 	}
 	
 	/**
@@ -94,8 +106,7 @@ class Person {
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $personid .
-				 '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date DESC');
+		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $personid . '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date DESC' );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$tests = array ();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
@@ -107,23 +118,23 @@ class Person {
 		return $tests;
 	}
 	
-	public static function getCreatedTestTemplates($personid) {		
-		$person=new Person($personid);
-		$teachingCourses= $person->getTeachingCourses();
+	//
+	public function getCreatedTestTemplates() {
+		$teachingCourses = $this->getTeachingCourses ();
 		
 		$testTemplates = array ();
-		foreach($teachingCourses as $course){
-			$testTemplates = array_merge($testTemplates , $course->getTestTemplates ());
+		foreach ( $teachingCourses as $course ) {
+			$testTemplates = array_merge ( $testTemplates, $course->getTestTemplates () );
 		}
 		// return this array of objects
 		return $testTemplates;
 	}
 	
-	public function getTeachingCourses(){
+	//
+	public function getTeachingCourses() {
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT Course.CourseID,Course.GroupID FROM Course,Person_Course WHERE PersonID="' . $this->_personID .
-				'" AND Course.CourseID=Person_Course.CourseID AND Course.GroupID=Person_Course.GroupID ORDER BY Name,GroupID');
+		$result = $mysqli->query ( 'SELECT Course.CourseID,Course.GroupID FROM Course,Person_Course ' . 'WHERE PersonID="' . $this->_personID . '" ' . 'AND Course.CourseID=Person_Course.CourseID ' . 'AND Course.GroupID=Person_Course.GroupID ' . 'AND Discriminator="teaches" ' . 'ORDER BY Name,GroupID' );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$courses = array ();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
@@ -134,9 +145,26 @@ class Person {
 		
 		return $courses;
 	}
+	
+	//
+	public function getHearingCourses() {
+		$mysqli = DBController::getConnection ();
 		
-	public function equals($person){
-		return $this->_personID==$person;
+		$result = $mysqli->query ( 'SELECT Course.CourseID,Course.GroupID FROM Course,Person_Course ' . 'WHERE PersonID="' . $this->_personID . '" ' . 'AND Course.CourseID=Person_Course.CourseID ' . 'AND Course.GroupID=Person_Course.GroupID ' . 'AND Discriminator="hears" ' . 'ORDER BY Name,GroupID' );
+		// delegate the test class to create test objects according testid (call the constructor in a loop)
+		$courses = array ();
+		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+			array_push ( $courses, new Course ( $row ['CourseID'], $row ['GroupID'] ) );
+		}
+		// return this array of objects
+		$result->close ();
+		
+		return $courses;
+	}
+	
+	//
+	public function equals($person) {
+		return $this->_personID == $person;
 	}
 }
 ?>
