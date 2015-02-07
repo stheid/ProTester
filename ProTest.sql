@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 07, 2015 at 02:39 
+-- Generation Time: Feb 07, 2015 at 04:24 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `Person_Course` (
 
 INSERT INTO `Person_Course` (`PersonID`, `CourseID`, `GroupID`, `Discriminator`) VALUES
 (1, 1, 1, 'hears'),
+(1, 2, 3, 'hears'),
 (2, 1, 1, 'teaches'),
 (2, 1, 2, 'teaches'),
 (2, 1, 3, 'teaches'),
@@ -179,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `TestTemplate` (
   `GroupID` int(10) DEFAULT NULL,
   `Duration` int(10) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `TestTemplate`
@@ -187,7 +188,9 @@ CREATE TABLE IF NOT EXISTS `TestTemplate` (
 
 INSERT INTO `TestTemplate` (`TestTemplateID`, `CourseID`, `GroupID`, `Duration`, `Date`) VALUES
 (1, 1, 1, 60, '2015-02-07'),
-(2, 2, 2, 30, '2015-01-07');
+(2, 2, 2, 30, '2015-01-07'),
+(3, 2, 3, 44, '2015-02-12'),
+(4, 1, 1, 60, '2015-02-10');
 
 --
 -- Indexes for dumped tables
@@ -269,7 +272,7 @@ MODIFY `TestID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `TestTemplate`
 --
 ALTER TABLE `TestTemplate`
-MODIFY `TestTemplateID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `TestTemplateID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
