@@ -12,18 +12,18 @@ class AnswerTestView extends View {
 		parent::footer ();
 	}
 	protected function content($test) {
-		$person = new Person ( $_SESSION ['id'] );
+		$person = new Person ( $_SESSION ['id']);
 		if ($test->answerableFor ( $person )) {
 			// timerbar
 			$questions = $test->getQuestions ();
-			echo '<form action="AfterTestController.php" method="POST">
+			echo '<form action="../controller/AnswerPointController.php" method="POST">
 						<div class="container">
 						<div class="row">
 						<div class="col-md-9 col-xs-8">
 						<div class="panel-group">';
 			$i = 0;
 			foreach ( $questions as $question ) {
-				if ( $i++ % 5==0&& $i!=0) {
+				if ( $i++ % 5==0 && $i!=1) {
 					echo '</div>				
 					<div class="panel-group">';
 				}
@@ -42,13 +42,13 @@ class AnswerTestView extends View {
 					
 					$j=1;
 					foreach ($question->getAnswerSet() as $answer){
-						echo '<li><label><input type="checkbox" id="chk'.$j.'" name="answer[]"> '.$answer.'<label></li>';
+						echo '<li><label><input type="checkbox" id="chk'.$j.'" name="answer['.$i.']"> '.$answer.'<label></li>';
 					}
 					echo '</ul>';
 				} elseif ($question instanceof GapQuestion){
-					echo '<input type="input" id="chk2" name="answer[]">';
+					echo '<input type="input" id="chk2" name="answer['.$i.']">';
 				} else {
-					echo '<textarea name="answer[]" style="width: 100%"></textarea>';
+					echo '<textarea name="answer['.$i.']" style="width: 100%"></textarea>';
 				}
 				echo '</div></div></div>';
 			}
