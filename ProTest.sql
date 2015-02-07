@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2015 at 11:30 
+-- Generation Time: Feb 07, 2015 at 02:39 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -48,6 +48,18 @@ CREATE TABLE IF NOT EXISTS `Course` (
   `Schedule` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Course`
+--
+
+INSERT INTO `Course` (`CourseID`, `GroupID`, `Name`, `Syllabus`, `Schedule`) VALUES
+(1, 1, 'SSD', 'cefr', 'frgrg'),
+(1, 2, 'SSD', 'cefr', 'frgrg'),
+(1, 3, 'SSD', 'cefr', 'frgrg'),
+(2, 1, 'CCS', 'cefr', 'frgrg'),
+(2, 2, 'CCS', 'cefr', 'frgrg'),
+(2, 3, 'CCS', 'cefr', 'frgrg');
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +86,14 @@ CREATE TABLE IF NOT EXISTS `Person` (
   `Discriminator` set('Student','Lecturer','Admin') NOT NULL DEFAULT 'Student'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Person`
+--
+
+INSERT INTO `Person` (`PersonID`, `Name`, `Surname`, `Password`, `Discriminator`) VALUES
+(1, 'Fritz', 'Dieder', 'jurgen', 'Student'),
+(2, 'jan', 'Kwiatkowski', 'nice', 'Lecturer');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +107,19 @@ CREATE TABLE IF NOT EXISTS `Person_Course` (
   `Discriminator` enum('hears','teaches') NOT NULL DEFAULT 'teaches'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Person_Course`
+--
+
+INSERT INTO `Person_Course` (`PersonID`, `CourseID`, `GroupID`, `Discriminator`) VALUES
+(1, 1, 1, 'hears'),
+(2, 1, 1, 'teaches'),
+(2, 1, 2, 'teaches'),
+(2, 1, 3, 'teaches'),
+(2, 2, 1, 'teaches'),
+(2, 2, 2, 'teaches'),
+(2, 2, 3, 'teaches');
+
 -- --------------------------------------------------------
 
 --
@@ -96,13 +129,22 @@ CREATE TABLE IF NOT EXISTS `Person_Course` (
 CREATE TABLE IF NOT EXISTS `Question` (
 `QuestionID` int(10) NOT NULL,
   `TestTemplateID` int(10) NOT NULL,
-  `Max points` int(10) DEFAULT NULL,
   `Text` text,
-  `Solution:String[0..4]` int(10) DEFAULT NULL,
-  `Answers` text,
   `Solution` varchar(255) DEFAULT NULL,
+  `AnswerSet` text,
+  `SolutionSet` varchar(255) DEFAULT NULL,
+  `Max points` int(10) DEFAULT NULL,
   `Discriminator` set('Closed','Gap','Open') NOT NULL DEFAULT 'Closed'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Question`
+--
+
+INSERT INTO `Question` (`QuestionID`, `TestTemplateID`, `Text`, `Solution`, `AnswerSet`, `SolutionSet`, `Max points`, `Discriminator`) VALUES
+(1, 1, 'What is 1+1?', NULL, '1;2;3;4', '2', 1, 'Closed'),
+(2, 1, '1+1= __?', '2', NULL, NULL, 1, 'Gap'),
+(3, 1, 'What is a Pattern?', 'Solution for a Common Problem.', NULL, NULL, 2, 'Open');
 
 -- --------------------------------------------------------
 
@@ -118,6 +160,13 @@ CREATE TABLE IF NOT EXISTS `Test` (
   `Result` int(10) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Test`
+--
+
+INSERT INTO `Test` (`TestID`, `TestTemplateID`, `PersonID`, `Grade`, `Result`) VALUES
+(2, 2, 1, '4.5', 43);
+
 -- --------------------------------------------------------
 
 --
@@ -131,6 +180,14 @@ CREATE TABLE IF NOT EXISTS `TestTemplate` (
   `Duration` int(10) NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TestTemplate`
+--
+
+INSERT INTO `TestTemplate` (`TestTemplateID`, `CourseID`, `GroupID`, `Duration`, `Date`) VALUES
+(1, 1, 1, 60, '2015-02-07'),
+(2, 2, 2, 30, '2015-01-07');
 
 --
 -- Indexes for dumped tables
@@ -202,7 +259,7 @@ MODIFY `RuleID` int(10) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `Question`
 --
 ALTER TABLE `Question`
-MODIFY `QuestionID` int(10) NOT NULL AUTO_INCREMENT;
+MODIFY `QuestionID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `Test`
 --
