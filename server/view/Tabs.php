@@ -15,7 +15,8 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$tests = Person::getWrittenTests ( $_SESSION ['id'] );
+		$person=new Person($_SESSION ['id'] );
+		$tests = $person->getWrittenTests ();
 		
 		$this->content = "";
 		$actualDate = "";
@@ -30,7 +31,6 @@ class ViewResultTab extends Tab {
 			}
 			$this->content .= "\n".'<li class="list-group-item">';
 			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID=' . $test->getID () . '">';
-			$_SESSION ['TestID']= $test->getID ();
 			$this->content .= $test->getTestTemplate ()->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getTestTemplate ()->getCourse ()->getName ();
 			$this->content .= '<span style="float: right">' . $test->getResult () . '/' . $test->getTestTemplate ()->getMaxPoints () . '</span>';
 			$this->content .= '</a></li>';
@@ -58,7 +58,8 @@ class EvaluateTestTab extends Tab {
 		 * print testtemplate->getcourse()->name as strong paragraph//enum name
 		 * list element for this testtemplate
 		 */
-		$testTemplates = Person::getCreatedTestTemplates ( $_SESSION ['id'] );
+		$person = new Person( $_SESSION ['id']);
+		$testTemplates = $person->getCreatedTestTemplates ();
 		
 		$this->content = "";
 		$actualCourseID = "";
@@ -83,7 +84,6 @@ class EvaluateTestTab extends Tab {
 			}
 			$this->content .= "\n\t\t\t".'<li class="list-group-item">';
 			$this->content .= '<a href="' . PATH . 'server/view/EvaluateTestView.php?TestTemplateID=' . $testTempl->getID () . '">';
-			$_SESSION ['templateID']=$testTempl->getID ();
 			$this->content .= 'Exam ' . $i;
 			$i ++;
 			$this->content .= '</a></li>';
