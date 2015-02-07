@@ -11,7 +11,7 @@ class View {
 	}
 	
 	protected function includes(){
-		session_start();
+		@session_start();
 		include '../controller/settings.php';
 	}
 	

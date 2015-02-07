@@ -107,6 +107,34 @@ class Person {
 		return $tests;
 	}
 	
+	public static function getCreatedTestTemplates($personid) {		
+		$person=new Person($personid);
+		$teachingCourses= $person->getTeachingCourses();
+		
+		$testTemplates = array ();
+		foreach($teachingCourses as $course){
+			$testTemplates = array_merge($testTemplates , $course->getTestTemplates ());
+		}
+		// return this array of objects
+		return $testTemplates;
+	}
+	
+	public function getTeachingCourses(){
+		$mysqli = DBController::getConnection ();
+		
+		$result = $mysqli->query ( 'SELECT Course.CourseID,Course.GroupID FROM Course,Person_Course WHERE PersonID="' . $this->_personID .
+				'" AND Course.CourseID=Person_Course.CourseID AND Course.GroupID=Person_Course.GroupID ORDER BY Name,GroupID');
+		// delegate the test class to create test objects according testid (call the constructor in a loop)
+		$courses = array ();
+		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+			array_push ( $courses, new Course ( $row ['CourseID'], $row ['GroupID'] ) );
+		}
+		// return this array of objects
+		$result->close ();
+		
+		return $courses;
+	}
+		
 	public function equals($person){
 		return $this->_personID==$person;
 	}

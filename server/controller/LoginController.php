@@ -28,6 +28,5 @@ class LoginController extends Controller {
 		header ( "Location: $target" );
 	}
 }
-LoginController::main ();
-
+LoginController::main();
 ?>

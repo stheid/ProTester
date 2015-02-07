@@ -20,21 +20,21 @@ class ViewResultTab extends Tab {
 		$this->content = "";
 		$actualDate = "";
 		foreach ( $tests as $test ) {
-			if ($actualDate != $test->getTestTemplate()->getMonthYear ()) {
+			if ($actualDate != $test->getTestTemplate ()->getMonthYear ()) {
 				// if it's not the first heading
-				if (empty ( $actualDate )) {
-					$this->content .= '</ul>';
+				if (! empty ( $actualDate )) {
+					$this->content .= "\n".'</ul>';
 				}
-				$actualDate = $test->getTestTemplate()->getMonthYear ();
-				$this->content .= '<h1>'.$actualDate.'</h1>
-							<ul class="list-group">';
+				$actualDate = $test->getTestTemplate ()->getMonthYear ();
+				$this->content .= "\n".'<h1>' . $actualDate . '</h1>'."\n  ".'<ul class="list-group">';
 			}
-			$this->content .= '<li class="list-group-item">';
-			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID='.$test->getID().'">';
-			$this->content .= $test->getTestTemplate()->getDayMonth() . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;'. $test->getTestTemplate()->getCourse()->getName();
-			$this->content .= '<span style="float: right">'.$test->getResult().'/'.$test->getTestTemplate()->getMaxPoints().'</span>';
+			$this->content .= "\n".'<li class="list-group-item">';
+			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID=' . $test->getID () . '">';
+			$this->content .= $test->getTestTemplate ()->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getTestTemplate ()->getCourse ()->getName ();
+			$this->content .= '<span style="float: right">' . $test->getResult () . '/' . $test->getTestTemplate ()->getMaxPoints () . '</span>';
 			$this->content .= '</a></li>';
 		}
+		$this->content .= "\n".'</ul>';
 	}
 	public $id = "view_res";
 	public $title = "View Results";
@@ -43,105 +43,51 @@ class ViewResultTab extends Tab {
 class EvaluateTestTab extends Tab {
 	function __construct() {
 		/*
-		 * SSD
-			groupid1
-				testtemplateid
-				testtemplateid
-		
-		
-		getTestTemplates for a teacher sorted by course and groupid
-		
-		courseid ""
-		groupid ""
-		
-		foreach testtemplate
-			if thiscourseid != courseid
-				set courseid thiscourseid
-				print testtemplate->getcourse()->name as heading
-			if thisgroupid != groupid
-				set groupid thisgroupid
-				print testtemplate->getcourse()->name as strong paragraph//enum name
-		list element for this testtemplate*/
-		
-		$testTemplates = Person::getCreatedTestTemplates( $_SESSION ['id'] );
+		 * getTestTemplates for a teacher sorted by course and groupid
+		 *
+		 * courseid ""
+		 * groupid ""
+		 *
+		 * foreach testtemplate
+		 * if thiscourseid != courseid
+		 * set courseid thiscourseid
+		 * print testtemplate->getcourse()->name as heading
+		 * if thisgroupid != groupid
+		 * set groupid thisgroupid
+		 * print testtemplate->getcourse()->name as strong paragraph//enum name
+		 * list element for this testtemplate
+		 */
+		$testTemplates = Person::getCreatedTestTemplates ( $_SESSION ['id'] );
 		
 		$this->content = "";
 		$actualCourseID = "";
 		$actualGroupID = "";
-		/*foreach ( $testTemplates as $testTempl ) {
-			if ($actualDate != $test->getTestTemplate()->getMonthYear ()) {
+		foreach ( $testTemplates as $testTempl ) {
+			if (! $testTempl->getCourse ()->equalsCourse ( $actualCourseID )) {
 				// if it's not the first heading
-				if (empty ( $actualDate )) {
-					$this->content .= '</ul>';
+				if (!empty ( $actualCourseID )) {
+					$this->content .= "\n\t\t".'</ul>'."\n\t".'</li>';
+					$this->content .= "\n".'</ul>';
 				}
-				$actualDate = $test->getTestTemplate()->getMonthYear ();
-				$this->content .= '<h1>'.$actualDate.'</h1>
-							<ul class="list-group">';
+				$actualCourseID = $testTempl->getCourse ()->getCourseID ();
+				$this->content .= "\n".'<h1>' . $testTempl->getCourse ()->getName () . '</h1>'."\n".'<ul class="list-group">';
 			}
-			$this->content .= '<li class="list-group-item">';
-			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID='.$test->getID().'">';
-			$this->content .= $test->getTestTemplate()->getDayMonth() . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;'. $test->getTestTemplate()->getCourse()->getName();
-			$this->content .= '<span style="float: right">'.$test->getResult().'/'.$test->getTestTemplate()->getMaxPoints().'</span>';
+			if (! $testTempl->getCourse ()->equals ( $actualCourseID, $actualGroupID )) {
+				// if it's not the first heading
+				$actualGroupID = $testTempl->getCourse ()->getGroupID ();
+				$this->content .= "\n\t".'<li class="list-group-item">'.
+						"\n\t\t".'<p><strong>' . $testTempl->getCourse ()->getGroupName () . '</strong></p>'.
+						"\n\t\t".'<ul class="list-group">';
+				$i = 1;
+			}
+			$this->content .= "\n\t\t\t".'<li class="list-group-item">';
+			$this->content .= '<a href="' . PATH . 'server/view/EvaluateTestView.php?TestTemplateID=' . $testTempl->getID () . '">';
+			$this->content .= 'Exam ' . $i;
+			$i ++;
 			$this->content .= '</a></li>';
-		}*/
-		$this->content = '<h1>Course 1</h1>
-<ul class="list-group">
-<li class="list-group-item">
-<p><strong>Lecture</strong></p>
-		<ul class="list-group">
-			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
-				First exam
-			</a></li>
-			<li class="list-group-item">
-				<a href="' . PATH . 'server/view/EvaluateTestView.php">
-					Second exam
-				</a>
-			</li>
-		</ul>
-</li>
-						<li class="list-group-item">
-<p><strong>Project1</strong></p>
-		<ul class="list-group">
-			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
-				First exam
-			</a></li>
-			<li class="list-group-item">
-				<a href="' . PATH . 'server/view/EvaluateTestView.php">
-					Second exam
-				</a>
-			</li>
-		</ul>
-</li>
-</ul>
-		<h1>Course 2</h1>
-						<ul class="list-group">
-<li class="list-group-item">
-<p><strong>Lecture</strong></p>
-		<ul class="list-group">
-			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
-				First exam
-			</a></li>
-			<li class="list-group-item">
-				<a href="' . PATH . 'server/view/EvaluateTestView.php">
-					Second exam
-				</a>
-			</li>
-		</ul>
-</li>
-						<li class="list-group-item">
-<p><strong>Project1</strong></p>
-		<ul class="list-group">
-			<li class="list-group-item"><a href="' . PATH . 'server/view/EvaluateTestView.php">
-				First exam
-			</a></li>
-			<li class="list-group-item">
-				<a href="' . PATH . 'server/view/EvaluateTestView.php">
-					Second exam
-				</a>
-			</li>
-		</ul>
-</li>
-</ul>';
+		}
+		$this->content .= "\n\t\t".'</ul>'."\n\t".'</li>';
+		$this->content .= "\n".'</ul>';
 	}
 	public $id = "eval";
 	public $title = "Evaluate Tests";

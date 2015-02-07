@@ -1,24 +1,20 @@
 <?php
 include_once 'View.php';
-
-class LoginView extends View{
-	
-	protected $title='Login';
-	
-	protected function includes(){
-		parent::includes();
+class LoginView extends View {
+	protected $title = 'Login';
+	protected function includes() {
+		parent::includes ();
 	}
-	
-	protected function content(){
+	protected function content() {
 		echo '<div class="row">';
-		if (isset($_SESSION['loginError'])){
-				echo '<div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
-						<div class="alert alert-danger" role="alert">'.$_SESSION['loginError'].'</div>
+		if (isset ( $_SESSION ['loginError'] )) {
+			echo '<div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
+						<div class="alert alert-danger" role="alert">' . $_SESSION ['loginError'] . '</div>
 								</div>';
-				unset($_SESSION['loginError']);
+			unset ( $_SESSION ['loginError'] );
 		}
 		echo '<div class="col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3">
-				<form action="'.PATH.'server/controller/LoginController.php" method="post">
+				<form action="' . PATH . 'server/controller/LoginController.php" method="post">
 		<div class="form-group">
 		<label for="usrName">Username</label>
 		<input class="form-control" id="inputUsrName" placeholder="Enter Username" name="usr">
@@ -32,5 +28,10 @@ class LoginView extends View{
 		</div>';
 	}
 }
-new LoginView();
+session_start();
+if (isset ( $_SESSION ['id'] )) {
+	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
+} else {
+	new LoginView ();
+}
 ?>
