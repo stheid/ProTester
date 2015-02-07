@@ -27,4 +27,6 @@ class AnswerPointController {
 	 */
 	public $_unnamed_EvaluateTestView_;
 }
+
+echo var_dump($_GET);
 ?>

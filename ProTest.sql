@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 07, 2015 at 04:24 
+-- Generation Time: Feb 07, 2015 at 07:01 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -59,18 +59,6 @@ INSERT INTO `Course` (`CourseID`, `GroupID`, `Name`, `Syllabus`, `Schedule`) VAL
 (2, 1, 'CCS', 'cefr', 'frgrg'),
 (2, 2, 'CCS', 'cefr', 'frgrg'),
 (2, 3, 'CCS', 'cefr', 'frgrg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Evaluation Rule`
---
-
-CREATE TABLE IF NOT EXISTS `Evaluation Rule` (
-`RuleID` int(10) NOT NULL,
-  `QuestionID` int(10) NOT NULL,
-  `EvaluationRule` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -143,9 +131,9 @@ CREATE TABLE IF NOT EXISTS `Question` (
 --
 
 INSERT INTO `Question` (`QuestionID`, `TestTemplateID`, `Text`, `Solution`, `AnswerSet`, `SolutionSet`, `Max points`, `Discriminator`) VALUES
-(1, 1, 'What is 1+1?', NULL, '1;2;3;4', '2', 1, 'Closed'),
+(1, 1, 'What is 1+1?', NULL, '1;;;2;;;3;;;4', '2', 1, 'Closed'),
 (2, 1, '1+1= __?', '2', NULL, NULL, 1, 'Gap'),
-(3, 1, 'What is a Pattern?', 'Solution for a Common Problem.', NULL, NULL, 2, 'Open');
+(3, 1, 'What is a Pattern?', 'Solution for a common Problem.', NULL, NULL, 2, 'Open');
 
 -- --------------------------------------------------------
 
@@ -209,12 +197,6 @@ ALTER TABLE `Course`
  ADD PRIMARY KEY (`CourseID`,`GroupID`);
 
 --
--- Indexes for table `Evaluation Rule`
---
-ALTER TABLE `Evaluation Rule`
- ADD PRIMARY KEY (`RuleID`), ADD KEY `evaluates>` (`QuestionID`);
-
---
 -- Indexes for table `Person`
 --
 ALTER TABLE `Person`
@@ -254,11 +236,6 @@ ALTER TABLE `TestTemplate`
 ALTER TABLE `Answer`
 MODIFY `AnswerID` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `Evaluation Rule`
---
-ALTER TABLE `Evaluation Rule`
-MODIFY `RuleID` int(10) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `Question`
 --
 ALTER TABLE `Question`
@@ -283,12 +260,6 @@ MODIFY `TestTemplateID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 ALTER TABLE `Answer`
 ADD CONSTRAINT `<of` FOREIGN KEY (`TestID`) REFERENCES `Test` (`TestID`),
 ADD CONSTRAINT `for>` FOREIGN KEY (`QuestionID`) REFERENCES `Question` (`QuestionID`);
-
---
--- Constraints for table `Evaluation Rule`
---
-ALTER TABLE `Evaluation Rule`
-ADD CONSTRAINT `FKEvaluation148495` FOREIGN KEY (`QuestionID`) REFERENCES `Question` (`QuestionID`);
 
 --
 -- Constraints for table `Person_Course`
