@@ -37,6 +37,11 @@ class Question {
 		return $this->_text;
 	}
 	
+	//
+	public function getID() {
+		return $this->_questionID;
+	}
+	
 	// returns the correct questionobject
 	public static function getQuestion($id) {
 		$mysqli = DBController::getConnection ();
@@ -81,7 +86,7 @@ class ClosedQuestion extends Question {
 		$this->_answerSet = explode ( ";;;", $row ['AnswerSet'] );
 		$this->_solutionSet = explode ( ";;;", $row ['SolutionSet'] );
 	}
-	public function getAnswerSet(){
+	public function getAnswerSet() {
 		return $this->_answerSet;
 	}
 }

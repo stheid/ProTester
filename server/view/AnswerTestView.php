@@ -42,13 +42,14 @@ class AnswerTestView extends View {
 					
 					$j=1;
 					foreach ($question->getAnswerSet() as $answer){
-						echo '<li><label><input type="checkbox" id="chk'.$j.'" name="answer['.$i.']"> '.$answer.'<label></li>';
+						echo '<li><label><input type="checkbox" name="answer['.$question->getID().']['.$j.']"> '.$answer.'<label></li>';
+						$j++;
 					}
 					echo '</ul>';
 				} elseif ($question instanceof GapQuestion){
-					echo '<input type="input" id="chk2" name="answer['.$i.']">';
+					echo '<input type="input" id="chk2" name="answer['.$question->getID().']">';
 				} else {
-					echo '<textarea name="answer['.$i.']" style="width: 100%"></textarea>';
+					echo '<textarea name="answer['.$question->getID().']" style="width: 100%"></textarea>';
 				}
 				echo '</div></div></div>';
 			}
