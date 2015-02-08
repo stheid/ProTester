@@ -43,32 +43,16 @@ class TestTemplate {
 	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
 		
-		$mysqli->multi_query ( 'SELECT * FROM TestTemplate WHERE TestTemplateID="' . $id . '";' . 'SELECT QuestionID FROM Question
-				WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY QuestionID;' . 'SELECT TestID FROM Test
-				WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY TestID' );
+		$query = 'SELECT * FROM TestTemplate WHERE TestTemplateID="' . $id . '";';
+		$result = $mysqli->query ( $query );
 		
-		$result = $mysqli->use_result ();
-		$row = $result->fetch_array ( MYSQLI_ASSOC );
-		
-		$this->_testTemplateID = $row ['TestTemplateID'];
-		$this->_course = new Course ( $row ['CourseID'], $row ['GroupID'] );
-		$this->_duration = $row ['Duration'];
-		$this->_date = $row ['Date'];
-		
-		$result->free ();
-		$mysqli->next_result ();
-		
-		$result = $mysqli->store_result ();
-		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
-			array_push ( $questions, Question::getQuestion ( $row ['QuestionID'] ) );
-		}
-		
-		$result->free ();
-		$mysqli->next_result ();
-		
-		$result = $mysqli->store_result ();
-		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
-			array_push ( $tests, Question::getQuestion ( $row ['TestID'] ) );
+		if ($row = $result->fetch_array ( MYSQLI_ASSOC )) {
+			$this->_testTemplateID = $row ['TestTemplateID'];
+			$this->_course = new Course ( $row ['CourseID'], $row ['GroupID'] );
+			$this->_duration = $row ['Duration'];
+			$this->_date = $row ['Date'];
+		} else {
+			echo "<script>console.log(\"Testtemplate constructor failed DB answer\")</script>";
 		}
 		
 		$result->free ();
@@ -77,13 +61,46 @@ class TestTemplate {
 	
 	//
 	public function getQuestions() {
-		return $this->questions;
+		$mysqli = DBController::getConnection ();
+		$query = 'SELECT QuestionID FROM Question	WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY QuestionID';
+		
+		$questions = array();
+		if ($result = $mysqli->query ( $query )) {
+			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+				array_push ( $questions, Question::getQuestion ( $row ['QuestionID'] ) );
+			}
+			$result->free ();
+		} else {
+			echo "<script>console.log(\"".__CLASS__."->".__METHOD__." failed DB response\")</script>";
+		}
+		$mysqli->close ();
+		
+		return $questions;
+	}
+	
+	//
+	public function getTests() {
+		$mysqli = DBController::getConnection ();
+		$query = 'SELECT TestID FROM Test WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY TestID';
+		
+		$tests = array();
+		if ($result = $mysqli->query ( $query )) {
+			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+				array_push ( $tests, new Test ( $row ['TestID'] ) );
+			}
+			$result->free ();
+		} else {
+			echo "<script>console.log(\"".__CLASS__."->".__METHOD__." failed DB response\")</script>";
+		}
+		$mysqli->close ();
+		
+		return $tests;
 	}
 	
 	//
 	public function isAnsweredFrom($person) {
 		$exitcode = false;
-		foreach ( $tests as $test ) {
+		foreach ( $this->getTests() as $test ) {
 			if ($test->ownedBy ( $person )) {
 				$exitcode = true;
 			}
@@ -154,21 +171,10 @@ class TestTemplate {
 		}
 		return (strtotime ( $a->getDate () ) < strtotime ( $b->getDate () )) ? - 1 : 1;
 	}
-	public function getID() {
-		return $this->_testTemplateID;
-	}
 	
 	//
-	public function getAnswers() {
-		$mysqli = DBController::getConnection ();
-		
-		$result = $mysqli->query ( 'SELECT AnswerID FROM Answer
-				WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY AnswerID' );
-		$answers = array ();
-		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
-			array_push ( $answers, Answer::getAnswer ( $row ['AnswerID'] ) );
-		}
-		return $answers;
+	public function getID() {
+		return $this->_testTemplateID;
 	}
 }
 ?>

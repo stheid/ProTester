@@ -17,25 +17,7 @@ class Test {
 	private $_answerID;
 	private $person;
 	private $testTemplate;
-	public $_answers = array ();
-	
-	/**
-	 *
-	 * @access public
-	 * @param
-	 *        	aAnswers
-	 */
-	public function setAnswers($aAnswers) {
-		// Not yet implemented
-	}
-	
-	/**
-	 *
-	 * @access public
-	 */
-	public function getAnswers() {
-		// Not yet implemented
-	}
+	//
 	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
 		
@@ -78,6 +60,22 @@ class Test {
 		} else {
 			// insert failed
 			return $mysqli->error;
+		}
+	}
+	
+	//
+	public function getAnswers() {
+		$mysqli = DBController::getConnection ();
+		
+		if ($result = $mysqli->query ( 'SELECT AnswerID FROM Answer
+				WHERE TestID="' . $this->_iD . '" ORDER BY QuestionID' )) {
+			$answers = array ();
+			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+				array_push ( $answers, Answer::getAnswer ( $row ['AnswerID'] ) );
+			}
+			return $answers;
+		} else {
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
 		}
 	}
 	

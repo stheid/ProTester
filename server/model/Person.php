@@ -46,6 +46,8 @@ class Person {
 		$result->free ();
 		$mysqli->close ();
 	}
+
+	//
 	public static function hasPermission($user, $password) {
 		$mysqli = DBController::getConnection ();
 		$exitcode = false;
@@ -89,7 +91,7 @@ class Person {
 		$testTemplates = $this->getScheduledTests ();
 		$exitcode = false;
 		foreach ( $testTemplates as $testTemplate ) {
-			if ($testTemplate->isAnsweredFrom ( $person ) && (strtotime ( $testTemplate->getDate () ) == strtotime ( date ( "Y-m-d" ) ))) {
+			if (!$testTemplate->isAnsweredFrom ( $this ) && (strtotime ( $testTemplate->getDate () ) == strtotime ( date ( "Y-m-d" ) ))) {
 				$exitcode = true;
 			}
 		}
