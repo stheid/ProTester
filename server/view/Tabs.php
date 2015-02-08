@@ -43,21 +43,7 @@ class ViewResultTab extends Tab {
 }
 class EvaluateTestTab extends Tab {
 	function __construct() {
-		/*
-		 * getTestTemplates for a teacher sorted by course and groupid
-		 *
-		 * courseid ""
-		 * groupid ""
-		 *
-		 * foreach testtemplate
-		 * if thiscourseid != courseid
-		 * set courseid thiscourseid
-		 * print testtemplate->getcourse()->name as heading
-		 * if thisgroupid != groupid
-		 * set groupid thisgroupid
-		 * print testtemplate->getcourse()->name as strong paragraph//enum name
-		 * list element for this testtemplate
-		 */
+		$person=new Person($_SESSION ['ID'] );
 		$testTemplates = $person->getCreatedTestTemplates ();
 		
 		$this->content = "";
@@ -70,11 +56,15 @@ class EvaluateTestTab extends Tab {
 					$this->content .= "\n\t\t".'</ul>'."\n\t".'</li>';
 					$this->content .= "\n".'</ul>';
 				}
+				$actualGroupID = "";
 				$actualCourseID = $testTempl->getCourse ()->getCourseID ();
 				$this->content .= "\n".'<h1>' . $testTempl->getCourse ()->getName () . '</h1>'."\n".'<ul class="list-group">';
 			}
 			if (! $testTempl->getCourse ()->equals ( $actualCourseID, $actualGroupID )) {
 				// if it's not the first heading
+				if (!empty ( $actualGroupID )) {
+					$this->content .= "\n\t\t".'</ul>'."\n\t".'</li>';
+				}
 				$actualGroupID = $testTempl->getCourse ()->getGroupID ();
 				$this->content .= "\n\t".'<li class="list-group-item">'.
 						"\n\t\t".'<p><strong>' . $testTempl->getCourse ()->getGroupName () . '</strong></p>'.

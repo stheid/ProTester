@@ -127,8 +127,6 @@ class Person {
 		foreach ( $teachingCourses as $course ) {
 			$testTemplates = array_merge ( $testTemplates, $course->getTestTemplates () );
 		}
-		
-		usort ( $testTemplates, 'TestTemplate::isLater' );
 		// return this array of objects
 		return $testTemplates;
 	}
