@@ -83,11 +83,11 @@ class Person {
 	}
 	
 	//
-	public function hasTestsToday() {
-		$tests=$this->getScheduledTests();
+	public function hasUnansweredTestsToday() {
+		$testTemplates=$this->getScheduledTests();
 		$exitcode = false;
-		foreach ($tests as $test){
-			if (strtotime($test->getDate ())==strtotime(date ( "Y-m-d" ) )) {
+		foreach ($testTemplates as $testTemplate){
+			if ($testTemplate->isAnsweredFrom($person) && (strtotime($testTemplate->getDate ())==strtotime(date ( "Y-m-d" ) ))){
 				$exitcode = true;
 			}
 		}

@@ -2,8 +2,6 @@
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/DBController.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/TestTemplate.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Person.php');
-// require_once(realpath(dirname(__FILE__)) . '/../controller/TestManager.php');
-// require_once(realpath(dirname(__FILE__)) . '/../controller/AnswerPointsManager.php');
 // require_once(realpath(dirname(__FILE__)) . '/Answer.php');
 
 /**
@@ -52,15 +50,23 @@ class Test {
 		
 		$result->close ();
 	}
+
+	//
 	public function getTestTemplate() {
 		return $this->testTemplate;
 	}
+
+	//
 	public function getResult() {
 		return $this->_result;
 	}
+	
+	//
 	public function getID() {
 		return $this->_iD;
 	}
+	
+	//
 	public static function upload($testTemplate, $person, $grade=NULL, $result=NULL) {
 		$mysqli = DBController::getConnection ();
 		
@@ -73,9 +79,13 @@ class Test {
 			return $mysqli->error;
 		}
 	}
+	
+	//
 	public function ownedBy($person) {
 		return $this->person->equals ( $person );
 	}
+	
+	//
 	public static function getTestContent($Testid) {
 		return $tests;
 	}

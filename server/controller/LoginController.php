@@ -1,6 +1,7 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/DBController.php');
+
 class LoginController extends Controller {
 	public static function main() {
 		parent::includes ();
@@ -10,7 +11,7 @@ class LoginController extends Controller {
 			unset($_SESSION ['TestID'] );
 			unset($_SESSION ['TestTemplateID'] );
 			$person=new Person($_SESSION['ID']);
-			if ($person->hasTestsToday ()) {
+			if ($person->hasUnansweredTestsToday ()) {
 				$target = PATH . "server/view/TestRunnerView.php";
 			} else {
 				$target = PATH . "server/view/MainView.php";
@@ -19,7 +20,7 @@ class LoginController extends Controller {
 			// Select queries return a resultset
 			if (Person::hasPermission ( $_POST ["usr"], $_POST ["pwd"])) {
 				$person=new Person($_SESSION['ID']);
-				if ($person->hasTestsToday  ()) {
+				if ($person->hasUnansweredTestsToday  ()) {
 					$target = PATH . "server/view/TestRunnerView.php";
 				} else {
 					$target = PATH . "server/view/MainView.php";
