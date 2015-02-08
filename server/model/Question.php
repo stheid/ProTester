@@ -67,6 +67,8 @@ class Question {
 				case "Open" :
 					$question = new OpenQuestion ( $id );
 					break;
+				default :
+					echo "<script>console.log(\"QuestionType could not be detected\")</script>";
 			}
 			
 			$result->free ();

@@ -97,6 +97,15 @@ class TestTemplate {
 		return $tests;
 	}
 	
+	public function getTest($person){
+		foreach($this->getTests() as $test){
+			if ($test->ownedBy($person)){
+				return $test;
+			}
+		}
+		return NULL;
+	}
+	
 	//
 	public function isAnsweredFrom($person) {
 		$exitcode = false;
@@ -122,10 +131,6 @@ class TestTemplate {
 		}
 	}
 	
-	//
-	public function maxpoints() {
-		// Not yet implemented
-	}
 	// read from testtemplate
 	public function getDate() {
 		return $this->_date;
@@ -156,7 +161,12 @@ class TestTemplate {
 	
 	//
 	public function getMaxPoints() {
-		return "not implemented";
+		$questions=$this->getQuestions();
+		$maxPoints=0;
+		foreach($questions as $question){
+			$maxPoints+=$question->getMaxPoints();
+		}
+		return $maxPoints;
 	}
 	
 	// return the course

@@ -47,7 +47,7 @@ class AnswerTestView extends View {
 					}
 					echo '</ul>';
 				} elseif ($question instanceof GapQuestion){
-					echo '<input type="input" id="chk2" name="answer['.$question->getID().']">';
+					echo '<input type="input" name="answer['.$question->getID().']">';
 				} else {
 					echo '<textarea name="answer['.$question->getID().']" style="width: 100%"></textarea>';
 				}

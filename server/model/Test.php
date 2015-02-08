@@ -68,6 +68,32 @@ class Test {
 	}
 	
 	//
+	public static function updateResult($testID, $result) {
+		$mysqli = DBController::getConnection ();
+		
+		$query = 'UPDATE Test SET Result ="' . $result . '" WHERE TestID ="' . $testID . '";';
+		if ($result = $mysqli->query ( $query )) {
+			return TRUE;
+		} else {
+			// insert failed
+			return FALSE;
+		}
+	}
+	
+	//
+	public static function updateGrade($testID, $grade) {
+		$mysqli = DBController::getConnection ();
+		
+		$query = 'UPDATE Test SET Grade ="' . $grade . '" WHERE TestID ="' . $testID . '";';
+		if ($result = $mysqli->query ( $query )) {
+			return TRUE;
+		} else {
+			// insert failed
+			return FALSE;
+		}
+	}
+	
+	//
 	public function getAnswers() {
 		$mysqli = DBController::getConnection ();
 		
@@ -75,7 +101,7 @@ class Test {
 				WHERE TestID="' . $this->_iD . '" ORDER BY QuestionID' )) {
 			$answers = array ();
 			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
-				array_push ( $answers, Answer::getAnswer ( $row ['AnswerID'] ) );
+				array_push ( $answers, new Answer ( $row ['AnswerID'] ));
 			}
 			return $answers;
 		} else {

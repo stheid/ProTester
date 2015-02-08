@@ -14,6 +14,7 @@ class Answer {
 	private $_question;
 	private $_answer;
 	private $_points;
+	
 	public function __construct($id) {		
 		$mysqli = DBController::getConnection ();
 		if ($result = $mysqli->query ( 'SELECT * FROM Answer WHERE AnswerID="' . $id . '"' )) {
@@ -37,11 +38,12 @@ class Answer {
 		$mysqli = DBController::getConnection ();
 		
 		$query = 'INSERT INTO Answer (TestID, QuestionID, Answer, Points)
-				VALUES (' . $testID . ',' . $questionID . ',' . $answer . ',' . (isset ( $points ) ? $points : "NULL") . ');';
+				VALUES (' . $testID . ',' . $questionID . ',"' . $answer . '",' . (isset ( $points ) ? $points : "NULL") . ');';
 		if ($result = $mysqli->query ( $query )) {
 			return $mysqli->insert_id;
 		} else {
 			// insert failed
+			echo "<script>console.log(\"Answer upload of\n\n".'VALUES (' . $testID . ',' . $questionID . ',' . $answer . ',' . (isset ( $points ) ? $points : "NULL") . ');'."\n\nfailed\")</script>";
 			return $mysqli->error;
 		}
 	}
@@ -49,6 +51,11 @@ class Answer {
 	//
 	public function getAnswer() {
 		return $this->_answer;
+	}
+	
+	//
+	public function getPoints() {
+		return $this->_points;
 	}
 	
 	//
