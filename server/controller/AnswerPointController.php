@@ -82,6 +82,7 @@ class AnswerPointController {
 		foreach ( $test->getAnswers () as $answer ) {
 			$points += $answer->getPoints ();
 		}
+		Test::updateResult($test->getID(), $points);
 		
 		$_SESSION ['ResultString'] = $points . ' / ' . $testTemplate->getMaxPoints ();
 		$_SESSION ['FinishReason'] = 'you submitted the Test';
