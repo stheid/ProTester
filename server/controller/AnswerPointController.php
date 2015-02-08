@@ -19,7 +19,7 @@ class AnswerPointController {
 			// create a empty array with 1-testtemplate->get answers
 			$emptyAnswers=array();
 			foreach (range(1, count($testTemplate->getQuestions()), 1) as $key) {
-				$emptyAnswers[$key]="";
+				$emptyAnswers[$key]=array();
 			}
 		
 			$answers = $_POST ['answer'];
@@ -34,9 +34,6 @@ class AnswerPointController {
 					// convert answer and question to arrays
 					$solutionSet = $question->getSolutionSet ();
 					$answerSet = array ();
-					if(!is_array($answer)){
-						$answer=array();
-					}
 					foreach ( $answer as $key => $value ) {
 						$answerSet [] = "" . $key;
 					}
