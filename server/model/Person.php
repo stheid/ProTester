@@ -57,7 +57,7 @@ class Person {
 					$_SESSION ['loginError'] = "Username or Password wrong.";
 				} else {
 					$row = $result->fetch_array ( MYSQLI_ASSOC );
-					$_SESSION ['id'] = $row ['id'];
+					$_SESSION ['ID'] = $row ['id'];
 					$_SESSION ['username'] = $row ['name'];
 					if (strpos ( $row ['discriminator'], "Student" ) !== false) {
 						$_SESSION ['isStudent'] = true;

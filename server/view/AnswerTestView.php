@@ -12,7 +12,7 @@ class AnswerTestView extends View {
 		parent::footer ();
 	}
 	protected function content($test) {
-		$person = new Person ( $_SESSION ['id']);
+		$person = new Person ( $_SESSION ['ID']);
 		if ($test->answerableFor ( $person )) {
 			// timerbar
 			$questions = $test->getQuestions ();
@@ -110,7 +110,8 @@ class AnswerTestView extends View {
 session_start ();
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/TestTemplate.php');
 if (isset ( $_GET ['TestTemplateID'] )) {
-	new AnswerTestView ( new TestTemplate ( $_GET ['TestTemplateID'] ) );
+	$_SESSION['TestTemplateID']=$_GET ['TestTemplateID'];
+	new AnswerTestView ( new TestTemplate ( $_SESSION ['TestTemplateID'] ) );
 } else {
 	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 }

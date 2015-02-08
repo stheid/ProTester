@@ -29,7 +29,7 @@ class LoginView extends View {
 	}
 }
 session_start();
-if (isset ( $_SESSION ['id'] )) {
+if (isset ( $_SESSION ['ID'] )) {
 	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 } else {
 	new LoginView ();

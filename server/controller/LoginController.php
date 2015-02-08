@@ -6,8 +6,10 @@ class LoginController extends Controller {
 		parent::includes ();
 		include_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
 				
-		if (isset ( $_SESSION ['id'] )) {
-			$person=new Person($_SESSION['id']);
+		if (isset ( $_SESSION ['ID'] )) {
+			unset($_SESSION ['TestID'] );
+			unset($_SESSION ['TestTemplateID'] );
+			$person=new Person($_SESSION['ID']);
 			if ($person->hasTestsToday ()) {
 				$target = PATH . "server/view/TestRunnerView.php";
 			} else {
@@ -16,7 +18,7 @@ class LoginController extends Controller {
 		} else {
 			// Select queries return a resultset
 			if (Person::hasPermission ( $_POST ["usr"], $_POST ["pwd"])) {
-				$person=new Person($_SESSION['id']);
+				$person=new Person($_SESSION['ID']);
 				if ($person->hasTestsToday  ()) {
 					$target = PATH . "server/view/TestRunnerView.php";
 				} else {

@@ -5,7 +5,7 @@
 		<div class="navbar-header navbar-right">
 			<ul class="nav navbar-nav">
 				<?php				
-				if( isset($_SESSION['id'])){
+				if( isset($_SESSION['ID'])){
 					echo '<li><a href="'.PATH.'server/controller/LoginController.php"> '.$_SESSION['username'].'<span class="glyphicon glyphicon-user"
 						aria-hidden="true"></span></a></li>';
 					

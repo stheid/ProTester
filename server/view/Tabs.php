@@ -15,7 +15,7 @@ class NewsTab extends Tab {
 }
 class ViewResultTab extends Tab {
 	function __construct() {
-		$person=new Person($_SESSION ['id'] );
+		$person=new Person($_SESSION ['ID'] );
 		$tests = $person->getWrittenTests ();
 		
 		$this->content = "";
@@ -58,7 +58,6 @@ class EvaluateTestTab extends Tab {
 		 * print testtemplate->getcourse()->name as strong paragraph//enum name
 		 * list element for this testtemplate
 		 */
-		$person = new Person( $_SESSION ['id']);
 		$testTemplates = $person->getCreatedTestTemplates ();
 		
 		$this->content = "";

@@ -7,7 +7,7 @@ class TestRunnerView extends View {
 		require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
 	}
 	protected function content() {
-		$person = new Person ( $_SESSION ['id'] );
+		$person = new Person ( $_SESSION ['ID'] );
 		$testTempls = $person->getScheduledTests ();
 		
 		$todayTests = array ();

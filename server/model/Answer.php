@@ -10,8 +10,8 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/Test.php');
  */
 class Answer {
 	private $_answerID;
-	private $_testID;
-	private $_questionID;
+	private $_test;
+	private $_question;
 	private $_answer;
 	private $_points;
 	public function __construct($id) {
@@ -20,8 +20,8 @@ class Answer {
 			$row = $result->fetch_array ( MYSQLI_ASSOC );
 			
 			$this->_answerID = $row ['AnswerID'];
-			$this->_testID = new Test ( $row ['TestID'] );
-			$this->_questionID = new Question ( $row ['QuestionID'] );
+			$this->_test = new Test ( $row ['TestID'] );
+			$this->_question = new Question ( $row ['QuestionID'] );
 			$this->_answer = $row ['Answer'];
 			$this->_points = $row ['Points'];
 			
@@ -35,7 +35,7 @@ class Answer {
 	
 	//
 	public function getQuestion() {
-		return $this->_questionID;
+		return $this->_question;
 	}
 	/*
 	 * public static function getAnswer($id) {

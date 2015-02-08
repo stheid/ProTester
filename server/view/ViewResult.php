@@ -10,7 +10,7 @@ class ResultView extends View {
 		parent::footer ();
 	}
 	public function content($test) {
-		$person= new Person($_SESSION ['id'] );
+		$person= new Person($_SESSION ['ID'] );
 		if ($test->ownedBy ( $person)) {
 			//TODO implement html generation
 			echo $test->getResult ();
@@ -174,7 +174,8 @@ class ResultView extends View {
 }
 session_start();
 if (isset ( $_GET ['TestID'] )) {
-	new ResultView ( new Test ( $_GET ['TestID'] ) );
+	$_SESSION['TestID']=$_GET ['TestID'];
+	new ResultView ( new Test ( $_SESSION['TestID'] ) );
 } else {
 	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 }
