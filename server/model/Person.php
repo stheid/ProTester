@@ -43,7 +43,8 @@ class Person {
 		$this->_name = $row ['Name'];
 		$this->_surname = $row ['Surname'];
 		
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 	}
 	public static function hasPermission($user, $password) {
 		$mysqli = DBController::getConnection ();
@@ -73,7 +74,8 @@ class Person {
 				}
 				
 				// free result set
-				$result->close ();
+				$result->free ();
+				$mysqli->close ();
 			} else {
 				$_SESSION ['loginError'] = "Error with Database :/";
 			}
@@ -84,10 +86,10 @@ class Person {
 	
 	//
 	public function hasUnansweredTestsToday() {
-		$testTemplates=$this->getScheduledTests();
+		$testTemplates = $this->getScheduledTests ();
 		$exitcode = false;
-		foreach ($testTemplates as $testTemplate){
-			if ($testTemplate->isAnsweredFrom($person) && (strtotime($testTemplate->getDate ())==strtotime(date ( "Y-m-d" ) ))){
+		foreach ( $testTemplates as $testTemplate ) {
+			if ($testTemplate->isAnsweredFrom ( $person ) && (strtotime ( $testTemplate->getDate () ) == strtotime ( date ( "Y-m-d" ) ))) {
 				$exitcode = true;
 			}
 		}
@@ -109,7 +111,8 @@ class Person {
 			array_push ( $tests, new Test ( $row ['TestID'] ) );
 		}
 		// return this array of objects
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		return $tests;
 	}
@@ -123,8 +126,7 @@ class Person {
 			$testTemplates = array_merge ( $testTemplates, $course->getTestTemplates () );
 		}
 		
-
-		usort($testTemplates, 'TestTemplate::isLater');
+		usort ( $testTemplates, 'TestTemplate::isLater' );
 		// return this array of objects
 		return $testTemplates;
 	}
@@ -132,13 +134,13 @@ class Person {
 	//
 	public function getScheduledTests() {
 		$teachingCourses = $this->getHearingCourses ();
-	
+		
 		$testTemplates = array ();
 		foreach ( $teachingCourses as $course ) {
 			$testTemplates = array_merge ( $testTemplates, $course->getTestTemplates () );
 		}
 		
-		usort($testTemplates, 'TestTemplate::isLater');
+		usort ( $testTemplates, 'TestTemplate::isLater' );
 		// return this array of objects
 		return $testTemplates;
 	}
@@ -154,7 +156,8 @@ class Person {
 			array_push ( $courses, new Course ( $row ['CourseID'], $row ['GroupID'] ) );
 		}
 		// return this array of objects
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		return $courses;
 	}
@@ -170,19 +173,20 @@ class Person {
 			array_push ( $courses, new Course ( $row ['CourseID'], $row ['GroupID'] ) );
 		}
 		// return this array of objects
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		return $courses;
 	}
 	
 	//
-	public function getID(){
+	public function getID() {
 		return $this->_personID;
 	}
 	
 	//
 	public function equals($person) {
-		return $this->_personID == $person->getID();
+		return $this->_personID == $person->getID ();
 	}
 }
 ?>

@@ -55,7 +55,7 @@ class TestTemplate {
 		$this->_duration = $row ['Duration'];
 		$this->_date = $row ['Date'];
 		
-		$result->free();
+		$result->free ();
 		$mysqli->next_result ();
 		
 		$result = $mysqli->store_result ();
@@ -63,7 +63,7 @@ class TestTemplate {
 			array_push ( $questions, Question::getQuestion ( $row ['QuestionID'] ) );
 		}
 		
-		$result->free();
+		$result->free ();
 		$mysqli->next_result ();
 		
 		$result = $mysqli->store_result ();
@@ -71,7 +71,7 @@ class TestTemplate {
 			array_push ( $tests, Question::getQuestion ( $row ['TestID'] ) );
 		}
 		
-		$result->free();
+		$result->free ();
 		$mysqli->close ();
 	}
 	
@@ -120,7 +120,8 @@ class TestTemplate {
 		
 		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%M %Y") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID . '"' );
 		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		return $row;
 	}
 	
@@ -130,7 +131,8 @@ class TestTemplate {
 		
 		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%D %b") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID . '"' );
 		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		return $row;
 	}

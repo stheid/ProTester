@@ -48,14 +48,15 @@ class Test {
 		$this->_result = $row ['Result'];
 		$this->_grade = $row ['Grade'];
 		
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 	}
-
+	
 	//
 	public function getTestTemplate() {
 		return $this->testTemplate;
 	}
-
+	
 	//
 	public function getResult() {
 		return $this->_result;
@@ -67,11 +68,11 @@ class Test {
 	}
 	
 	//
-	public static function upload($testTemplate, $person, $grade=NULL, $result=NULL) {
+	public static function upload($testTemplate, $person, $grade = NULL, $result = NULL) {
 		$mysqli = DBController::getConnection ();
 		
-		$str='INSERT INTO Test (TestTemplateID, PersonID, Grade, Result)
-				VALUES (' . $testTemplate . ',' . $person . ',' . (isset ( $grade ) ? $grade:"NULL" ). ',' . (isset ( $result ) ?$result: "NULL") . ');';
+		$str = 'INSERT INTO Test (TestTemplateID, PersonID, Grade, Result)
+				VALUES (' . $testTemplate . ',' . $person . ',' . (isset ( $grade ) ? $grade : "NULL") . ',' . (isset ( $result ) ? $result : "NULL") . ');';
 		if ($result = $mysqli->query ( $str )) {
 			return $mysqli->insert_id;
 		} else {

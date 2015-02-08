@@ -54,7 +54,8 @@ class Course {
 		$this->_syllabus = $row ['Syllabus'];
 		$this->_schedule = $row ['Schedule'];
 		
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 	}
 	public function getName() {
 		return $this->_name;
@@ -62,58 +63,56 @@ class Course {
 	public function equalsCourse($courseID) {
 		return $this->_courseID == $courseID;
 	}
-	public function equals($courseID,$groupID) {
+	public function equals($courseID, $groupID) {
 		return ($this->_courseID == $courseID && $this->_groupID == $groupID);
 	}
-
-	public function getCourseID(){
+	public function getCourseID() {
 		return $this->_courseID;
 	}
-	public function getGroupID(){
+	public function getGroupID() {
 		return $this->_groupID;
 	}
-
-	public function getGroupName(){
-		$groupTypeNumber=$this->_groupID >> 3;
-		$groupNumber=$this->_groupID % 8 + 1;
+	public function getGroupName() {
+		$groupTypeNumber = $this->_groupID >> 3;
+		$groupNumber = $this->_groupID % 8 + 1;
 		
-		$groupName="";
+		$groupName = "";
 		
 		switch ($groupTypeNumber) {
-			case 0:
+			case 0 :
 				$groupName = "Lecture ";
 				break;
-			case 1:
+			case 1 :
 				$groupName = "Project ";
 				break;
-			case 2:
+			case 2 :
 				$groupName = "Lab ";
 				break;
-			case 0:
+			case 0 :
 				$groupName = "Seminar ";
 				break;
-			case 1:
+			case 1 :
 				$groupName = "Class ";
 				break;
-			default:
+			default :
 				$groupName = "unknown Groupname";
 				break;
 		}
 		
-		return $groupName.$groupNumber;
+		return $groupName . $groupNumber;
 	}
-	
-	public function getTestTemplates(){
+	public function getTestTemplates() {
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT TestTemplateID FROM TestTemplate Where CourseID="'.$this->_courseID.'" AND GroupID="'.$this->_groupID.'" ORDER BY date');
+		$result = $mysqli->query ( 'SELECT TestTemplateID FROM TestTemplate Where CourseID="' . $this->_courseID . '" AND GroupID="' . $this->_groupID . '" ORDER BY date' );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$testTemplates = array ();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
 			array_push ( $testTemplates, new TestTemplate ( $row ['TestTemplateID'] ) );
 		}
 		// return this array of objects
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		return $testTemplates;
 	}

@@ -29,7 +29,8 @@ class Question {
 		$this->_text = $row ['Text'];
 		$this->_maxPoints = $row ['Max points'];
 		
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 	}
 	
 	//
@@ -60,7 +61,8 @@ class Question {
 				break;
 		}
 		
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		return $question;
 	}
@@ -81,7 +83,8 @@ class ClosedQuestion extends Question {
 		$mysqli = DBController::getConnection ();
 		$result = $mysqli->query ( "SELECT AnswerSet, SolutionSet FROM Question WHERE QuestionID=" . $id );
 		$row = $result->fetch_array ( MYSQLI_ASSOC );
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		$this->_answerSet = explode ( ";;;", $row ['AnswerSet'] );
 		$this->_solutionSet = explode ( ";;;", $row ['SolutionSet'] );
@@ -108,7 +111,8 @@ class GapQuestion extends Question {
 		$mysqli = DBController::getConnection ();
 		$result = $mysqli->query ( "SELECT Solution FROM Question WHERE QuestionID=" . $id );
 		$row = $result->fetch_array ( MYSQLI_ASSOC );
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		$this->_solution = $row ['Solution'];
 	}
@@ -128,7 +132,8 @@ class OpenQuestion extends Question {
 		$mysqli = DBController::getConnection ();
 		$result = $mysqli->query ( "SELECT Solution FROM Question WHERE QuestionID=" . $id );
 		$row = $result->fetch_array ( MYSQLI_ASSOC );
-		$result->close ();
+		$result->free ();
+		$mysqli->close ();
 		
 		$this->_solution = $row ['Solution'];
 	}
