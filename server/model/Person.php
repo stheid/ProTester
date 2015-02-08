@@ -36,17 +36,20 @@ class Person {
 	public $_courses = array ();
 	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
-		$result = $mysqli->query ( "SELECT * FROM Person WHERE PersonID=" . $id );
-		$row = $result->fetch_array ( MYSQLI_ASSOC );
-		
-		$this->_personID = $row ['PersonID'];
-		$this->_name = $row ['Name'];
-		$this->_surname = $row ['Surname'];
-		
-		$result->free ();
+		if ($result = $mysqli->query ( 'SELECT * FROM Person WHERE PersonID="' . $id . '"' )) {
+			$row = $result->fetch_array ( MYSQLI_ASSOC );
+			
+			$this->_personID = $row ['PersonID'];
+			$this->_name = $row ['Name'];
+			$this->_surname = $row ['Surname'];
+			
+			$result->free ();
+		} else {
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
+		}
 		$mysqli->close ();
 	}
-
+	
 	//
 	public static function hasPermission($user, $password) {
 		$mysqli = DBController::getConnection ();
@@ -91,7 +94,7 @@ class Person {
 		$testTemplates = $this->getScheduledTests ();
 		$exitcode = false;
 		foreach ( $testTemplates as $testTemplate ) {
-			if (!$testTemplate->isAnsweredFrom ( $this ) && (strtotime ( $testTemplate->getDate () ) == strtotime ( date ( "Y-m-d" ) ))) {
+			if (! $testTemplate->isAnsweredFrom ( $this ) && (strtotime ( $testTemplate->getDate () ) == strtotime ( date ( "Y-m-d" ) ))) {
 				$exitcode = true;
 			}
 		}

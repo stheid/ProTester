@@ -21,16 +21,20 @@ class Test {
 	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( "SELECT * FROM Test WHERE TestID=" . $id );
-		$row = $result->fetch_array ( MYSQLI_ASSOC );
+		if ($result = $mysqli->query ( 'SELECT * FROM Test WHERE TestID="' . $id . '"' )) {
+			$row = $result->fetch_array ( MYSQLI_ASSOC );
+			
+			$this->_iD = $row ['TestID'];
+			$this->testTemplate = new TestTemplate ( $row ['TestTemplateID'] );
+			$this->person = new Person ( $row ['PersonID'] );
+			$this->_result = $row ['Result'];
+			$this->_grade = $row ['Grade'];
+			
+			$result->free ();
+		} else {
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
+		}
 		
-		$this->_iD = $row ['TestID'];
-		$this->testTemplate = new TestTemplate ( $row ['TestTemplateID'] );
-		$this->person = new Person ( $row ['PersonID'] );
-		$this->_result = $row ['Result'];
-		$this->_grade = $row ['Grade'];
-		
-		$result->free ();
 		$mysqli->close ();
 	}
 	
@@ -53,9 +57,9 @@ class Test {
 	public static function upload($testTemplate, $person, $grade = NULL, $result = NULL) {
 		$mysqli = DBController::getConnection ();
 		
-		$str = 'INSERT INTO Test (TestTemplateID, PersonID, Grade, Result)
+		$query = 'INSERT INTO Test (TestTemplateID, PersonID, Grade, Result)
 				VALUES (' . $testTemplate . ',' . $person . ',' . (isset ( $grade ) ? $grade : "NULL") . ',' . (isset ( $result ) ? $result : "NULL") . ');';
-		if ($result = $mysqli->query ( $str )) {
+		if ($result = $mysqli->query ( $query )) {
 			return $mysqli->insert_id;
 		} else {
 			// insert failed

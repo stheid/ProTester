@@ -44,15 +44,15 @@ class TestTemplate {
 		$mysqli = DBController::getConnection ();
 		
 		$query = 'SELECT * FROM TestTemplate WHERE TestTemplateID="' . $id . '";';
-		$result = $mysqli->query ( $query );
-		
-		if ($row = $result->fetch_array ( MYSQLI_ASSOC )) {
+		if ($result = $mysqli->query ( $query )) {
+			
+			$row = $result->fetch_array ( MYSQLI_ASSOC );
 			$this->_testTemplateID = $row ['TestTemplateID'];
 			$this->_course = new Course ( $row ['CourseID'], $row ['GroupID'] );
 			$this->_duration = $row ['Duration'];
 			$this->_date = $row ['Date'];
 		} else {
-			echo "<script>console.log(\"Testtemplate constructor failed DB answer\")</script>";
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
 		}
 		
 		$result->free ();
@@ -64,14 +64,14 @@ class TestTemplate {
 		$mysqli = DBController::getConnection ();
 		$query = 'SELECT QuestionID FROM Question	WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY QuestionID';
 		
-		$questions = array();
+		$questions = array ();
 		if ($result = $mysqli->query ( $query )) {
 			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
 				array_push ( $questions, Question::getQuestion ( $row ['QuestionID'] ) );
 			}
 			$result->free ();
 		} else {
-			echo "<script>console.log(\"".__CLASS__."->".__METHOD__." failed DB response\")</script>";
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
 		}
 		$mysqli->close ();
 		
@@ -83,14 +83,14 @@ class TestTemplate {
 		$mysqli = DBController::getConnection ();
 		$query = 'SELECT TestID FROM Test WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY TestID';
 		
-		$tests = array();
+		$tests = array ();
 		if ($result = $mysqli->query ( $query )) {
 			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
 				array_push ( $tests, new Test ( $row ['TestID'] ) );
 			}
 			$result->free ();
 		} else {
-			echo "<script>console.log(\"".__CLASS__."->".__METHOD__." failed DB response\")</script>";
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
 		}
 		$mysqli->close ();
 		
@@ -100,7 +100,7 @@ class TestTemplate {
 	//
 	public function isAnsweredFrom($person) {
 		$exitcode = false;
-		foreach ( $this->getTests() as $test ) {
+		foreach ( $this->getTests () as $test ) {
 			if ($test->ownedBy ( $person )) {
 				$exitcode = true;
 			}
