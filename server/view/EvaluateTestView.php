@@ -2,11 +2,25 @@
 include_once 'View.php';
 class EvaluateTestView extends View {
 	protected $title = 'Evaluate Tests';
-	protected function includes() {
+	
+	public function __construct($test) {
 		parent::includes ();
-		// include '../controller/TestManager.php';
+		parent::header ();
+		$this->content ( $test );
+		parent::footer ();
 	}
 	protected function content() {
+		// if test is evaluated
+		//     put name of the test owner
+		
+		// display test questions, 
+		// answers and evaluationcriteria
+		
+		// print sidebar
+		
+		
+		
+		
 		echo '<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">

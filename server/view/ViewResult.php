@@ -10,172 +10,106 @@ class ResultView extends View {
 		parent::footer ();
 	}
 	public function content($test) {
-		$person= new Person($_SESSION ['ID'] );
-		if ($test->ownedBy ( $person)) {
-			//TODO implement html generation
-			echo $test->getResult ();
-			echo "<h1>You have no Permission to see this results, please login again</h1>";
+		$person = new Person ( $_SESSION ['ID'] );
+		if ($test->ownedBy ( $person )) {
+			// timerbar
+			$questions = $test->getTestTemplate ()->getQuestions ();
+			echo '<div class="container">
+						<div class="row">
+						<div class="col-md-9 col-xs-8">
+						<div class="panel-group">';
+			$i = 0;
+			foreach ( $questions as $question ) {
+				if ($i ++ % 5 == 0 && $i != 1) {
+					echo '</div>				
+					<div class="panel-group">';
+				}
+				
+				echo '<div class="panel panel-default">
+				<a class="panel-default" data-toggle="collapse"
+						href="#collapse' . $i . '">
+								<div class="panel-heading">
+								<h4 class="panel-title">' . $question->getText () . '</h4>
+								</div>
+								</a>
+								<div id="collapse' . $i . '" class="panel-collapse collapse">
+								<div class="panel-body">';
+				if ($question instanceof ClosedQuestion) {
+					echo '<ul class="input-list">';
+					
+					$j = 1;
+						// create 2 equal lengthed arrays of solutions and answer
+					$dbAnswerSet = explode ( ";;;", $test->getAnswer ( $question->getID () )->getAnswer () );
+					$studentAnswerSet = array ();
+					foreach ( range ( 0, count ( $question->getAnswerSet()) - 1, 1 ) as $key ) {
+						$studentAnswerSet [$key] = "";
+					}
+					
+					foreach ( $dbAnswerSet as $key => $value ) {
+						$studentAnswerSet [$value - 1] = $value;
+					}
+					
+					$dbAnswerSet = $question->getSolutionSet();
+					$teacherAnswerSet = array ();
+					foreach ( range ( 0, count ($question->getAnswerSet() ) - 1, 1 ) as $key ) {
+						$teacherAnswerSet [$key] = "";
+					}
+					
+					foreach ( $dbAnswerSet as $key => $value ) {
+						$teacherAnswerSet [$value - 1] = $value;
+					}
+					
+					foreach ( $question->getAnswerSet () as $answer ) {
+						echo '<li class="';
+
+						// solution is picked, but wrong
+						if ($teacherAnswerSet[$j - 1] == $studentAnswerSet [$j - 1]) {
+							echo "bg-success";
+						} elseif ($teacherAnswerSet[$j - 1]== $j && $studentAnswerSet [$j - 1] == "") {
+							echo "bg-warning";
+						} else {
+							echo "bg-danger";
+						}
+						echo '"><label><input type="checkbox" ';
+						echo $studentAnswerSet [$j - 1] == $j ? "checked" : "";
+						echo ' disabled> ' . $answer . '<label></li>';
+						$j ++;
+					}
+					echo '</ul>';
+				} elseif ($question instanceof GapQuestion) {
+					echo '<input type="input" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
+				} else {
+					echo '<textarea style="width: 100%" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
+				}
+				echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
+				echo '</div></div></div>';
+			}
+			
+			echo '</div></div>';
+			$this->printSidebar ();
 		} else {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
 	
-	// static protected function content() {
-	// echo '<div class="container">
-	// <div class="row">
-	// <div class="col-md-9 col-xs-8">
-	// <div class="panel-group">
-	// <div class="panel panel-success">
-	// <a class="panel-success" data-toggle="collapse"
-	// data-parent="#accordion1" href="#collapseOne">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Open Question 1<span class="glyphicon glyphicon-ok"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapseOne" class="panel-collapse collapse">
-	// <div class="panel-body">
-	// <textarea class="bg-success" style="width: 100%" disabled>My open Answer</textarea>
-	// <span style="float: right;">3/3</span>
-	// </div>
-	// </div>
-	// </div>
-	// <div class="panel panel-danger">
-	// <a class="panel-danger" data-toggle="collapse"
-	// data-parent="#accordion1" href="#collapse2">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Closed Question 2<span class="glyphicon glyphicon-remove"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse2" class="panel-collapse collapse">
-	// <div class="panel-body">
-	// <ul class="input-list">
-	// <li class="bg-danger disabled"><label><input
-	// type="checkbox" id="chk1" name="chk1" disabled checked>
-	// Answer 1<label></li>
-	// <li class="bg-success disabled"><label><input
-	// type="checkbox" id="chk2" name="chk2" disabled>
-	// Answer 2</label></li>
-	// </ul>
-	// </div>
-	// </div>
-	// </div>
-	// <div class="panel panel-danger">
-	// <a class="panel-danger" data-toggle="collapse"
-	// data-parent="#accordion1" href="#collapse3">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Question 3<span class="glyphicon glyphicon-remove"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse3" class="panel-collapse collapse">
-	// <div class="panel-body">bla</div>
-	// </div>
-	// </div>
-	// <div class="panel panel-warning">
-	// <a class="panel-warning" data-toggle="collapse"
-	// data-parent="#accordion1" href="#collapse4">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Question 4<span class="glyphicon glyphicon-minus"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse4" class="panel-collapse collapse">
-	// <div class="panel-body">
-	// <textarea class="bg-warning" style="width: 100%" disabled>My open Answer</textarea>
-	// <span style="float: right;">4/5</span>
-	// </div>
-	// </div>
-	// </div>
-	// </div>
-	
-	// <div class="panel-group">
-	// <div class="panel panel-success">
-	// <a class="panel-success" data-toggle="collapse"
-	// data-parent="#accordion2" href="#collapse5">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Question 5<span class="glyphicon glyphicon-ok"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse5" class="panel-collapse collapse">
-	// <div class="panel-body">Content</div>
-	// </div>
-	// </div>
-	// <div class="panel panel-success">
-	// <a class="panel-success" data-toggle="collapse"
-	// data-parent="#accordion2" href="#collapse6">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Question 6<span class="glyphicon glyphicon-ok"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse6" class="panel-collapse collapse">
-	// <div class="panel-body">Content</div>
-	// </div>
-	// </div>
-	// <div class="panel panel-danger">
-	// <a class="panel-danger" data-toggle="collapse"
-	// data-parent="#accordion2" href="#collapse7">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Question 7<span class="glyphicon glyphicon-remove"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse7" class="panel-collapse collapse">
-	// <div class="panel-body">Content</div>
-	// </div>
-	// </div>
-	// <div class="panel panel-success">
-	// <a class="panel-success" data-toggle="collapse"
-	// data-parent="#accordion2" href="#collapse8">
-	// <div class="panel-heading">
-	// <h4 class="panel-title">
-	// Another question<span class="glyphicon glyphicon-ok"
-	// style="float: right;" aria-hidden="true"></span>
-	// </h4>
-	// </div>
-	// </a>
-	// <div id="collapse8" class="panel-collapse collapse">
-	// <div class="panel-body">Content</div>
-	// </div>
-	// </div>
-	// </div>
-	// </div>
-	// <div class="col-md-3 col-xs-4" style="height: 300px;">
-	// <div style="position: fixed;">
-	// <div>list of all questions</div>
-	// </div>
-	// <div style="position: absolute; bottom: 0; width: 262px;">
-	// <div style="position: fixed;">
-	// <strong style="width: 200px; display: block">Result:
-	// 30/50</strong> <a href="main.html" class="btn btn-default">Back to
-	// Homepage</a>
-	// </div>
-	// </div>
-	// </div>
-	// </div>';
-	// }
+	//
+	public function printSidebar() {
+		echo '<div class="col-md-3 col-xs-4" style="height: 300px;">
+		<div style="position: fixed;">
+		<div>list of all questions</div>
+		</div>
+		<div style="position: absolute; bottom: 0; left: 0; width: 82px;">
+		<a class="btn btn-primary" href="' . PATH . 'server/controller/LoginController.php">Back to Homepage</a>
+						</div>
+						</div>
+						</div>
+						</div>';
+	}
 }
-session_start();
+session_start ();
 if (isset ( $_GET ['TestID'] )) {
-	$_SESSION['TestID']=$_GET ['TestID'];
-	new ResultView ( new Test ( $_SESSION['TestID'] ) );
+	$_SESSION ['TestID'] = $_GET ['TestID'];
+	new ResultView ( new Test ( $_SESSION ['TestID'] ) );
 } else {
 	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 }

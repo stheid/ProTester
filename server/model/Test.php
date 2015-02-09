@@ -2,7 +2,7 @@
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/DBController.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/TestTemplate.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Person.php');
-// require_once(realpath(dirname(__FILE__)) . '/Answer.php');
+require_once(realpath(dirname(__FILE__)) . '/Answer.php');
 
 /**
  *
@@ -101,9 +101,26 @@ class Test {
 				WHERE TestID="' . $this->_iD . '" ORDER BY QuestionID' )) {
 			$answers = array ();
 			while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
-				array_push ( $answers, new Answer ( $row ['AnswerID'] ));
+				array_push ( $answers, new Answer ( $row ['AnswerID'] ) );
 			}
 			return $answers;
+		} else {
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
+		}
+	}
+	
+	//
+	public function getAnswer($questionID) {
+		$mysqli = DBController::getConnection ();
+		
+		if ($result = $mysqli->query ( 'SELECT AnswerID FROM Answer
+				WHERE QuestionID="' . $questionID . '" AND TestID="'.$this->_iD.'"' )) {
+			$answer;
+			if ($row = $result->fetch_array ( MYSQLI_ASSOC )) {
+				$answer = new Answer ( $row ['AnswerID'] );
+			} else {
+			}
+			return $answer;
 		} else {
 			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
 		}
