@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<metrics generated="2015-02-09T12:17:35" pdepend="@package_version@" ahh="0.36363636363636" andc="0.63333333333333" calls="230" ccn="180" ccn2="185" cloc="384" clsa="0" clsc="30" eloc="1323" fanout="43" leafs="26" lloc="725" loc="1875" maxDIT="1" ncloc="1491" noc="30" nof="0" noi="0" nom="86" nop="3" roots="4">
+<metrics generated="2015-02-09T22:44:10" pdepend="@package_version@" ahh="0.36363636363636" andc="0.63333333333333" calls="263" ccn="197" ccn2="205" cloc="243" clsa="0" clsc="30" eloc="1423" fanout="45" leafs="26" lloc="782" loc="1841" maxDIT="1" ncloc="1598" noc="30" nof="0" noi="0" nom="90" nop="3" roots="4">
   <files>
     <file name="/home/gamer01/workspace/ProTester/server/controller/Controller.php" cloc="0" eloc="7" lloc="3" loc="8" ncloc="8"/>
     <file name="/home/gamer01/workspace/ProTester/server/controller/DBController.php" cloc="1" eloc="14" lloc="8" loc="19" ncloc="18"/>
@@ -7,23 +7,23 @@
     <file name="/home/gamer01/workspace/ProTester/server/controller/LogoutController.php" cloc="0" eloc="11" lloc="6" loc="13" ncloc="13"/>
     <file name="/home/gamer01/workspace/ProTester/server/view/AfterTestView.php" cloc="0" eloc="23" lloc="13" loc="27" ncloc="27"/>
     <file name="/home/gamer01/workspace/ProTester/server/view/AnswerTestView.php" cloc="1" eloc="121" lloc="45" loc="126" ncloc="125"/>
-    <file name="/home/gamer01/workspace/ProTester/server/view/EvaluateTestView.php" cloc="1" eloc="193" lloc="7" loc="195" ncloc="194"/>
+    <file name="/home/gamer01/workspace/ProTester/server/view/EvaluateTestView.php" cloc="5" eloc="196" lloc="10" loc="206" ncloc="201"/>
     <file name="/home/gamer01/workspace/ProTester/server/view/LoginView.php" cloc="0" eloc="37" lloc="14" loc="37" ncloc="37"/>
     <file name="/home/gamer01/workspace/ProTester/server/view/MainView.php" cloc="0" eloc="52" lloc="30" loc="64" ncloc="64"/>
-    <file name="/home/gamer01/workspace/ProTester/server/view/Tabs.php" cloc="6" eloc="95" lloc="67" loc="104" ncloc="98"/>
+    <file name="/home/gamer01/workspace/ProTester/server/view/Tabs.php" cloc="6" eloc="97" lloc="67" loc="107" ncloc="101"/>
     <file name="/home/gamer01/workspace/ProTester/server/view/TestRunnerView.php" cloc="0" eloc="42" lloc="25" loc="46" ncloc="46"/>
-    <file name="/home/gamer01/workspace/ProTester/server/view/View.php" cloc="0" eloc="41" lloc="15" loc="48" ncloc="48"/>
-    <file name="/home/gamer01/workspace/ProTester/server/view/ViewResult.php" cloc="151" eloc="29" lloc="19" loc="182" ncloc="31"/>
-    <file name="/home/gamer01/workspace/ProTester/server/controller/AnswerPointController.php" cloc="19" eloc="62" lloc="43" loc="92" ncloc="73"/>
-    <file name="/home/gamer01/workspace/ProTester/server/controller/CourseManager.php" cloc="14" eloc="9" lloc="5" loc="24" ncloc="10"/>
+    <file name="/home/gamer01/workspace/ProTester/server/view/View.php" cloc="1" eloc="42" lloc="14" loc="44" ncloc="43"/>
+    <file name="/home/gamer01/workspace/ProTester/server/view/ViewResult.php" cloc="5" eloc="108" lloc="66" loc="122" ncloc="117"/>
+    <file name="/home/gamer01/workspace/ProTester/server/controller/AnswerPointController.php" cloc="19" eloc="62" lloc="42" loc="91" ncloc="72"/>
+    <file name="/home/gamer01/workspace/ProTester/server/controller/CourseController.php" cloc="14" eloc="9" lloc="5" loc="24" ncloc="10"/>
     <file name="/home/gamer01/workspace/ProTester/server/model/Answer.php" cloc="11" eloc="46" lloc="32" loc="66" ncloc="55"/>
     <file name="/home/gamer01/workspace/ProTester/server/model/Course.php" cloc="33" eloc="78" lloc="64" loc="120" ncloc="87"/>
     <file name="/home/gamer01/workspace/ProTester/server/model/Person.php" cloc="45" eloc="123" lloc="91" loc="195" ncloc="150"/>
     <file name="/home/gamer01/workspace/ProTester/server/model/Question.php" cloc="42" eloc="106" lloc="79" loc="171" ncloc="129"/>
-    <file name="/home/gamer01/workspace/ProTester/server/model/Test.php" cloc="20" eloc="84" lloc="57" loc="122" ncloc="102"/>
+    <file name="/home/gamer01/workspace/ProTester/server/model/Test.php" cloc="20" eloc="99" lloc="66" loc="139" ncloc="119"/>
     <file name="/home/gamer01/workspace/ProTester/server/model/TestTemplate.php" cloc="39" eloc="117" lloc="82" loc="179" ncloc="140"/>
   </files>
-  <package name="+global" cr="0.15" noc="19" nof="0" noi="0" nom="27" rcr="0.15">
+  <package name="+global" cr="0.15" noc="19" nof="0" noi="0" nom="29" rcr="0.15">
     <class name="Controller" ca="0" cbo="0" ce="0" cis="0" cloc="0" cr="0.5325" csz="1" dit="0" eloc="4" impl="0" lloc="2" loc="7" ncloc="7" noam="0" nocc="3" nom="1" noom="0" npm="0" rcr="0.15" vars="0" varsi="0" varsnp="0" wmc="1" wmci="1" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/controller/Controller.php"/>
       <method name="includes" ccn="1" ccn2="1" cloc="0" eloc="4" lloc="2" loc="4" ncloc="4" npath="1"/>
@@ -40,11 +40,11 @@
       <file name="/home/gamer01/workspace/ProTester/server/controller/LogoutController.php"/>
       <method name="main" ccn="1" ccn2="1" cloc="0" eloc="5" lloc="3" loc="5" ncloc="5" npath="1"/>
     </class>
-    <class name="AfterTestView" ca="0" cbo="0" ce="0" cis="1" cloc="0" cr="0.15" csz="2" dit="1" eloc="9" impl="0" lloc="4" loc="15" ncloc="15" noam="0" nocc="0" nom="1" noom="1" npm="1" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="1" wmci="5" wmcnp="1">
+    <class name="AfterTestView" ca="0" cbo="0" ce="0" cis="1" cloc="0" cr="0.15" csz="2" dit="1" eloc="9" impl="0" lloc="4" loc="15" ncloc="15" noam="1" nocc="0" nom="1" noom="0" npm="1" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="1" wmci="5" wmcnp="1">
       <file name="/home/gamer01/workspace/ProTester/server/view/AfterTestView.php"/>
       <method name="content" ccn="1" ccn2="1" cloc="0" eloc="9" lloc="4" loc="11" ncloc="11" npath="1"/>
     </class>
-    <class name="AnswerTestView" ca="0" cbo="3" ce="3" cis="3" cloc="1" cr="0.15" csz="6" dit="1" eloc="99" impl="0" lloc="32" loc="107" ncloc="106" noam="2" nocc="0" nom="5" noom="3" npm="3" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="12" wmci="14" wmcnp="3">
+    <class name="AnswerTestView" ca="0" cbo="3" ce="3" cis="3" cloc="1" cr="0.15" csz="6" dit="1" eloc="99" impl="0" lloc="32" loc="107" ncloc="106" noam="3" nocc="0" nom="5" noom="2" npm="3" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="12" wmci="14" wmcnp="3">
       <file name="/home/gamer01/workspace/ProTester/server/view/AnswerTestView.php"/>
       <method name="includes" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
       <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="6" lloc="4" loc="6" ncloc="6" npath="1"/>
@@ -52,17 +52,17 @@
       <method name="printSidebar" ccn="1" ccn2="1" cloc="0" eloc="16" lloc="1" loc="16" ncloc="16" npath="1"/>
       <method name="printModal" ccn="1" ccn2="1" cloc="0" eloc="27" lloc="1" loc="27" ncloc="27" npath="1"/>
     </class>
-    <class name="EvaluateTestView" ca="0" cbo="0" ce="0" cis="0" cloc="1" cr="0.15" csz="3" dit="1" eloc="186" impl="0" lloc="2" loc="190" ncloc="189" noam="0" nocc="0" nom="2" noom="2" npm="0" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="2" wmci="5" wmcnp="0">
+    <class name="EvaluateTestView" ca="0" cbo="0" ce="0" cis="1" cloc="5" cr="0.15" csz="3" dit="1" eloc="189" impl="0" lloc="5" loc="201" ncloc="196" noam="1" nocc="0" nom="2" noom="1" npm="1" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="2" wmci="5" wmcnp="1">
       <file name="/home/gamer01/workspace/ProTester/server/view/EvaluateTestView.php"/>
-      <method name="includes" ccn="1" ccn2="1" cloc="1" eloc="3" lloc="1" loc="4" ncloc="3" npath="1"/>
-      <method name="content" ccn="1" ccn2="1" cloc="0" eloc="183" lloc="1" loc="183" ncloc="183" npath="1"/>
+      <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="6" lloc="4" loc="6" ncloc="6" npath="1"/>
+      <method name="content" ccn="1" ccn2="1" cloc="5" eloc="183" lloc="1" loc="191" ncloc="186" npath="1"/>
     </class>
-    <class name="LoginView" ca="0" cbo="0" ce="0" cis="0" cloc="0" cr="0.15" csz="3" dit="1" eloc="25" impl="0" lloc="6" loc="28" ncloc="28" noam="0" nocc="0" nom="2" noom="2" npm="0" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="3" wmci="6" wmcnp="0">
+    <class name="LoginView" ca="0" cbo="0" ce="0" cis="0" cloc="0" cr="0.15" csz="3" dit="1" eloc="25" impl="0" lloc="6" loc="28" ncloc="28" noam="1" nocc="0" nom="2" noom="1" npm="0" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="3" wmci="6" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/LoginView.php"/>
       <method name="includes" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
       <method name="content" ccn="2" ccn2="2" cloc="0" eloc="22" lloc="5" loc="22" ncloc="22" npath="2"/>
     </class>
-    <class name="MainView" ca="0" cbo="6" ce="6" cis="0" cloc="0" cr="0.15" csz="4" dit="1" eloc="44" impl="0" lloc="24" loc="59" ncloc="59" noam="0" nocc="0" nom="2" noom="2" npm="0" rcr="0.16821428571429" vars="2" varsi="2" varsnp="0" wmc="9" wmci="12" wmcnp="0">
+    <class name="MainView" ca="0" cbo="6" ce="6" cis="0" cloc="0" cr="0.15" csz="4" dit="1" eloc="44" impl="0" lloc="24" loc="59" ncloc="59" noam="1" nocc="0" nom="2" noom="1" npm="0" rcr="0.16821428571429" vars="2" varsi="2" varsnp="0" wmc="9" wmci="12" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/MainView.php"/>
       <method name="includes" ccn="1" ccn2="1" cloc="0" eloc="4" lloc="2" loc="4" ncloc="4" npath="1"/>
       <method name="content" ccn="8" ccn2="8" cloc="0" eloc="40" lloc="22" loc="48" ncloc="48" npath="288"/>
@@ -81,44 +81,47 @@
       <file name="/home/gamer01/workspace/ProTester/server/view/Tabs.php"/>
       <method name="__construct" ccn="6" ccn2="6" cloc="2" eloc="35" lloc="26" loc="38" ncloc="36" npath="10"/>
     </class>
-    <class name="TestManagementTab" ca="1" cbo="0" ce="0" cis="3" cloc="0" cr="0.15" csz="3" dit="1" eloc="0" impl="0" lloc="0" loc="5" ncloc="5" noam="0" nocc="0" nom="0" noom="0" npm="0" rcr="0.17125" vars="3" varsi="3" varsnp="3" wmc="0" wmci="0" wmcnp="0">
+    <class name="TestManagementTab" ca="1" cbo="0" ce="0" cis="3" cloc="0" cr="0.15" csz="3" dit="1" eloc="0" impl="0" lloc="0" loc="6" ncloc="6" noam="0" nocc="0" nom="0" noom="0" npm="0" rcr="0.17125" vars="3" varsi="3" varsnp="3" wmc="0" wmci="0" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/Tabs.php"/>
     </class>
     <class name="CourseManagementTab" ca="1" cbo="0" ce="0" cis="3" cloc="0" cr="0.15" csz="3" dit="1" eloc="0" impl="0" lloc="0" loc="5" ncloc="5" noam="0" nocc="0" nom="0" noom="0" npm="0" rcr="0.17125" vars="3" varsi="3" varsnp="3" wmc="0" wmci="0" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/Tabs.php"/>
     </class>
-    <class name="AccountManagementTab" ca="1" cbo="0" ce="0" cis="3" cloc="0" cr="0.15" csz="3" dit="1" eloc="0" impl="0" lloc="0" loc="5" ncloc="5" noam="0" nocc="0" nom="0" noom="0" npm="0" rcr="0.17125" vars="3" varsi="3" varsnp="3" wmc="0" wmci="0" wmcnp="0">
+    <class name="AccountManagementTab" ca="1" cbo="0" ce="0" cis="3" cloc="0" cr="0.15" csz="3" dit="1" eloc="0" impl="0" lloc="0" loc="7" ncloc="7" noam="0" nocc="0" nom="0" noom="0" npm="0" rcr="0.17125" vars="3" varsi="3" varsnp="3" wmc="0" wmci="0" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/Tabs.php"/>
     </class>
-    <class name="TestRunnerView" ca="0" cbo="1" ce="1" cis="0" cloc="0" cr="0.15" csz="3" dit="1" eloc="35" impl="0" lloc="20" loc="41" ncloc="41" noam="0" nocc="0" nom="2" noom="2" npm="0" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="8" wmci="11" wmcnp="0">
+    <class name="TestRunnerView" ca="0" cbo="1" ce="1" cis="0" cloc="0" cr="0.15" csz="3" dit="1" eloc="35" impl="0" lloc="20" loc="41" ncloc="41" noam="1" nocc="0" nom="2" noom="1" npm="0" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="9" wmci="12" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/TestRunnerView.php"/>
       <method name="includes" ccn="1" ccn2="1" cloc="0" eloc="4" lloc="2" loc="4" ncloc="4" npath="1"/>
-      <method name="content" ccn="7" ccn2="7" cloc="0" eloc="31" lloc="18" loc="34" ncloc="34" npath="24"/>
+      <method name="content" ccn="7" ccn2="8" cloc="0" eloc="31" lloc="18" loc="34" ncloc="34" npath="30"/>
     </class>
-    <class name="View" ca="0" cbo="0" ce="0" cis="1" cloc="0" cr="1.0425" csz="6" dit="0" eloc="36" impl="0" lloc="9" loc="46" ncloc="46" noam="0" nocc="7" nom="5" noom="0" npm="1" rcr="0.15" vars="1" varsi="1" varsnp="0" wmc="5" wmci="5" wmcnp="1">
+    <class name="View" ca="0" cbo="0" ce="0" cis="1" cloc="1" cr="1.0425" csz="5" dit="0" eloc="37" impl="0" lloc="9" loc="42" ncloc="41" noam="0" nocc="7" nom="4" noom="0" npm="1" rcr="0.15" vars="1" varsi="1" varsnp="0" wmc="4" wmci="4" wmcnp="1">
       <file name="/home/gamer01/workspace/ProTester/server/view/View.php"/>
       <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="6" lloc="4" loc="6" ncloc="6" npath="1"/>
       <method name="includes" ccn="1" ccn2="1" cloc="0" eloc="4" lloc="2" loc="4" ncloc="4" npath="1"/>
-      <method name="header" ccn="1" ccn2="1" cloc="0" eloc="15" lloc="2" loc="15" ncloc="15" npath="1"/>
-      <method name="content" ccn="1" ccn2="1" cloc="0" eloc="1" lloc="0" loc="1" ncloc="1" npath="1"/>
+      <method name="header" ccn="1" ccn2="1" cloc="0" eloc="17" lloc="2" loc="17" ncloc="17" npath="1"/>
       <method name="footer" ccn="1" ccn2="1" cloc="0" eloc="10" lloc="1" loc="10" ncloc="10" npath="1"/>
     </class>
-    <class name="ResultView" ca="0" cbo="1" ce="1" cis="2" cloc="151" cr="0.15" csz="3" dit="1" eloc="15" impl="0" lloc="9" loc="171" ncloc="20" noam="0" nocc="0" nom="2" noom="2" npm="2" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="3" wmci="6" wmcnp="3">
+    <class name="ResultView" ca="0" cbo="3" ce="3" cis="3" cloc="5" cr="0.15" csz="6" dit="1" eloc="94" impl="0" lloc="53" loc="111" ncloc="106" noam="4" nocc="0" nom="5" noom="1" npm="3" rcr="0.16821428571429" vars="1" varsi="1" varsnp="0" wmc="19" wmci="22" wmcnp="14">
       <file name="/home/gamer01/workspace/ProTester/server/view/ViewResult.php"/>
       <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="6" lloc="4" loc="6" ncloc="6" npath="1"/>
-      <method name="content" ccn="2" ccn2="2" cloc="1" eloc="9" lloc="5" loc="10" ncloc="9" npath="2"/>
+      <method name="content" ccn="10" ccn2="12" cloc="3" eloc="62" lloc="39" loc="71" ncloc="68" npath="71"/>
+      <method name="printSidebar" ccn="1" ccn2="1" cloc="0" eloc="10" lloc="1" loc="10" ncloc="10" npath="1"/>
+      <method name="expandValuesToArrayLength" ccn="2" ccn2="2" cloc="0" eloc="7" lloc="4" loc="8" ncloc="8" npath="2"/>
+      <method name="getColorCode" ccn="3" ccn2="3" cloc="0" eloc="9" lloc="5" loc="9" ncloc="9" npath="3"/>
     </class>
   </package>
-  <package name="Server.Controller" cr="0.15" noc="2" nof="0" noi="0" nom="1" rcr="0.15">
-    <class name="AnswerPointController" ca="0" cbo="7" ce="7" cis="1" cloc="13" cr="0.15" csz="1" dit="0" eloc="53" impl="0" lloc="37" loc="78" ncloc="65" noam="0" nocc="0" nom="1" noom="0" npm="1" rcr="0.15" vars="0" varsi="0" varsnp="0" wmc="12" wmci="12" wmcnp="12">
+  <package name="Server.Controller" cr="0.15" noc="2" nof="0" noi="0" nom="2" rcr="0.15">
+    <class name="AnswerPointController" ca="0" cbo="7" ce="7" cis="1" cloc="13" cr="0.15" csz="2" dit="0" eloc="53" impl="0" lloc="35" loc="77" ncloc="64" noam="0" nocc="0" nom="2" noom="0" npm="1" rcr="0.15" vars="0" varsi="0" varsnp="0" wmc="13" wmci="13" wmcnp="8">
       <file name="/home/gamer01/workspace/ProTester/server/controller/AnswerPointController.php"/>
-      <method name="main" ccn="11" ccn2="12" cloc="13" eloc="53" lloc="37" loc="76" ncloc="63" npath="50"/>
+      <method name="main" ccn="8" ccn2="8" cloc="4" eloc="35" lloc="24" loc="44" ncloc="40" npath="14"/>
+      <method name="uploadClosedQuestion" ccn="4" ccn2="5" cloc="8" eloc="18" lloc="11" loc="29" ncloc="21" npath="8"/>
     </class>
     <class name="CourseManager" ca="0" cbo="0" ce="0" cis="3" cloc="9" cr="0.15" csz="3" dit="0" eloc="0" impl="0" lloc="0" loc="14" ncloc="5" noam="0" nocc="0" nom="0" noom="0" npm="0" rcr="0.15" vars="3" varsi="3" varsnp="3" wmc="0" wmci="0" wmcnp="0">
-      <file name="/home/gamer01/workspace/ProTester/server/controller/CourseManager.php"/>
+      <file name="/home/gamer01/workspace/ProTester/server/controller/CourseController.php"/>
     </class>
   </package>
-  <package name="Server.Model" cr="0.15" noc="9" nof="0" noi="0" nom="58" rcr="0.15">
+  <package name="Server.Model" cr="0.15" noc="9" nof="0" noi="0" nom="59" rcr="0.15">
     <class name="Answer" ca="2" cbo="3" ce="3" cis="5" cloc="5" cr="0.15" csz="10" dit="0" eloc="35" impl="0" lloc="20" loc="55" ncloc="50" noam="0" nocc="0" nom="5" noom="0" npm="5" rcr="0.15" vars="5" varsi="5" varsnp="0" wmc="9" wmci="9" wmcnp="9">
       <file name="/home/gamer01/workspace/ProTester/server/model/Answer.php"/>
       <method name="__construct" ccn="2" ccn2="2" cloc="0" eloc="15" lloc="11" loc="17" ncloc="17" npath="2"/>
@@ -159,13 +162,13 @@
       <method name="getMaxPoints" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
       <method name="getQuestion" ccn="5" ccn2="5" cloc="0" eloc="24" lloc="19" loc="27" ncloc="27" npath="5"/>
     </class>
-    <class name="ClosedQuestion" ca="2" cbo="1" ce="1" cis="3" cloc="2" cr="0.15" csz="5" dit="1" eloc="16" impl="0" lloc="10" loc="26" ncloc="24" noam="2" nocc="0" nom="3" noom="1" npm="3" rcr="0.1925" vars="2" varsi="3" varsnp="0" wmc="3" wmci="11" wmcnp="3">
+    <class name="ClosedQuestion" ca="3" cbo="1" ce="1" cis="3" cloc="2" cr="0.15" csz="5" dit="1" eloc="16" impl="0" lloc="10" loc="26" ncloc="24" noam="2" nocc="0" nom="3" noom="1" npm="3" rcr="0.1925" vars="2" varsi="3" varsnp="0" wmc="3" wmci="11" wmcnp="3">
       <file name="/home/gamer01/workspace/ProTester/server/model/Question.php"/>
       <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="10" lloc="8" loc="12" ncloc="12" npath="1"/>
       <method name="getAnswerSet" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
       <method name="getSolutionSet" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
     </class>
-    <class name="GapQuestion" ca="2" cbo="1" ce="1" cis="2" cloc="4" cr="0.15" csz="3" dit="1" eloc="12" impl="0" lloc="8" loc="22" ncloc="18" noam="1" nocc="0" nom="2" noom="1" npm="2" rcr="0.1925" vars="1" varsi="2" varsnp="0" wmc="2" wmci="10" wmcnp="2">
+    <class name="GapQuestion" ca="3" cbo="1" ce="1" cis="2" cloc="4" cr="0.15" csz="3" dit="1" eloc="12" impl="0" lloc="8" loc="22" ncloc="18" noam="1" nocc="0" nom="2" noom="1" npm="2" rcr="0.1925" vars="1" varsi="2" varsnp="0" wmc="2" wmci="10" wmcnp="2">
       <file name="/home/gamer01/workspace/ProTester/server/model/Question.php"/>
       <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="9" lloc="7" loc="11" ncloc="11" npath="1"/>
       <method name="getSolution" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
@@ -175,7 +178,7 @@
       <method name="__construct" ccn="1" ccn2="1" cloc="0" eloc="9" lloc="7" loc="11" ncloc="11" npath="1"/>
       <method name="getSolution" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
     </class>
-    <class name="Test" ca="4" cbo="4" ce="4" cis="10" cloc="13" cr="0.15" csz="16" dit="0" eloc="71" impl="0" lloc="38" loc="109" ncloc="96" noam="0" nocc="0" nom="10" noom="0" npm="10" rcr="0.15" vars="6" varsi="6" varsnp="0" wmc="18" wmci="18" wmcnp="18">
+    <class name="Test" ca="4" cbo="4" ce="4" cis="11" cloc="14" cr="0.15" csz="17" dit="0" eloc="85" impl="0" lloc="45" loc="126" ncloc="112" noam="0" nocc="0" nom="11" noom="0" npm="11" rcr="0.15" vars="6" varsi="6" varsnp="0" wmc="21" wmci="21" wmcnp="21">
       <file name="/home/gamer01/workspace/ProTester/server/model/Test.php"/>
       <method name="__construct" ccn="2" ccn2="2" cloc="0" eloc="15" lloc="11" loc="19" ncloc="19" npath="2"/>
       <method name="getTestTemplate" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
@@ -185,6 +188,7 @@
       <method name="updateResult" ccn="2" ccn2="2" cloc="1" eloc="9" lloc="5" loc="11" ncloc="10" npath="2"/>
       <method name="updateGrade" ccn="2" ccn2="2" cloc="1" eloc="9" lloc="5" loc="11" ncloc="10" npath="2"/>
       <method name="getAnswers" ccn="3" ccn2="3" cloc="0" eloc="13" lloc="7" loc="14" ncloc="14" npath="3"/>
+      <method name="getAnswer" ccn="3" ccn2="3" cloc="0" eloc="14" lloc="7" loc="15" ncloc="15" npath="3"/>
       <method name="ownedBy" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
       <method name="getTestContent" ccn="1" ccn2="1" cloc="0" eloc="3" lloc="1" loc="3" ncloc="3" npath="1"/>
     </class>

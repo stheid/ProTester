@@ -18,9 +18,6 @@ class EvaluateTestView extends View {
 		
 		// print sidebar
 		
-		
-		
-		
 		echo '<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">
