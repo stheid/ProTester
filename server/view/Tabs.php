@@ -88,17 +88,20 @@ class EvaluateTestTab extends Tab {
 class TestManagementTab extends Tab {
 	public $id = "test_mgr";
 	public $title = "Manage Tests";
-	public $content = "";
+	public $content = "<h1> THIS FEATURE IS STILL IN PROGRESS TRY AGAIN LATER! </h1>
+			";
 }
 class CourseManagementTab extends Tab {
 	public $id = "course_mgr";
 	public $title = "Manage Courses";
-	public $content = "";
+	public $content = "<h1> THIS FEATURE IS STILL IN PROGRESS TRY AGAIN LATER! </h1>";
 }
 class AccountManagementTab extends Tab {
 	public $id = "acc_mgr";
 	public $title = "Manage Accounts";
-	public $content = "";
+	public $content = "<h1> THIS FEATURE IS STILL IN PROGRESS TRY AGAIN LATER! </h1>
+			";
+	
 }
 
 ?>
