@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.list-group .list-group {
+    margin-bottom: 0px;
+}
+
+.btn.disabled{
+	color:#b7b7b7;
+}
+
+.btn-block{
+	text-align:left;
+}
+
+.list-group-item > .btn-lg, .list-group-item > .btn{
+	padding:0;
+}

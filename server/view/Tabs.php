@@ -30,9 +30,9 @@ class ViewResultTab extends Tab {
 				$this->content .= "\n".'<h1>' . $actualDate . '</h1>'."\n  ".'<ul class="list-group">';
 			}
 			$this->content .= "\n".'<li class="list-group-item">';
-			$this->content .= '<a href="' . PATH . 'server/view/ViewResult.php?TestID=' . $test->getID () . '">';
+			$this->content .= '<a class="btn btn-block" href="' . PATH . 'server/view/ViewResult.php?TestID=' . $test->getID () . '">';
+			$this->content .= '<span style="float:right;">' . (float)$test->getResult () . ' / ' . $test->getTestTemplate ()->getMaxPoints () . '</span>';
 			$this->content .= $test->getTestTemplate ()->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getTestTemplate ()->getCourse ()->getName ();
-			$this->content .= '<span style="float: right">' . (float)$test->getResult () . ' / ' . $test->getTestTemplate ()->getMaxPoints () . '</span>';
 			$this->content .= '</a></li>';
 		}
 		$this->content .= "\n".'</ul>';
@@ -58,7 +58,7 @@ class EvaluateTestTab extends Tab {
 				}
 				$actualGroupID = "";
 				$actualCourseID = $testTempl->getCourse ()->getCourseID ();
-				$this->content .= "\n".'<h1>' . $testTempl->getCourse ()->getName () . '</h1>'."\n".'<ul class="list-group">';
+				$this->content .= "\n".'<h3>' . $testTempl->getCourse ()->getName () . '</h3>'."\n".'<ul class="list-group">';
 			}
 			if (! $testTempl->getCourse ()->equals ( $actualCourseID, $actualGroupID )) {
 				// if it's not the first heading
@@ -72,7 +72,7 @@ class EvaluateTestTab extends Tab {
 				$i = 1;
 			}
 			$this->content .= "\n\t\t\t".'<li class="list-group-item">';
-			$this->content .= '<a href="' . PATH . 'server/view/EvaluateTestView.php?TestTemplateID=' . $testTempl->getID () . '">';
+			$this->content .= '<a class="btn btn-block" href="' . PATH . 'server/view/EvaluateTestView.php?TestTemplateID=' . $testTempl->getID () . '">';
 			$this->content .= 'Exam ' . $i;
 			$i ++;
 			$this->content .= '</a></li>';

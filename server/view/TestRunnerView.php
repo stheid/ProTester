@@ -13,9 +13,9 @@ class TestRunnerView extends View {
 		$todayTests = array ();
 		$laterTests = array ();
 		foreach ( $testTempls as $test ) {
-			if (strtotime ( $test->getDate () ) == strtotime ( date ( "Y-m-d" ) )) {
+			if (strtotime ( $test->getDate () ) == strtotime ( "today" ) && !$test->isAnsweredFrom($person)) {
 				array_push ( $todayTests, $test );
-			} elseif (strtotime ( $test->getDate () ) > strtotime ( date ( "Y-m-d" ) )) {
+			} elseif (strtotime ( $test->getDate () ) > strtotime ("today" )) {
 				array_push ( $laterTests, $test );
 			}
 		}
@@ -24,10 +24,10 @@ class TestRunnerView extends View {
 		echo '<div class="container">
 				<div role="tabpanel">
 				<h1>Today</h1>
-				<ul class="list-group btn-list">';
+				<ul class="list-group">';
 		foreach ( $todayTests as $test ) {
 			echo '<li class="list-group-item">
-					<a class="btn btn-lg btn-block" href="' . PATH . 'server/view/AnswerTestView.php?TestTemplateID=' . $test->getID () . '" role="button">' . $test->getCourse ()->getName () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getCourse ()->getGroupName () . '</a></li>';
+					<a class="btn btn-block" href="' . PATH . 'server/view/AnswerTestView.php?TestTemplateID=' . $test->getID () . '" role="button">' . $test->getCourse ()->getName () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getCourse ()->getGroupName () . '</a></li>';
 		}
 		echo '</ul>';
 		
