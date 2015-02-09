@@ -1,8 +1,6 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Course.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Question.php');
-// require_once(realpath(dirname(__FILE__)) . '/../controller/AnswerPointsManager.php');
-// require_once(realpath(dirname(__FILE__)) . '/Test.php');
 
 /**
  *
@@ -138,25 +136,16 @@ class TestTemplate {
 	
 	// read from testtemplate
 	public function getMonthYear() {
-		$mysqli = DBController::getConnection ();
+		$time = strtotime($this->_date);
 		
-		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%M %Y") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID . '"' );
-		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
-		$result->free ();
-		$mysqli->close ();
-		return $row;
+		return date("F Y",$time);
 	}
 	
 	// read from testtemplate
 	public function getDayMonth() {
-		$mysqli = DBController::getConnection ();
+		$time = strtotime($this->_date);
 		
-		$result = $mysqli->query ( 'SELECT DATE_FORMAT(date,"%D %b") as date FROM TestTemplate WHERE TestTemplateID="' . $this->_testTemplateID . '"' );
-		$row = $result->fetch_array ( MYSQLI_ASSOC )['date'];
-		$result->free ();
-		$mysqli->close ();
-		
-		return $row;
+		return date("jS M",$time);
 	}
 	
 	//

@@ -94,7 +94,7 @@ class Person {
 		$testTemplates = $this->getScheduledTests ();
 		$exitcode = false;
 		foreach ( $testTemplates as $testTemplate ) {
-			if (! $testTemplate->isAnsweredFrom ( $this ) && (strtotime ( $testTemplate->getDate () ) == strtotime ( date ( "Y-m-d" ) ))) {
+			if (! $testTemplate->isAnsweredFrom ( $this ) && (strtotime ( $testTemplate->getDate () ) == strtotime('today'))) {
 				$exitcode = true;
 			}
 		}
