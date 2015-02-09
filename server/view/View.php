@@ -28,8 +28,8 @@ class View {
 						<body>';
 		include 'navbar.php';
 	}
-	protected function content() {
-	}
+	
+	//
 	protected function footer() {
 		echo '<script src="' . PATH . 'client/jquery-2.1.1-min.js"
 				type="text/javascript"></script>
