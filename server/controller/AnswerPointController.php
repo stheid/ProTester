@@ -21,7 +21,10 @@ class AnswerPointController extends Controller {
 			
 			if (isset ( $_POST ['answer'] )) {
 				/* make sure that all keys in the array are present */
-				$answers = $_POST ['answer'] + array_fill ( 1, count ( $testTemplate->getQuestions () ), array () );
+				foreach ($testTemplate->getQuestions () as $question){
+					$emptyAnswers[$question->getID()]="";
+				}
+				$answers = $_POST ['answer'] + $emptyAnswers;
 				
 				foreach ( $answers as $questionID => $answer ) {
 					$question = Question::getQuestion ( $questionID );
@@ -53,7 +56,7 @@ class AnswerPointController extends Controller {
 		$_SESSION ['ResultString'] = $points . ' / ' . $testTemplate->getMaxPoints ();
 		$_SESSION ['FinishReason'] = 'you submitted the Test';
 		
-		header ( "Location: " . PATH . "server/view/AfterTestView.php" );
+// 		header ( "Location: " . PATH . "server/view/AfterTestView.php" );
 	}
 	
 	//

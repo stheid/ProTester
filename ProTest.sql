@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 08, 2015 at 10:22 
+-- Generation Time: Feb 10, 2015 at 07:00 
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -32,7 +32,16 @@ CREATE TABLE IF NOT EXISTS `Answer` (
   `QuestionID` int(10) NOT NULL,
   `Answer` text,
   `Points` decimal(5,1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Answer`
+--
+
+INSERT INTO `Answer` (`AnswerID`, `TestID`, `QuestionID`, `Answer`, `Points`) VALUES
+(191, 84, 1, '2', '1.0'),
+(192, 84, 2, '23', '0.0'),
+(193, 84, 3, '2342342', NULL);
 
 -- --------------------------------------------------------
 
@@ -134,9 +143,9 @@ INSERT INTO `Question` (`QuestionID`, `TestTemplateID`, `Text`, `Solution`, `Ans
 (1, 1, 'What is 1+1?', NULL, '1;;;2;;;3;;;4', '2', 1, 'Closed'),
 (2, 1, '1+1= __?', '2', NULL, NULL, 1, 'Gap'),
 (3, 1, 'What is a Pattern?', 'Solution for a common Problem.', NULL, NULL, 2, 'Open'),
-(4, 1, 'Come on?', NULL, 'no;;;yes', '1;;;2', 1, 'Closed'),
-(5, 1, 'Do you belive in God', 'Well,... no', NULL, NULL, 1, 'Open'),
-(6, 1, 'Is it dark?', 'Yo', NULL, NULL, 1, 'Open');
+(4, 2, 'Come on?', NULL, 'no;;;yes', '1;;;2', 1, 'Closed'),
+(5, 2, 'Do you belive in God', 'Well,... no', NULL, NULL, 1, 'Open'),
+(6, 2, 'Is it dark?', 'Yo', NULL, NULL, 1, 'Open');
 
 -- --------------------------------------------------------
 
@@ -150,14 +159,15 @@ CREATE TABLE IF NOT EXISTS `Test` (
   `PersonID` int(10) NOT NULL,
   `Grade` decimal(2,1) DEFAULT NULL,
   `Result` decimal(6,1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Test`
 --
 
 INSERT INTO `Test` (`TestID`, `TestTemplateID`, `PersonID`, `Grade`, `Result`) VALUES
-(5, 3, 1, '2.0', '3.0');
+(81, 3, 1, NULL, '0.0'),
+(84, 1, 1, NULL, '1.0');
 
 -- --------------------------------------------------------
 
@@ -178,9 +188,9 @@ CREATE TABLE IF NOT EXISTS `TestTemplate` (
 --
 
 INSERT INTO `TestTemplate` (`TestTemplateID`, `CourseID`, `GroupID`, `Duration`, `Date`) VALUES
-(1, 1, 1, 60, '2015-02-08'),
+(1, 1, 1, 60, '2015-02-10'),
 (2, 2, 2, 30, '2015-01-07'),
-(3, 2, 3, 44, '2015-02-12');
+(3, 2, 3, 44, '2015-02-09');
 
 --
 -- Indexes for dumped tables
@@ -236,7 +246,7 @@ ALTER TABLE `TestTemplate`
 -- AUTO_INCREMENT for table `Answer`
 --
 ALTER TABLE `Answer`
-MODIFY `AnswerID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=179;
+MODIFY `AnswerID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=194;
 --
 -- AUTO_INCREMENT for table `Question`
 --
@@ -246,7 +256,7 @@ MODIFY `QuestionID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `Test`
 --
 ALTER TABLE `Test`
-MODIFY `TestID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
+MODIFY `TestID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT for table `TestTemplate`
 --

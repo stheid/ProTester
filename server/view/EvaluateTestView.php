@@ -2,6 +2,10 @@
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
 include_once 'TestViewer.php';
 
+/**
+ * @author gamer01
+ *
+ */
 class EvaluateTestView extends TestViewer {
 	protected $title = 'Evaluate Tests';
 	
@@ -14,191 +18,93 @@ class EvaluateTestView extends TestViewer {
 		// put name of the test owner
 		if ($test->isEvaluated()){
 			echo '<h2>'.$test->getPerson()->getFullName().'</h2>';
+			// display all questions with evaluationcriteria
+			foreach ($test->getTestTemplate()->getQuestions() as $question){
+				$this->getQuestionHtmlCode($question);				
+			}
 		}
 		
-		// display test questions, 
-		// answers and evaluationcriteria
+		// display only open questions and their answers and evaluationcriteria
+		foreach ($test->getTestTemplate()->getQuestions() as $question){
+			if ($question instanceof OpenQuestion){
+				
+			$this->getQuestionHtmlCode($question);
+			}
+		}
 		
-		// print sidebar
-		
-		echo'<div class="panel-group">
-					<div class="panel panel-info">
-						<a class="panel-info" data-toggle="collapse"
-							data-parent="#accordion1" href="#collapseOne">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									Open Question 1<span class="glyphicon glyphicon-ok"
-										style="float: right;" aria-hidden="true"></span>
-								</h4>
-							</div>
-						</a>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<textarea class="bg-success" style="width: 100%" disabled>Student Answer</textarea>
-								<form action="../controller/TestManager.php" method="post"  size="2">
-								<div align="right"></form><input style="width: 2em" type="points" id="1" points="points"
-									onchange="checkFilled();">/3</div>
-								<p class="bg-info" style="width: 100%" disabled="disabled">Critarias:
-									Spirituality means waking up. Most people, even though they
-									don\'t know it, are asleep. They\'re born asleep, they live
-									asleep, they marry in their sleep, they breed children in their
-									sleep, they die in their sleep without ever waking up. They
-									never understand the loveliness and the beauty of this thing
-									that we call human existence. You know � all mystics �
-									Catholic, Christian, non-Christian, no matter what their
-									theology, no matter what their religion � are unanimous on one
-									thing: that all is well, all is well. Though everything is a
-									mess, all is well. Strange paradox, to be sure. But,
-									tragically, most people never get to see that all is well
-									because they are asleep. They are having a nightmare.</p>
-							</div>
-				<script> function checkFilled() {
-									var inputVal = document.getElementById("1").value;
-								    if (inputVal == "") {
-								        document.getElementById("1").style.backgroundColor = "red";
-							       								    }
-								    else{
-								        document.getElementById("1").style.backgroundColor = "white";
-								        								    }
-								}
-								 
-								checkFilled();
-								</script>
-						</div>
-					</div>
-							<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion1" href="#collapse2">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Closed Question 2<span class="glyphicon glyphicon-remove"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div id="collapse2" class="panel-collapse collapse">
-						<div class="panel-body">
-							<ul class="input-list">
-								<li class="bg-danger disabled"><label><input type="checkbox"
-										id="chk1" name="chk1" disabled checked> Answer 1<label></li>
-								<li class="bg-success disabled"><label><input type="checkbox"
-										id="chk2" name="chk2" disabled> Answer 2</label></li>
-							</ul>
-							<div align="right">0/1</div>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion1" href="#collapse3">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Gap Question <span class="glyphicon glyphicon-remove"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div class="panel-body">
-						Ala ma kota,
-						<textarea class="bg-success" style="width: 20em; height: 2em"
-							disabled>kot</textarea>
-						ma Ale.
-						<div align="right">2/2</div>
-
-					</div>
-				</div>
-				<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion1" href="#collapse4">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Question 4<span class="glyphicon glyphicon-minus"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div id="collapse4" class="panel-collapse collapse">
-						<div class="panel-body">
-							<textarea class="bg-warning" style="width: 100%" disabled>My open Answer</textarea>
-							<span style="float: right;">4/5</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="panel-group">
-				<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapse5">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Question 5<span class="glyphicon glyphicon-ok"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div id="collapse5" class="panel-collapse collapse">
-						<div class="panel-body">Content</div>
-					</div>
-				</div>
-				<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapse6">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Question 6<span class="glyphicon glyphicon-ok"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div id="collapse6" class="panel-collapse collapse">
-						<div class="panel-body">Content</div>
-					</div>
-				</div>
-				<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapse7">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Question 7<span class="glyphicon glyphicon-remove"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div id="collapse7" class="panel-collapse collapse">
-						<div class="panel-body">Content</div>
-					</div>
-				</div>
-				<div class="panel panel-success">
-					<a class="panel-success" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapse8">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								Another question<span class="glyphicon glyphicon-ok"
-									style="float: right;" aria-hidden="true"></span>
-							</h4>
-						</div>
-					</a>
-					<div id="collapse8" class="panel-collapse collapse">
-						<div class="panel-body">Content</div>
-					</div>
-				</div>
-			</div>
-		</div>';
 		$this->printSidebar();
 		echo '</div>
 			</div>
 				</form>';
 	}
 	
+	private function getQuestionHtmlCode($question){
+		if ($i ++ % 5 == 0 && $i != 1) {
+			echo '</div>
+					<div class="panel-group">';
+		}
+		
+		echo '<div class="panel panel-';
+		static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+		echo '">
+				<a class="panel-';
+		static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+		echo '" data-toggle="collapse"
+						href="#collapse' . $i . '">
+								<div class="panel-heading">
+								<h4 class="panel-title">' . $question->getText ();
+		static::getGlyphiconCode( $test->getAnswer ( $question->getID () ), $question );
+		echo '</h4>
+								</div>
+								</a>
+								<div id="collapse' . $i . '" class="panel-collapse collapse">
+								<div class="panel-body">';
+		if ($question instanceof ClosedQuestion) {
+			echo '<ul class="input-list">';
+				
+			// create 2 equal lengthed arrays of solutions and answer
+			$studentAnswerSet = static::expandValuesToArrayLength ( explode ( ";;;", $test->getAnswer ( $question->getID () )->getAnswer () ), count ( $question->getAnswerSet () ) );
+			$teacherAnswerSet = static::expandValuesToArrayLength ( $question->getSolutionSet (), count ( $question->getAnswerSet () ) );
+				
+			$j = 0;
+			foreach ( $question->getAnswerSet () as $answer ) {
+				echo '<li class="';
+		
+				// solution is picked, but wrong
+				if ($teacherAnswerSet [$j] == $studentAnswerSet [$j]) {
+					echo "bg-success";
+				} elseif ($teacherAnswerSet [$j] && $studentAnswerSet [$j]) {
+					echo "bg-warning";
+				} else {
+					echo "bg-danger";
+				}
+				echo '"><label><input type="checkbox" ';
+				echo $studentAnswerSet [$j] ? "checked" : "";
+				echo ' disabled> ' . $answer . '<label></li>';
+				$j ++;
+			}
+			echo '</ul>';
+		} elseif ($question instanceof GapQuestion) {
+			echo '<input type="input" class="bg-';
+			static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+			echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
+		} else {
+			echo '<textarea style="width: 100%" class="bg-';
+			static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+			echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
+		}
+		echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
+		echo '</div></div></div>';
+	}
+	
 	protected function printSidebar($questions=NULL,$buttons=NULL){
-		$buttons = '<input type="submit" name="unev" class="btn" value="Previous"/>
+		$buttons = '<input type="submit" name="unev" class="btn btn-default" value="Previous"/>
 				 Not Evaluated 
-				<input type="submit" name="unev" class="btn" value="Next"/><br>';
-		$buttons .= '<input type="submit" name="ev" class="btn" value="Previous"/>
+				<input type="submit" name="unev" class="btn btn-default" value="Next"/><br>';
+		$buttons .= '<input type="submit" name="ev" class="btn btn-default" value="Previous"/>
 				 Evaluated 
-				<input type="submit" name="ev" class="btn" value="Next"/><br>';
-		$buttons .= '<input type="submit" name="Homepage" class="btn" value="Back To Homepage"/>';
+				<input type="submit" name="ev" class="btn btn-default" value="Next"/><br>';
+		$buttons .= '<input type="submit" name="Homepage" class="btn btn-default" value="Back To Homepage"/>';
 		parent::printSidebar("list of all questions", $buttons);
 	}
 }
