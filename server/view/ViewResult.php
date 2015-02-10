@@ -18,7 +18,7 @@ class ResultView extends TestViewer {
 					echo '</div>				
 					<div class="panel-group">';
 				}
-				$this->printPanelHead($test, $question);
+				$this->printPanelHead($test, $question,$i);
 				echo '<div class="panel-body">';
 				if ($question instanceof ClosedQuestion) {
 					parent::printClosedQuestion ( $test, $question );
@@ -43,7 +43,7 @@ class ResultView extends TestViewer {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
-	private function printPanelHead($test,$question) {
+	private function printPanelHead($test,$question,$i) {
 		echo '<div class="panel panel-';
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 		echo '">
