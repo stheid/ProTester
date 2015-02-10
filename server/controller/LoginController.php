@@ -3,8 +3,8 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/DBController.php');
 
 class LoginController extends Controller {
-	public static function main() {
-		parent::includes ();
+	public function __construct() {
+		parent::includes();
 		include_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
 				
 		if (isset ( $_SESSION ['ID'] )) {
@@ -33,5 +33,5 @@ class LoginController extends Controller {
 		header ( "Location: $target" );
 	}
 }
-LoginController::main();
+new LoginController();
 ?>

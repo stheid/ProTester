@@ -9,8 +9,10 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Question.php');
  * @author gamer01
  * @package Server.Controller
  */
-class AnswerPointController {
-	public static function main() {
+class AnswerPointController extends Controller {
+	public function __construct() {
+		parent::includes();
+		
 		$person = new Person ( $_SESSION ['ID'] );
 		$testTemplate = new TestTemplate ( $_SESSION ['TestTemplateID'] );
 		if (! $testTemplate->isAnsweredFrom ( $person )) {
@@ -21,7 +23,6 @@ class AnswerPointController {
 				/* make sure that all keys in the array are present */
 				$answers = $_POST ['answer'] + array_fill ( 1, count ( $testTemplate->getQuestions () ), array () );
 				
-				// create all the Answers in DB
 				foreach ( $answers as $questionID => $answer ) {
 					$question = Question::getQuestion ( $questionID );
 					if ($question instanceof ClosedQuestion) {
@@ -86,6 +87,5 @@ class AnswerPointController {
 		$answerObj = new Answer ( Answer::upload ( $test->getID (), $questionID, $answer, $points ) );
 	}
 }
-session_start ();
-AnswerPointController::main ();
+new AnswerPointController();
 ?>

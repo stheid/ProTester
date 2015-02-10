@@ -94,10 +94,9 @@ class TestTemplate {
 		
 		return $tests;
 	}
-	
-	public function getTest($person){
-		foreach($this->getTests() as $test){
-			if ($test->ownedBy($person)){
+	public function getTest($person) {
+		foreach ( $this->getTests () as $test ) {
+			if ($test->ownedBy ( $person )) {
 				return $test;
 			}
 		}
@@ -113,6 +112,16 @@ class TestTemplate {
 			}
 		}
 		return $exitcode;
+	}
+	
+	//
+	public function isEvaluated() {
+		foreach ( $this->getTests () as $test ) {
+			if (!$test->getGrade ( ) == "NULL") {
+				return FALSE;
+			}
+		}
+		return TRUE;
 	}
 	
 	//
@@ -136,24 +145,24 @@ class TestTemplate {
 	
 	// read from testtemplate
 	public function getMonthYear() {
-		$time = strtotime($this->_date);
+		$time = strtotime ( $this->_date );
 		
-		return date("F Y",$time);
+		return date ( "F Y", $time );
 	}
 	
 	// read from testtemplate
 	public function getDayMonth() {
-		$time = strtotime($this->_date);
+		$time = strtotime ( $this->_date );
 		
-		return date("jS M",$time);
+		return date ( "jS M", $time );
 	}
 	
 	//
 	public function getMaxPoints() {
-		$questions=$this->getQuestions();
-		$maxPoints=0;
-		foreach($questions as $question){
-			$maxPoints+=$question->getMaxPoints();
+		$questions = $this->getQuestions ();
+		$maxPoints = 0;
+		foreach ( $questions as $question ) {
+			$maxPoints += $question->getMaxPoints ();
 		}
 		return $maxPoints;
 	}

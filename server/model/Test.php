@@ -49,6 +49,11 @@ class Test {
 	}
 	
 	//
+	public function getGrade() {
+		return $this->_grade;
+	}
+	
+	//
 	public function getID() {
 		return $this->_iD;
 	}

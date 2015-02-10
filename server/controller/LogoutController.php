@@ -1,12 +1,16 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
+
+/**
+ * @author gamer01
+ *
+ */
 class LogoutController extends Controller {
-	public static function main() {
-		parent::includes ();
-		session_destroy();
-		header ( "Location: ". PATH . "server/view/LoginView.php" );
+	public function __construct() {
+		parent::includes();
+		session_destroy ();
+		header ( "Location: " . PATH . "server/view/LoginView.php" );
 	}
 }
-LogoutController::main ();
-
+new LogoutController ();
 ?>
