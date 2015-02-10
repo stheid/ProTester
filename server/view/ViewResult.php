@@ -84,7 +84,7 @@ class ResultView extends TestViewer {
 	}
 	
 	//
-	public function printSidebar($questions=NULL,$buttons=NULL) {
+	protected function printSidebar($questions=NULL,$buttons=NULL) {
 		$buttons = '<a class="btn btn-primary" href="' . PATH . 'server/controller/LoginController.php">Back to Homepage</a>';
 		
 		parent::printSidebar("list of all questions", $buttons);

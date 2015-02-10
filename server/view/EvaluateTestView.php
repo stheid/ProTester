@@ -191,7 +191,7 @@ class EvaluateTestView extends TestViewer {
 				</form>';
 	}
 	
-	private function printSidebar($questions=NULL,$buttons=NULL){
+	protected function printSidebar($questions=NULL,$buttons=NULL){
 		$buttons = '<input type="submit" name="unev" class="btn" value="Previous"/>
 				 Not Evaluated 
 				<input type="submit" name="unev" class="btn" value="Next"/><br>';

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<metrics generated="2015-02-10T16:12:28" pdepend="@package_version@" ahh="0.55555555555556" andc="0.70967741935484" calls="287" ccn="236" ccn2="245" cloc="250" clsa="1" clsc="30" eloc="1547" fanout="45" leafs="26" lloc="883" loc="1994" maxDIT="2" ncloc="1744" noc="31" nof="0" noi="0" nom="102" nop="3" roots="4">
+<metrics generated="2015-02-10T18:27:18" pdepend="@package_version@" ahh="0.55555555555556" andc="0.70967741935484" calls="288" ccn="236" ccn2="245" cloc="250" clsa="1" clsc="30" eloc="1547" fanout="45" leafs="26" lloc="883" loc="1994" maxDIT="2" ncloc="1744" noc="31" nof="0" noi="0" nom="102" nop="3" roots="4">
   <files>
     <file name="/home/gamer01/workspace/ProTester/server/controller/Controller.php" cloc="0" eloc="7" lloc="3" loc="8" ncloc="8"/>
     <file name="/home/gamer01/workspace/ProTester/server/controller/DBController.php" cloc="6" eloc="14" lloc="8" loc="24" ncloc="18"/>
@@ -46,7 +46,7 @@
       <file name="/home/gamer01/workspace/ProTester/server/view/AfterTestView.php"/>
       <method name="content" ccn="1" ccn2="1" cloc="0" eloc="9" lloc="4" loc="11" ncloc="11" npath="1"/>
     </class>
-    <class name="AnswerTestView" ca="0" cbo="3" ce="3" cis="2" cloc="1" cr="0.15" csz="4" dit="2" eloc="78" impl="0" lloc="28" loc="87" ncloc="86" noam="2" nocc="0" nom="3" noom="1" npm="2" rcr="0.199725" vars="1" varsi="1" varsnp="0" wmc="10" wmci="14" wmcnp="2">
+    <class name="AnswerTestView" ca="0" cbo="3" ce="3" cis="0" cloc="1" cr="0.15" csz="4" dit="2" eloc="78" impl="0" lloc="28" loc="87" ncloc="86" noam="2" nocc="0" nom="3" noom="1" npm="0" rcr="0.199725" vars="1" varsi="1" varsnp="0" wmc="10" wmci="14" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/AnswerTestView.php"/>
       <method name="content" ccn="7" ccn2="8" cloc="1" eloc="47" lloc="25" loc="51" ncloc="50" npath="14"/>
       <method name="printSidebar" ccn="1" ccn2="1" cloc="0" eloc="4" lloc="2" loc="5" ncloc="5" npath="1"/>
@@ -108,7 +108,7 @@
       <method name="header" ccn="1" ccn2="1" cloc="0" eloc="17" lloc="2" loc="17" ncloc="17" npath="1"/>
       <method name="footer" ccn="1" ccn2="1" cloc="0" eloc="10" lloc="1" loc="10" ncloc="10" npath="1"/>
     </class>
-    <class name="ResultView" ca="0" cbo="3" ce="3" cis="1" cloc="7" cr="0.15" csz="6" dit="2" eloc="97" impl="0" lloc="61" loc="120" ncloc="113" noam="4" nocc="0" nom="5" noom="1" npm="1" rcr="0.199725" vars="1" varsi="1" varsnp="0" wmc="21" wmci="25" wmcnp="1">
+    <class name="ResultView" ca="0" cbo="3" ce="3" cis="0" cloc="7" cr="0.15" csz="6" dit="2" eloc="97" impl="0" lloc="61" loc="120" ncloc="113" noam="4" nocc="0" nom="5" noom="1" npm="0" rcr="0.199725" vars="1" varsi="1" varsnp="0" wmc="21" wmci="25" wmcnp="0">
       <file name="/home/gamer01/workspace/ProTester/server/view/ViewResult.php"/>
       <method name="content" ccn="10" ccn2="12" cloc="3" eloc="68" lloc="45" loc="77" ncloc="74" npath="71"/>
       <method name="printSidebar" ccn="1" ccn2="1" cloc="0" eloc="4" lloc="2" loc="5" ncloc="5" npath="1"/>
