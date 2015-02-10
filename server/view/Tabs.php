@@ -1,7 +1,8 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
-class Tab {
+
+abstract class Tab {
 	public $id;
 	public $title;
 	// contains the whole content of the tab,
