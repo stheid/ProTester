@@ -13,7 +13,7 @@ class EvaluateTestView extends TestViewer {
 		$person = new Person ( $_SESSION ['ID'] );
 		if ($person->canEvaluate ( $test->getTestTemplate () )) {
 			echo '
-<form action="../controller/EvaluationController.php?TestTemplateID='.$test->getTestTemplate ()->getID().'&TestID="'.$test->getID().'" method="POST">
+<form action="../controller/EvaluationController.php?TestTemplateID=' . $test->getTestTemplate ()->getID () . '&TestID="' . $test->getID () . '" method="POST">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">';
@@ -32,18 +32,19 @@ class EvaluateTestView extends TestViewer {
 						echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
 					}
 				}
-			}
-			
-			// display only open questions and their answers and evaluationcriteria
-			$i = 0;
-			foreach ( $test->getTestTemplate ()->getQuestions () as $question ) {
-				if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
-					if ($question instanceof OpenQuestion) {
-						$this->printQuestionHtmlCode ( $question, $test, $i );
-						$i ++;
+			} else {
+				
+				// display only open questions and their answers and evaluationcriteria
+				$i = 0;
+				foreach ( $test->getTestTemplate ()->getQuestions () as $question ) {
+					if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
+						if ($question instanceof OpenQuestion) {
+							$this->printQuestionHtmlCode ( $question, $test, $i );
+							$i ++;
+						}
+					} else {
+						echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
 					}
-				} else {
-					echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
 				}
 			}
 			echo '
