@@ -1,5 +1,8 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/TestTemplate.php');
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Question.php');
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Answer.php');
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
 
 /**
  *
@@ -22,15 +25,8 @@ class EvaluationController extends Controller {
 		$this->loadTest ( $testTempl );
 	}
 	private function loadTest($testTempl) {
-		if (isset ( $_POST )) {
-			$this->uploadPointsAndSolutions ();
-		}
-		
-		if (empty ( $testTempl->getTests () ) || isset ( $_POST ['Homepage'] )) {
-			require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
-		}
-		
-		foreach ( $testTempl->getTests () as $test ) {
+		$tests = $testTempl->getTests ();
+		foreach ( $tests as $test ) {
 			if ($test->isEvaluated ()) {
 				array_push ( $this->tests ['ev'], $test );
 			} else {
@@ -38,30 +34,47 @@ class EvaluationController extends Controller {
 			}
 		}
 		
-		if (! empty ( $this->tests ['unev'] )) {
-			$this->setIndex ( "unev" );
+		if (isset ( $_POST ['points'] ) && isset ( $_POST ['evalRule'] ) && isset ( $_SESSION ['TestID'] )) {
+			$test = new Test ( $_SESSION ['TestID'] );
+			$this->uploadPointsAndSolutions ( $_SESSION ['TestID'], $_POST ['points'], $_POST ['evalRule'] );
+			parent::calculateGrade ( $test );
 		}
 		
-		if (! empty ( $this->tests ['ev'] )) {
-			$this->setIndex ( "ev" );
-		}
-		
-		if (isset ( $_POST ['unev'] )) {
-			$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
-		} elseif (isset ( $_POST ['ev'] )) {
-			$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
+		if (empty ( $tests ) || isset ( $_POST ['Homepage'] )) {
+			require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 		} else {
+			
 			if (! empty ( $this->tests ['unev'] )) {
-				$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
-			} else {
-				$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
+				$this->setIndex ( "unev" );
 			}
+			
+			if (! empty ( $this->tests ['ev'] )) {
+				$this->setIndex ( "ev" );
+			}
+			
+			if (isset ( $_POST ['unev'] )) {
+				$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
+			} elseif (isset ( $_POST ['ev'] )) {
+				$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
+			} else {
+				if (! empty ( $this->tests ['unev'] )) {
+					$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
+				} else {
+					$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
+				}
+			}
+			
+			$this->setButtonSelectors ();
+			
+			header ( "Location: " . PATH . "server/view/EvaluateTestView.php?TestID=" . $this->nextTest );
 		}
-		
-		$this->setButtonSelectors ();
-		
-		header ( "Location: " . PATH . "server/view/EvaluateTestView.php?TestID=" . $this->nextTest );
 	}
+	
+	/**
+	 *
+	 * @param String $key
+	 *        	selects the right index to be updated
+	 */
 	private function setIndex($key) {
 		if (isset ( $_SESSION ['indexes'] [$key] )) {
 			$this->indexes [$key] = $_SESSION ['indexes'] [$key];
@@ -77,9 +90,26 @@ class EvaluationController extends Controller {
 		}
 		$_SESSION ['indexes'] [$key] = $this->indexes [$key];
 	}
-	private function uploadPointsAndSolutions() {
-		// TODO
+	
+	/**
+	 *
+	 * @param array $points
+	 *        	questionID => points
+	 * @param array $solutions
+	 *        	questionID => evaluationrule
+	 */
+	private function uploadPointsAndSolutions($testID, $points, $solutions) {
+		foreach ( $points as $questionID => $point ) {
+			Answer::update ( $testID, $questionID, $point );
+		}
+		
+		foreach ( $solutions as $questionID => $solution ) {
+			OpenQuestion::update ( $questionID, $solution );
+		}
 	}
+	
+	/**
+	 */
 	private function setButtonSelectors() {
 		if ($this->indexes ['unev'] == 0) {
 			$_SESSION ['disableNav'] ['unevBack'] = TRUE;
@@ -87,7 +117,7 @@ class EvaluationController extends Controller {
 		if ($this->indexes ['ev'] == 0) {
 			$_SESSION ['disableNav'] ['evBack'] = TRUE;
 		}
-		if ($this->indexes ['unev'] == count ( $this->tests ['unev'] )-1) {
+		if ($this->indexes ['unev'] == count ( $this->tests ['unev'] ) - 1) {
 			$_SESSION ['disableNav'] ['unevNext'] = TRUE;
 		}
 		if ($this->indexes ['ev'] == count ( $this->tests ['ev'] )) {

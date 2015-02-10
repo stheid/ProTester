@@ -167,5 +167,20 @@ class OpenQuestion extends Question {
 	public function getSolution() {
 		return $this->_solution;
 	}
+	
+	//
+	public static function update($questionID, $solution) {
+		$mysqli = DBController::getConnection ();
+		
+		$query = 'UPDATE Question SET Solution="' . $solution . '"
+				WHERE QuestionID="' . $questionID . '";';
+		if ($result = $mysqli->query ( $query )) {
+			return $mysqli->insert_id;
+		} else {
+			// insert failed
+			echo "<script>console.log(\"Answer update of\n\n" . 'VALUES (' . $questionID . ',' . $solution . ');' . "\n\nfailed\")</script>";
+			return $mysqli->error;
+		}
+	}
 }
 ?>

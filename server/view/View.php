@@ -1,5 +1,5 @@
 <?php
-class View {
+abstract class View {
 	protected $title = '';
 	function __construct() {
 		$this->includes ();

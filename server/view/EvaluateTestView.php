@@ -13,7 +13,7 @@ class EvaluateTestView extends TestViewer {
 		$person = new Person ( $_SESSION ['ID'] );
 		if ($person->canEvaluate ( $test->getTestTemplate () )) {
 			echo '
-<form action="../controller/EvaluationController.php" method="POST">
+<form action="../controller/EvaluationController.php?TestTemplateID='.$test->getTestTemplate ()->getID().'&TestID="'.$test->getID().'" method="POST">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">';

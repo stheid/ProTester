@@ -11,7 +11,7 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Question.php');
  */
 class AnswerPointController extends Controller {
 	public function __construct() {
-		parent::includes();
+		parent::includes ();
 		
 		$person = new Person ( $_SESSION ['ID'] );
 		$testTemplate = new TestTemplate ( $_SESSION ['TestTemplateID'] );
@@ -21,15 +21,15 @@ class AnswerPointController extends Controller {
 			
 			if (isset ( $_POST ['answer'] )) {
 				/* make sure that all keys in the array are present */
-				foreach ($testTemplate->getQuestions () as $question){
-					$emptyAnswers[$question->getID()]="";
+				foreach ( $testTemplate->getQuestions () as $question ) {
+					$emptyAnswers [$question->getID ()] = "";
 				}
 				$answers = $_POST ['answer'] + $emptyAnswers;
 				
 				foreach ( $answers as $questionID => $answer ) {
 					$question = Question::getQuestion ( $questionID );
 					if ($question instanceof ClosedQuestion) {
-						$this->uploadClosedQuestion($test,$question,$answer);
+						$this->uploadClosedQuestion ( $test, $question, $answer );
 					} elseif ($question instanceof GapQuestion) {
 						if ($question->getSolution () == $answer) {
 							$points = $question->getMaxPoints ();
@@ -46,12 +46,7 @@ class AnswerPointController extends Controller {
 			$test = $testTemplate->getTest ( $person );
 		}
 		
-		// calculate result
-		$points = 0;
-		foreach ( $test->getAnswers () as $answer ) {
-			$points += $answer->getPoints ();
-		}
-		Test::updateResult ( $test->getID (), $points );
+		parent::calculateResult ( $test );
 		
 		$_SESSION ['ResultString'] = $points . ' / ' . $testTemplate->getMaxPoints ();
 		$_SESSION ['FinishReason'] = 'you submitted the Test';
@@ -59,8 +54,10 @@ class AnswerPointController extends Controller {
 		header ( "Location: " . PATH . "server/view/AfterTestView.php" );
 	}
 	
+	
+	
 	//
-	private function uploadClosedQuestion($test,$question, $answer) {
+	private function uploadClosedQuestion($test, $question, $answer) {
 		// convert answer and question to arrays
 		$solutionSet = $question->getSolutionSet ();
 		$answerSet = array ();
@@ -87,8 +84,8 @@ class AnswerPointController extends Controller {
 		}
 		$answer = implode ( ";;;", $answerSet );
 		
-		$answerObj = new Answer ( Answer::upload ( $test->getID (), $question->getID(), $answer, $points ) );
+		$answerObj = new Answer ( Answer::upload ( $test->getID (), $question->getID (), $answer, $points ) );
 	}
 }
-new AnswerPointController();
+new AnswerPointController ();
 ?>

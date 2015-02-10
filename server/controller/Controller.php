@@ -1,8 +1,52 @@
 <?php
-class Controller {
+abstract class Controller {
 
 	protected static function includes(){
 		@session_start();
 		include '../controller/settings.php';
+	}
+	
+	/**
+	 * @param @see Test $test
+	 *
+	 * will calculate the points and upload the result for this test
+	 */
+	public static function calculateResult($test) {
+		$points = 0;
+		foreach ( $test->getAnswers () as $answer ) {
+			$points += $answer->getPoints ();
+		}
+		Test::updateResult ( $test->getID (), $points );
+	}
+	
+	
+	/**
+	 * @param @see Test $test
+	 *
+	 * will calculate the grade and upload the result for this test
+	 */
+	public static function calculateGrade($test) {
+		static::calculateResult($test);
+		$points = 0;
+		foreach ( $test->getAnswers () as $answer ) {
+			$points += $answer->getPoints ();
+		}
+		$maxpoints = $test->getTestTemplate ()->getMaxPoints ();
+	
+		if (2 * $points < $maxpoints) {
+			$grade = 2;
+		} elseif (10 * $points < 6 * $maxpoints) {
+			$grade = 3;
+		} elseif (10 * $points < 7 * $maxpoints) {
+			$grade = 3.5;
+		} elseif (10 * $points < 8 * $maxpoints) {
+			$grade = 4;
+		} elseif (10 * $points < 9 * $maxpoints) {
+			$grade = 4.5;
+		} else {
+			$grade = 5;
+		}
+	
+		Test::updateGrade ( $test->getID (), $grade );
 	}
 }

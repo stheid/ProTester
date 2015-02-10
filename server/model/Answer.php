@@ -14,8 +14,7 @@ class Answer {
 	private $_question;
 	private $_answer;
 	private $_points;
-	
-	public function __construct($id) {		
+	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
 		if ($result = $mysqli->query ( 'SELECT * FROM Answer WHERE AnswerID="' . $id . '"' )) {
 			$row = $result->fetch_array ( MYSQLI_ASSOC );
@@ -43,7 +42,23 @@ class Answer {
 			return $mysqli->insert_id;
 		} else {
 			// insert failed
-			echo "<script>console.log(\"Answer upload of\n\n".'VALUES (' . $testID . ',' . $questionID . ',' . $answer . ',' . (isset ( $points ) ? $points : "NULL") . ');'."\n\nfailed\")</script>";
+			echo "<script>console.log(\"Answer upload of\n\n" . 'VALUES (' . $testID . ',' . $questionID . ',' . $answer . ',' . (isset ( $points ) ? $points : "NULL") . ');' . "\n\nfailed\")</script>";
+			return $mysqli->error;
+		}
+	}
+	
+	//
+	public static function update($testID, $questionID, $points) {
+		$mysqli = DBController::getConnection ();
+		
+		$query = 'UPDATE Answer SET Points=' .(int) $points . '
+				WHERE TestID="' . $testID . '" AND QuestionID="' . $questionID . '";';
+		
+		if ($result = $mysqli->query ( $query )) {
+			return TRUE;
+		} else {
+			// insert failed
+			echo "<script>console.log(\"Answer update of\n\n" . 'VALUES (' . $testID . ',' . $questionID . ',' . $points . ');' . "\n\nfailed\")</script>";
 			return $mysqli->error;
 		}
 	}
