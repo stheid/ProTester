@@ -26,7 +26,7 @@ class EvaluationController extends Controller {
 			$this->uploadPointsAndSolutions ();
 		}
 		
-		if (empty ( $testTempl->getTests () )) {
+		if (empty ( $testTempl->getTests () ) || isset ( $_POST ['Homepage'] )) {
 			require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 		}
 		
@@ -46,9 +46,9 @@ class EvaluationController extends Controller {
 			$this->setIndex ( "ev" );
 		}
 		
-		if (isset ( $_GET ['unev'] )) {
+		if (isset ( $_POST ['unev'] )) {
 			$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
-		} elseif (isset ( $_GET ['ev'] )) {
+		} elseif (isset ( $_POST ['ev'] )) {
 			$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
 		} else {
 			if (! empty ( $this->tests ['unev'] )) {
@@ -66,8 +66,8 @@ class EvaluationController extends Controller {
 		if (isset ( $_SESSION ['indexes'] [$key] )) {
 			$this->indexes [$key] = $_SESSION ['indexes'] [$key];
 		}
-		if (isset ( $_GET [$key] )) {
-			$this->indexes [$key] += $_GET [$key];
+		if (isset ( $_POST [$key] )) {
+			$this->indexes [$key] += $_POST [$key] == "Next" ? 1 : - 1;
 		}
 		// check ranges
 		if ($this->indexes [$key] < 0) {

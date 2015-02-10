@@ -117,7 +117,7 @@ class TestTemplate {
 	//
 	public function isEvaluated() {
 		foreach ( $this->getTests () as $test ) {
-			if ($test->isEvaluated ()) {
+			if (!$test->isEvaluated ()) {
 				return FALSE;
 			}
 		}

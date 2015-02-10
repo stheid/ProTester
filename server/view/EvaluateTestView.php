@@ -12,18 +12,22 @@ class EvaluateTestView extends View {
 		parent::footer ();
 	}
 	protected function content($test) {
-		// if test is evaluated
-		//     put name of the test owner
+		echo '<form action="../controller/EvaluationController.php" method="POST">
+				<div class="container">
+		<div class="row">
+			<div class="col-md-9 col-xs-8">';
+
+		// put name of the test owner
+		if ($test->isEvaluated()){
+			echo '<h2>'.$test->getPerson()->getFullName().'</h2>';
+		}
 		
 		// display test questions, 
 		// answers and evaluationcriteria
 		
 		// print sidebar
 		
-		echo '<div class="container">
-		<div class="row">
-			<div class="col-md-9 col-xs-8">
-				<div class="panel-group">
+		echo'<div class="panel-group">
 					<div class="panel panel-info">
 						<a class="panel-info" data-toggle="collapse"
 							data-parent="#accordion1" href="#collapseOne">
@@ -186,21 +190,31 @@ class EvaluateTestView extends View {
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-3 col-xs-4" style="height: 300px;">
-			<div style="position: fixed;">
-				<div>list of all questions</div>
+		</div>';
+		$this->printSidebar();
+		echo '</div>
 			</div>
-			<div style="position: absolute; bottom: 0; width: 262px;">
-				<div style="position: fixed;">
-					<a href="main.html" class="btn btn-default">Prevoius test</a> <a
-						href="main.html" class="btn btn-default">Next test</a> <a
-						href="main.html" class="btn btn-default">Back to Homepage</a>
-				</div>
-			</div>
+				</form>';
+	}
+	
+	private function printSidebar(){
+		echo '<div class="col-md-3 col-xs-4" style="height: 300px;">
+		<div style="position: fixed;">
+		<div>list of all questions</div>
 		</div>
-		</div>
-	</div>';
+		<div style="position: absolute; bottom: 0; left: 0; ">
+		<div style="position: fixed;">
+		<input type="submit" name="unev" class="btn" value="Previous"/>
+				 Not Evaluated 
+				<input type="submit" name="unev" class="btn" value="Next"/><br>';
+		echo '<input type="submit" name="ev" class="btn" value="Previous"/>
+				 Evaluated 
+				<input type="submit" name="ev" class="btn" value="Next"/><br>';
+		echo '<input type="submit" name="Homepage" class="btn" value="Back To Homepage"/>';
+				echo '</div>
+						</div>
+						</div>
+						</div>';
 	}
 }
 session_start ();

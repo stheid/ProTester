@@ -55,12 +55,17 @@ class Test {
 	
 	//
 	public function isEvaluated() {
-		return ! $this->_grade == 'NULL';
+		return isset($this->_grade);
 	}
 	
 	//
 	public function getID() {
 		return $this->_iD;
+	}
+	
+	//
+	public function getPerson() {
+		return $this->person;
 	}
 	
 	//

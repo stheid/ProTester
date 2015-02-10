@@ -188,6 +188,11 @@ class Person {
 	}
 	
 	//
+	public function getFullName() {
+		return $this->_name.' '.$this->_surname;
+	}
+	
+	//
 	public function equals($person) {
 		return $this->_personID == $person->getID ();
 	}
