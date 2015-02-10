@@ -26,7 +26,7 @@ class AnswerPointController extends Controller {
 				foreach ( $answers as $questionID => $answer ) {
 					$question = Question::getQuestion ( $questionID );
 					if ($question instanceof ClosedQuestion) {
-						static::uploadClosedQuestion($question,$answer);
+						static::uploadClosedQuestion($test,$question,$answer);
 					} elseif ($question instanceof GapQuestion) {
 						if ($question->getSolution () == $answer) {
 							$points = $question->getMaxPoints ();
@@ -57,7 +57,7 @@ class AnswerPointController extends Controller {
 	}
 	
 	//
-	private static function uploadClosedQuestion($question, $answer) {
+	private static function uploadClosedQuestion($test,$question, $answer) {
 		// convert answer and question to arrays
 		$solutionSet = $question->getSolutionSet ();
 		$answerSet = array ();
