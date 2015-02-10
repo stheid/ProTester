@@ -56,7 +56,7 @@ class AnswerPointController extends Controller {
 		$_SESSION ['ResultString'] = $points . ' / ' . $testTemplate->getMaxPoints ();
 		$_SESSION ['FinishReason'] = 'you submitted the Test';
 		
-// 		header ( "Location: " . PATH . "server/view/AfterTestView.php" );
+		header ( "Location: " . PATH . "server/view/AfterTestView.php" );
 	}
 	
 	//
