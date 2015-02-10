@@ -2,7 +2,7 @@
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
 include_once 'TestViewer.php';
 
-class EvaluateTestView extends View {
+class EvaluateTestView extends TestViewer {
 	protected $title = 'Evaluate Tests';
 	
 	protected function content($test) {

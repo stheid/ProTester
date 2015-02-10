@@ -1,7 +1,7 @@
 <?php
 class Controller {
 
-	protected function includes(){
+	protected static function includes(){
 		@session_start();
 		include '../controller/settings.php';
 	}

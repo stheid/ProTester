@@ -1,18 +1,9 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/TestTemplate.php');
+include_once 'TestViewer.php';
 
-include_once 'View.php';
-class AnswerTestView extends View {
+class AnswerTestView extends TestViewer {
 	protected $title = 'Answer Test';
-	protected function includes() {
-		parent::includes ();
-	}
-	public function __construct($test) {
-		parent::includes ();
-		parent::header ();
-		$this->content ( $test );
-		parent::footer ();
-	}
 	protected function content($test) {
 		$person = new Person ( $_SESSION ['ID']);
 		if ($test->answerableFor ( $person )) {
@@ -66,20 +57,9 @@ class AnswerTestView extends View {
 	}
 	
 	public function printSidebar(){
-		echo '<div class="col-md-3 col-xs-4" style="height: 300px;">
-		<div style="position: fixed;">
-		<div>list of all questions</div>
-		</div>
-		<div style="position: absolute; bottom: 0; right: 0; width: 82px;">
-		<div style="position: fixed;">
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#submit"
-						>submit</button>
-						</div>
-						</div>
-						</div>
-						</div>
-						</div>';
+		$buttons = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit">submit</button>';
+		
+		parent::printSidebar("list of all questions", $buttons);
 	}
 	public function printModal() {
 		echo '<div class="modal fade" id="submit" tabindex="-1" role="dialog"
