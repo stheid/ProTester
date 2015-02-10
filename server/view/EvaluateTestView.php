@@ -61,26 +61,43 @@ class EvaluateTestView extends TestViewer {
 		    	<div id="collapse' . $i . '" class="panel-collapse collapse">
 			    	<div class="panel-body">';
 		if ($question instanceof ClosedQuestion) {
-			parent::printClosedQuestion($test,$question);
+			parent::printClosedQuestion ( $test, $question );
+		echo '			<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
 		} elseif ($question instanceof GapQuestion) {
 			echo '		<input type="input" class="bg-';
 			parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 			echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
+		echo '			<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
 		} else {
-			$this->printOpenQuestion($test,$question);
+			$this->printOpenQuestion ( $test, $question );
 		}
-		echo '			<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>
+		echo '
 					</div>
 				</div>
 			</div>';
 	}
 	
-	private function printOpenQuestion($test,$question){
-		echo '		<textarea style="width: 100%" class="bg-';
+	/**
+	 *
+	 * @param        	
+	 *
+	 * @see Test $test
+	 * @param        	
+	 *
+	 * @see Question $question
+	 */
+	private function printOpenQuestion($test, $question) {
+		echo '<textarea style="width: 100%" class="bg-';
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 		echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
+		echo '<textarea style="width: 100%" name="evalRule['.$question->getID ().']">' .  $question->getSolution () . '</textarea>';
+		echo '<span style="float:right;"><input style="width:40px;" name="points['.$question->getID ().']" value="' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . '"/> / ' . $question->getMaxPoints () . '</span>';
 	}
 	
+	/*
+	 * (non-PHPdoc)
+	 * @see TestViewer::printSidebar()
+	 */
 	protected function printSidebar($questions = NULL, $buttons = NULL) {
 		$buttons = '<input type="submit" name="unev" class="btn btn-default" value="Previous"/>
 				 Not Evaluated 

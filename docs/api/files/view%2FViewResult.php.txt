@@ -1,10 +1,8 @@
 <?php
 include_once 'TestViewer.php';
 include_once '../model/Test.php';
-
 class ResultView extends TestViewer {
 	protected $title = 'View Results';
-
 	protected function content($test) {
 		$person = new Person ( $_SESSION ['ID'] );
 		if ($test->ownedBy ( $person )) {
@@ -20,54 +18,17 @@ class ResultView extends TestViewer {
 					echo '</div>				
 					<div class="panel-group">';
 				}
-				
-				echo '<div class="panel panel-';
-				static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-				echo '">
-				<a class="panel-';
-				static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-				echo '" data-toggle="collapse"
-						href="#collapse' . $i . '">
-								<div class="panel-heading">
-								<h4 class="panel-title">' . $question->getText ();
-				static::getGlyphiconCode( $test->getAnswer ( $question->getID () ), $question );
-				echo '</h4>
-								</div>
-								</a>
-								<div id="collapse' . $i . '" class="panel-collapse collapse">
-								<div class="panel-body">';
+				$this->printPanelHead($test, $question);
+				echo '<div class="panel-body">';
 				if ($question instanceof ClosedQuestion) {
-					echo '<ul class="input-list">';
-					
-					// create 2 equal lengthed arrays of solutions and answer
-					$studentAnswerSet = static::expandValuesToArrayLength ( explode ( ";;;", $test->getAnswer ( $question->getID () )->getAnswer () ), count ( $question->getAnswerSet () ) );
-					$teacherAnswerSet = static::expandValuesToArrayLength ( $question->getSolutionSet (), count ( $question->getAnswerSet () ) );
-					
-					$j = 0;
-					foreach ( $question->getAnswerSet () as $answer ) {
-						echo '<li class="';
-						
-						// solution is picked, but wrong
-						if ($teacherAnswerSet [$j] == $studentAnswerSet [$j]) {
-							echo "bg-success";
-						} elseif ($teacherAnswerSet [$j] && $studentAnswerSet [$j]) {
-							echo "bg-warning";
-						} else {
-							echo "bg-danger";
-						}
-						echo '"><label><input type="checkbox" ';
-						echo $studentAnswerSet [$j] ? "checked" : "";
-						echo ' disabled> ' . $answer . '<label></li>';
-						$j ++;
-					}
-					echo '</ul>';
+					parent::printClosedQuestion ( $test, $question );
 				} elseif ($question instanceof GapQuestion) {
 					echo '<input type="input" class="bg-';
-					static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+					parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 					echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
 				} else {
 					echo '<textarea style="width: 100%" class="bg-';
-					static::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+					parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 					echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
 				}
 				echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
@@ -82,33 +43,28 @@ class ResultView extends TestViewer {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
+	private function printPanelHead($test,$question) {
+		echo '<div class="panel panel-';
+		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+		echo '">
+				<a class="panel-';
+		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+		echo '" data-toggle="collapse"
+						href="#collapse' . $i . '">
+								<div class="panel-heading">
+								<h4 class="panel-title">' . $question->getText ();
+		static::getGlyphiconCode ( $test->getAnswer ( $question->getID () ), $question );
+		echo '</h4>
+								</div>
+								</a>
+								<div id="collapse' . $i . '" class="panel-collapse collapse">';
+	}
 	
 	//
-	protected function printSidebar($questions=NULL,$buttons=NULL) {
+	protected function printSidebar($questions = NULL, $buttons = NULL) {
 		$buttons = '<a class="btn btn-primary" href="' . PATH . 'server/controller/LoginController.php">Back to Homepage</a>';
 		
-		parent::printSidebar("list of all questions", $buttons);
-	}
-	
-	//
-	private static function expandValuesToArrayLength($values, $length) {
-		$result = array_fill ( 0, $length, FALSE );
-		
-		foreach ( $values as $key => $value ) {
-			$result [$value - 1] = TRUE;
-		}
-		return $result;
-	}
-	
-	//
-	private static function getColorCode($answer, $question) {
-		if ($answer->getPoints () == $question->getMaxPoints ()) {
-			echo 'success"';
-		} elseif ($answer->getPoints () >= ($question->getMaxPoints () / 2)) {
-			echo 'warning';
-		} else {
-			echo 'danger';
-		}
+		parent::printSidebar ( "list of all questions", $buttons );
 	}
 	
 	//
