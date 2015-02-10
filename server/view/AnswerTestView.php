@@ -56,7 +56,7 @@ class AnswerTestView extends TestViewer {
 		}
 	}
 	
-	public function printSidebar(){
+	public function printSidebar($questions=NULL,$buttons=NULL){
 		$buttons = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit">submit</button>';
 		
 		parent::printSidebar("list of all questions", $buttons);
