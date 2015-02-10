@@ -133,7 +133,6 @@ class Test {
 			$answer;
 			if ($row = $result->fetch_array ( MYSQLI_ASSOC )) {
 				$answer = new Answer ( $row ['AnswerID'] );
-			} else {
 			}
 			return $answer;
 		} else {

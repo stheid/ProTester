@@ -135,6 +135,18 @@ class Person {
 	}
 	
 	//
+	public function canEvaluate($testTemplate) {
+		$testTemplates = $this->getCreatedTestTemplates ();
+		
+		foreach ($testTemplates as $testTempl){
+			if ($testTempl->equals($testTemplate)){
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+	
+	//
 	public function getScheduledTests() {
 		$teachingCourses = $this->getHearingCourses ();
 		

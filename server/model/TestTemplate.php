@@ -173,6 +173,11 @@ class TestTemplate {
 	}
 	
 	//
+	public function equals($template) {
+		return $this->_testTemplateID == $template->getID ();
+	}
+	
+	//
 	public static function isLater($a, $b) {
 		if (strtotime ( $a->getDate () ) == strtotime ( $b->getDate () )) {
 			return 0;

@@ -1,5 +1,6 @@
 <?php
 include_once 'View.php';
+
 abstract class TestViewer extends View {
 	public function __construct($test) {
 		parent::includes ();
@@ -7,6 +8,11 @@ abstract class TestViewer extends View {
 		$this->content ( $test );
 		parent::footer ();
 	}
+	
+	/**
+	 * @param @see Test $test
+	 * @param unknown $question
+	 */
 	protected function printClosedQuestion($test, $question) {
 		echo '
 				<ul class="input-list">';

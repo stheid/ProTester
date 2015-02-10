@@ -87,7 +87,7 @@ class EvaluationController extends Controller {
 		if ($this->indexes ['ev'] == 0) {
 			$_SESSION ['disableNav'] ['evBack'] = TRUE;
 		}
-		if ($this->indexes ['unev'] == count ( $this->tests ['unev'] )) {
+		if ($this->indexes ['unev'] == count ( $this->tests ['unev'] )-1) {
 			$_SESSION ['disableNav'] ['unevNext'] = TRUE;
 		}
 		if ($this->indexes ['ev'] == count ( $this->tests ['ev'] )) {

@@ -18,21 +18,25 @@ class ResultView extends TestViewer {
 					echo '</div>				
 					<div class="panel-group">';
 				}
-				$this->printPanelHead($test, $question,$i);
+				$this->printPanelHead ( $test, $question, $i );
 				echo '<div class="panel-body">';
-				if ($question instanceof ClosedQuestion) {
-					parent::printClosedQuestion ( $test, $question );
-				} elseif ($question instanceof GapQuestion) {
-					echo '<input type="input" class="bg-';
-					parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-					echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
+				if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
+					if ($question instanceof ClosedQuestion) {
+						parent::printClosedQuestion ( $test, $question );
+					} elseif ($question instanceof GapQuestion) {
+						echo '<input type="input" class="bg-';
+						parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+						echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
+					} else {
+						echo '<textarea style="width: 100%" class="bg-';
+						parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+						echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
+					}
+					echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
+					echo '</div></div></div>';
 				} else {
-					echo '<textarea style="width: 100%" class="bg-';
-					parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-					echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
+					echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
 				}
-				echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
-				echo '</div></div></div>';
 			}
 			
 			echo '</div></div>';
@@ -43,7 +47,7 @@ class ResultView extends TestViewer {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
-	private function printPanelHead($test,$question,$i) {
+	private function printPanelHead($test, $question, $i) {
 		echo '<div class="panel panel-';
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 		echo '">
