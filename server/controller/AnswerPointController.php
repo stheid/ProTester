@@ -84,7 +84,7 @@ class AnswerPointController extends Controller {
 		}
 		$answer = implode ( ";;;", $answerSet );
 		
-		$answerObj = new Answer ( Answer::upload ( $test->getID (), $questionID, $answer, $points ) );
+		$answerObj = new Answer ( Answer::upload ( $test->getID (), $question->getID(), $answer, $points ) );
 	}
 }
 new AnswerPointController();
