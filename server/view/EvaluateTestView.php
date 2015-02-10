@@ -1,16 +1,10 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
+include_once 'TestViewer.php';
 
-include_once 'View.php';
 class EvaluateTestView extends View {
 	protected $title = 'Evaluate Tests';
 	
-	public function __construct($test) {
-		parent::includes ();
-		parent::header ();
-		$this->content ( $test );
-		parent::footer ();
-	}
 	protected function content($test) {
 		echo '<form action="../controller/EvaluationController.php" method="POST">
 				<div class="container">
@@ -198,23 +192,14 @@ class EvaluateTestView extends View {
 	}
 	
 	private function printSidebar(){
-		echo '<div class="col-md-3 col-xs-4" style="height: 300px;">
-		<div style="position: fixed;">
-		<div>list of all questions</div>
-		</div>
-		<div style="position: absolute; bottom: 0; left: 0; ">
-		<div style="position: fixed;">
-		<input type="submit" name="unev" class="btn" value="Previous"/>
+		$buttons = '<input type="submit" name="unev" class="btn" value="Previous"/>
 				 Not Evaluated 
 				<input type="submit" name="unev" class="btn" value="Next"/><br>';
-		echo '<input type="submit" name="ev" class="btn" value="Previous"/>
+		$buttons .= '<input type="submit" name="ev" class="btn" value="Previous"/>
 				 Evaluated 
 				<input type="submit" name="ev" class="btn" value="Next"/><br>';
-		echo '<input type="submit" name="Homepage" class="btn" value="Back To Homepage"/>';
-				echo '</div>
-						</div>
-						</div>
-						</div>';
+		$buttons .= '<input type="submit" name="Homepage" class="btn" value="Back To Homepage"/>';
+		parent::printSidebar("list of all questions", $buttons);
 	}
 }
 session_start ();

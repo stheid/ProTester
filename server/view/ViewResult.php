@@ -1,15 +1,11 @@
 <?php
-include_once 'View.php';
+include_once 'TestViewer.php';
 include_once '../model/Test.php';
-class ResultView extends View {
+
+class ResultView extends TestViewer {
 	protected $title = 'View Results';
-	public function __construct($test) {
-		parent::includes ();
-		parent::header ();
-		$this->content ( $test );
-		parent::footer ();
-	}
-	public function content($test) {
+
+	protected function content($test) {
 		$person = new Person ( $_SESSION ['ID'] );
 		if ($test->ownedBy ( $person )) {
 			// timerbar
@@ -89,14 +85,9 @@ class ResultView extends View {
 	
 	//
 	public function printSidebar() {
-		echo '<div class="col-md-3 col-xs-4" style="height: 300px;">
-				<div style="position: fixed;">
-					<div>list of all questions</div>
-				</div>
-				<div style="position: absolute; bottom: 0; left: 0; width: 82px;">
-					<a class="btn btn-primary" href="' . PATH . 'server/controller/LoginController.php">Back to Homepage</a>
-				</div>
-			</div>';
+		$buttons = '<a class="btn btn-primary" href="' . PATH . 'server/controller/LoginController.php">Back to Homepage</a>';
+		
+		parent::printSidebar("list of all questions", $buttons);
 	}
 	
 	//
