@@ -88,7 +88,7 @@ class EvaluateTestTab extends Tab {
 				$i = 1;
 			}
 			$this->content .= "\n\t\t\t" . '<li class="list-group-item">';
-			$this->content .= '<a class="btn btn-block" href="' . PATH . 'server/controller/CourseController.php?TestTemplateID=' . $testTempl->getID () . '">';
+			$this->content .= '<a class="btn btn-block" href="' . PATH . 'server/controller/EvaluationController.php?TestTemplateID=' . $testTempl->getID () . '">';
 			$this->content .= 'Exam ' . $i;
 			$i ++;
 			$this->content .= '</a></li>';

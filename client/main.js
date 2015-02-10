@@ -7,3 +7,7 @@ $(document).ready(function() {
 		}
 	});
 });
+
+$(document).ready(function() {
+	$(".btn,.btn-lg").parent("li").css("padding","0");
+});

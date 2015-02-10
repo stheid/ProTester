@@ -1,4 +1,6 @@
 <?php
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
+
 include_once 'View.php';
 class EvaluateTestView extends View {
 	protected $title = 'Evaluate Tests';
@@ -9,7 +11,7 @@ class EvaluateTestView extends View {
 		$this->content ( $test );
 		parent::footer ();
 	}
-	protected function content() {
+	protected function content($test) {
 		// if test is evaluated
 		//     put name of the test owner
 		
@@ -201,6 +203,11 @@ class EvaluateTestView extends View {
 	</div>';
 	}
 }
-
-new EvaluateTestView ();
+session_start ();
+if (isset ( $_GET ['TestID'] )) {
+	$_SESSION ['TestID'] = $_GET ['TestID'];
+	new EvaluateTestView ( new Test ( $_SESSION ['TestID'] ) );
+} else {
+	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
+}
 ?>

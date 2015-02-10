@@ -8,8 +8,8 @@ class LoginController extends Controller {
 		include_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
 				
 		if (isset ( $_SESSION ['ID'] )) {
-			unset($_SESSION ['TestID'] );
-			unset($_SESSION ['TestTemplateID'] );
+			$this->cleanupSession();
+			
 			$person=new Person($_SESSION['ID']);
 			if ($person->hasUnansweredTestsToday ()) {
 				$target = PATH . "server/view/TestRunnerView.php";
@@ -31,6 +31,12 @@ class LoginController extends Controller {
 			}
 		}
 		header ( "Location: $target" );
+	}
+	private function cleanupSession(){
+		unset($_SESSION ['TestID'] );
+		unset($_SESSION ['TestTemplateID'] );
+		unset($_SESSION ['disableNav']);
+		unset($_SESSION ['indexes']);
 	}
 }
 new LoginController();

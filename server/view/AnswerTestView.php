@@ -1,4 +1,6 @@
 <?php
+require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/TestTemplate.php');
+
 include_once 'View.php';
 class AnswerTestView extends View {
 	protected $title = 'Answer Test';
@@ -108,7 +110,6 @@ class AnswerTestView extends View {
 	}
 }
 session_start ();
-require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/TestTemplate.php');
 if (isset ( $_GET ['TestTemplateID'] )) {
 	$_SESSION['TestTemplateID']=$_GET ['TestTemplateID'];
 	new AnswerTestView ( new TestTemplate ( $_SESSION ['TestTemplateID'] ) );
