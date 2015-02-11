@@ -11,14 +11,8 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
  * @package Server.Controller
  */
 class EvaluationController extends Controller {
-	private $indexes = array (
-			'unev' => 0,
-			'ev' => 0 
-	);
-	private $tests = array (
-			'unev' => array (),
-			'ev' => array () 
-	);
+	private $index = 0;
+	private $tests = array ();
 	private $nextTest;
 	public function __construct($testTempl) {
 		parent::includes ();
@@ -47,50 +41,27 @@ class EvaluationController extends Controller {
 			// reload from DB
 			$test = new Test ( $test->getID () );
 			
-			if ($test->isEvaluated ()) {
-				array_push ( $this->tests ['ev'], $test );
-			} else {
-				array_push ( $this->tests ['unev'], $test );
-			}
+			array_push ( $this->tests, $test );
 		}
 		
 		if (empty ( $tests ) || isset ( $_POST ['Homepage'] )) {
 			require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
 		} else {
 			
-			var_dump ( array_keys ( $this->tests ['unev'] ), array_keys ( $this->tests ['ev'] ) );
-			
-			$this->setIndex ( "unev" );
-			$this->setIndex ( "ev" );
-			
-			var_dump ( $_SESSION ['indexes'] );
-			var_dump ( $_POST );
+			$this->setIndex ();
 			
 			$this->setNextTest ();
 			$this->setButtonSelectors ();
-			
-			var_dump ( $this->nextTest );
-			var_dump ( $_SESSION ['disableNav'] );
 			
 			header ( "Location: " . PATH . "server/view/EvaluateTestView.php?TestID=" . $this->nextTest );
 		}
 	}
 	
 	/**
-	 * Selects the next test accouring to post values and previous indexes
+	 * Selects the next test from index
 	 */
 	private function setNextTest() {
-		if (isset ( $_POST ['unev'] )) {
-			$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
-		} elseif (isset ( $_POST ['ev'] )) {
-			$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
-		} else {
-			if (! empty ( $this->tests ['unev'] )) {
-				$this->nextTest = $this->tests ['unev'] [$this->indexes ['unev']]->getID ();
-			} else {
-				$this->nextTest = $this->tests ['ev'] [$this->indexes ['ev']]->getID ();
-			}
-		}
+		$this->nextTest = $this->tests [$this->index]->getID ();
 	}
 	
 	/**
@@ -98,21 +69,21 @@ class EvaluationController extends Controller {
 	 * @param String $key
 	 *        	selects the right index to be updated
 	 */
-	private function setIndex($key) {
-		if (isset ( $_SESSION ['indexes'] [$key] )) {
-			$this->indexes [$key] = $_SESSION ['indexes'] [$key];
+	private function setIndex() {
+		if (isset ( $_SESSION ['index'] )) {
+			$this->index = $_SESSION ['index'];
 		}
-		if (isset ( $_POST [$key] )) {
-			$this->indexes [$key] += $_POST [$key] == "Next" ? 1 : - 1;
+		if (isset ( $_POST ['nav'] )) {
+			$this->index += $_POST ['nav'] == "Next" ? 1 : - 1;
 		}
 		
 		// check ranges
-		if ($this->indexes [$key] < 0) {
-			$this->indexes [$key] = 0;
-		} elseif ($this->indexes [$key] >= count ( $this->tests [$key] )) {
-			$this->indexes [$key] = count ( $this->tests [$key] );
+		if ($this->index < 0) {
+			$this->index = 0;
+		} elseif ($this->index >= count ( $this->tests )) {
+			$this->index = count ( $this->tests );
 		}
-		$_SESSION ['indexes'] [$key] = $this->indexes [$key];
+		$_SESSION ['index'] = $this->index;
 	}
 	
 	/**
@@ -139,17 +110,11 @@ class EvaluationController extends Controller {
 	 */
 	private function setButtonSelectors() {
 		unset ( $_SESSION ['disableNav'] );
-		if ($this->indexes ['unev'] == 0) {
-			$_SESSION ['disableNav'] ['unevBack'] = TRUE;
+		if ($this->index == 0) {
+			$_SESSION ['disableNav'] ['Back'] = TRUE;
 		}
-		if ($this->indexes ['ev'] == 0) {
-			$_SESSION ['disableNav'] ['evBack'] = TRUE;
-		}
-		if ($this->indexes ['unev'] >= count ( $this->tests ['unev'] ) - 1) {
-			$_SESSION ['disableNav'] ['unevNext'] = TRUE;
-		}
-		if ($this->indexes ['ev'] >= count ( $this->tests ['ev'] ) - 1) {
-			$_SESSION ['disableNav'] ['evNext'] = TRUE;
+		if ($this->index >= count ( $this->tests ) - 1) {
+			$_SESSION ['disableNav'] ['Next'] = TRUE;
 		}
 	}
 }

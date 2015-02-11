@@ -18,8 +18,6 @@ class EvaluateTestView extends TestViewer {
 		<div class="row">
 			<div class="col-md-9 col-xs-8">';
 			
-			var_dump($_SESSION['indexes']);
-			
 			// put name of the test owner
 			if ($test->isEvaluated ()) {
 				echo '<h2>' . $test->getPerson ()->getFullName () . '</h2>';
@@ -109,7 +107,7 @@ class EvaluateTestView extends TestViewer {
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 		echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
 		echo '<textarea style="width: 100%" name="evalRule[' . $question->getID () . ']">' . $question->getSolution () . '</textarea>';
-		echo '<span style="float:right;"><input style="width:40px;" name="points[' . $question->getID () . ']" value="' .  ($test->getAnswer ( $question->getID () )->getPoints () != NULL ? ( float )$test->getAnswer ( $question->getID () )->getPoints ():'') . '"/> / ' . $question->getMaxPoints () . '</span>';
+		echo '<span style="float:right;"><input style="width:40px;" name="points[' . $question->getID () . ']" value="' . ($test->getAnswer ( $question->getID () )->getPoints () != NULL ? ( float ) $test->getAnswer ( $question->getID () )->getPoints () : '') . '"/> / ' . $question->getMaxPoints () . '</span>';
 	}
 	
 	/*
@@ -117,23 +115,16 @@ class EvaluateTestView extends TestViewer {
 	 * @see TestViewer::printSidebar()
 	 */
 	protected function printSidebar($questions = NULL, $buttons = NULL) {
-		$buttons = $this->getButtonHTML ( 'unevBack', 'Previous' );
-		$buttons .= 'Not Evaluated';
-		$buttons .= $this->getButtonHTML ( 'unevNext', 'Next' );
-		$buttons .= '<br>';
-		
-		$buttons .= $this->getButtonHTML ( 'evBack', 'Previous' );
-		$buttons .= 'Evaluated';
-		$buttons .= $this->getButtonHTML ( 'evNext', 'Next' );
+		$buttons = $this->getButtonHTML ( 'Back' );
+		$buttons .= $this->getButtonHTML ( 'Next' );
 		$buttons .= '<br>';
 		
 		$buttons .= '<input type="submit" name="Homepage" class="btn btn-default" value="Back To Homepage"/>';
 		parent::printSidebar ( "list of all questions", $buttons );
 	}
-	
-	private function getButtonHTML($sessionCode, $name) {
-		$result = '<input type="submit" name="'.substr($sessionCode,0,-4).'" class="btn btn-default" value="' . $name . '"';
-		$result .= (isset ( $_SESSION ['disableNav'] [$sessionCode] ) && $_SESSION ['disableNav'] [$sessionCode]) ? 'disabled/>' : '/>';
+	private function getButtonHTML($name) {
+		$result = '<input style="width:50%" type="submit" name="nav" class="btn btn-default" value="' . $name . '"';
+		$result .= (isset ( $_SESSION ['disableNav'] [$name] ) && $_SESSION ['disableNav'] [$name]) ? 'disabled/>' : '/>';
 		return $result;
 	}
 }
