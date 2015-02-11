@@ -1,11 +1,10 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/TestTemplate.php');
 include_once 'TestViewer.php';
-
 class AnswerTestView extends TestViewer {
 	protected $title = 'Answer Test';
 	protected function content($test) {
-		$person = new Person ( $_SESSION ['ID']);
+		$person = new Person ( $_SESSION ['ID'] );
 		if ($test->answerableFor ( $person )) {
 			// timerbar
 			$questions = $test->getQuestions ();
@@ -15,28 +14,28 @@ class AnswerTestView extends TestViewer {
 						<div class="col-md-9 col-xs-8">
 						<div class="panel-group">';
 			$i = 0;
+			$questionAnchor = 0;
 			foreach ( $questions as $question ) {
-				$this->printQuestionHTML($question, $test, $i);				
-				$questionAnchor .= parent::getQuestionAnchor ( $i+1 );
-				$i++;
+				$this->printQuestionHTML ( $question, $test, $i );
+				$questionAnchor .= parent::getQuestionAnchor ( $i + 1 );
+				$i ++;
 			}
 			
 			echo '</div></div>';
-			$this->printSidebar();
+			$this->printSidebar ();
 			$this->printModal ();
 			echo '</form>';
 		} else {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
-	
-	private function printQuestionHTML( $question, $test, $i ){
-		if ( $i % 5==0 && $i!=0) {
+	private function printQuestionHTML($question, $test, $i) {
+		if ($i % 5 == 0 && $i != 0) {
 			echo '</div>
 					<div class="panel-group">';
 		}
 		
-		echo  '<div class="panel panel-default"';
+		echo '<div class="panel panel-default"';
 		echo ' id="question';
 		echo $i + 1;
 		echo '">
@@ -47,29 +46,28 @@ class AnswerTestView extends TestViewer {
 		echo '</h4>
 				  </div>
 		        </a>
-								<div id="collapse'.$i.'" class="panel-collapse collapse">
+								<div id="collapse' . $i . '" class="panel-collapse collapse">
 								<div class="panel-body">';
-		if ($question instanceof ClosedQuestion){
+		if ($question instanceof ClosedQuestion) {
 			echo '<ul class="input-list">';
-				
-			$j=1;
-			foreach ($question->getAnswerSet() as $answer){
-				echo '<li><label><input type="checkbox" name="answer['.$question->getID().']['.$j.']"> '.$answer.'<label></li>';
-				$j++;
+			
+			$j = 1;
+			foreach ( $question->getAnswerSet () as $answer ) {
+				echo '<li><label><input type="checkbox" name="answer[' . $question->getID () . '][' . $j . ']"> ' . $answer . '<label></li>';
+				$j ++;
 			}
 			echo '</ul>';
-		} elseif ($question instanceof GapQuestion){
-			echo '<input type="input" name="answer['.$question->getID().']">';
+		} elseif ($question instanceof GapQuestion) {
+			echo '<input type="input" name="answer[' . $question->getID () . ']">';
 		} else {
-			echo '<textarea name="answer['.$question->getID().']" style="width: 100%"></textarea>';
+			echo '<textarea name="answer[' . $question->getID () . ']" style="width: 100%"></textarea>';
 		}
 		echo '</div></div></div>';
 	}
-	
-	protected function printSidebar($questions=NULL,$buttons=NULL){
+	protected function printSidebar($questions = NULL, $buttons = NULL) {
 		$buttons = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit">submit</button>';
 		
-		parent::printSidebar("list of all questions", $buttons);
+		parent::printSidebar ( "list of all questions", $buttons );
 	}
 	protected function printModal() {
 		echo '<div class="modal fade" id="submit" tabindex="-1" role="dialog"
@@ -101,7 +99,7 @@ class AnswerTestView extends TestViewer {
 }
 session_start ();
 if (isset ( $_GET ['TestTemplateID'] )) {
-	$_SESSION['TestTemplateID']=$_GET ['TestTemplateID'];
+	$_SESSION ['TestTemplateID'] = $_GET ['TestTemplateID'];
 	new AnswerTestView ( new TestTemplate ( $_SESSION ['TestTemplateID'] ) );
 } else {
 	require_once (realpath ( dirname ( __FILE__ ) ) . '/../controller/LoginController.php');
