@@ -8,6 +8,8 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Question.php');
  * @access public
  * @author gamer01
  * @package Server.Controller
+ *         
+ *          manages upload of Test results to the Database
  */
 class AnswerPointController extends Controller {
 	public function __construct() {
@@ -54,9 +56,20 @@ class AnswerPointController extends Controller {
 		header ( "Location: " . PATH . "server/view/AfterTestView.php" );
 	}
 	
-	
-	
-	//
+	/**
+	 *
+	 * Uploads closed question answer to Database while calculating the points
+	 *
+	 * @param        	
+	 *
+	 * @see Test $test
+	 * @param        	
+	 *
+	 * @see Question $question
+	 * @param        	
+	 *
+	 * @see Answer $answer
+	 */
 	private function uploadClosedQuestion($test, $question, $answer) {
 		// convert answer and question to arrays
 		$solutionSet = $question->getSolutionSet ();

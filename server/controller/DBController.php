@@ -5,8 +5,15 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
  *
  * @author gamer01
  *        
+ *         Handles Database Connections
+ *        
  */
 class DBController extends Controller {
+	/**
+	 * creates a new Database connection
+	 *
+	 * @return mysqli
+	 */
 	public static function getConnection() {
 		parent::includes ();
 		

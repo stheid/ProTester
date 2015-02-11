@@ -1,15 +1,24 @@
 <?php
+/**
+ * @author gamer01
+ * 
+ */
 abstract class Controller {
-
-	protected static function includes(){
-		@session_start();
+	
+	/**
+	 * Handles includes for the controllers and initializes constants
+	 */
+	protected static function includes() {
+		@session_start ();
 		include '../controller/settings.php';
 	}
 	
 	/**
-	 * @param @see Test $test
 	 *
-	 * will calculate the points and upload the result for this test
+	 * @param
+	 *        	@see Test $test
+	 *        	
+	 *        	will calculate the points and upload the result for this test
 	 */
 	public static function calculateResult($test) {
 		$points = 0;
@@ -19,20 +28,21 @@ abstract class Controller {
 		Test::updateResult ( $test->getID (), $points );
 	}
 	
-	
 	/**
-	 * @param @see Test $test
 	 *
-	 * will calculate the grade and upload the result for this test
+	 * @param
+	 *        	@see Test $test
+	 *        	
+	 *        	will calculate the grade and upload the result for this test
 	 */
 	public static function calculateGrade($test) {
-		static::calculateResult($test);
+		static::calculateResult ( $test );
 		$points = 0;
 		foreach ( $test->getAnswers () as $answer ) {
 			$points += $answer->getPoints ();
 		}
 		$maxpoints = $test->getTestTemplate ()->getMaxPoints ();
-	
+		
 		if (2 * $points < $maxpoints) {
 			$grade = 2;
 		} elseif (10 * $points < 6 * $maxpoints) {
@@ -46,7 +56,7 @@ abstract class Controller {
 		} else {
 			$grade = 5;
 		}
-	
+		
 		Test::updateGrade ( $test->getID (), $grade );
 	}
 }

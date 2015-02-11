@@ -8,7 +8,9 @@ require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
  *
  * @access public
  * @author gamer01
- * @package Server.Controller
+ * @package server.controller
+ *         
+ *          Manages Evaluation of tests, by uploading the information and calling the view to display the next test
  */
 class EvaluationController extends Controller {
 	private $index = 0;
@@ -58,7 +60,7 @@ class EvaluationController extends Controller {
 	}
 	
 	/**
-	 * Selects the next test from index
+	 * Selects the next test by index
 	 */
 	private function setNextTest() {
 		$this->nextTest = $this->tests [$this->index]->getID ();
@@ -92,6 +94,8 @@ class EvaluationController extends Controller {
 	 *        	questionID => points
 	 * @param array $solutions
 	 *        	questionID => evaluationrule
+	 *        	
+	 *        	uploads the points and evaluation rules of the given test
 	 */
 	private function uploadPointsAndSolutions($testID, $points, $solutions) {
 		foreach ( $points as $questionID => $point ) {

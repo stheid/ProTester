@@ -1,16 +1,23 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/Controller.php');
-require_once (realpath ( dirname ( __FILE__ ) ) . '/DBController.php');
 
+/**
+ *
+ * @author gamer01
+ *         Manages redirections and the login process
+ */
 class LoginController extends Controller {
+	
+	/**
+	 */
 	public function __construct() {
-		parent::includes();
+		parent::includes ();
 		include_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
-				
+		
 		if (isset ( $_SESSION ['ID'] )) {
-			$this->cleanupSession();
+			$this->cleanupSession ();
 			
-			$person=new Person($_SESSION['ID']);
+			$person = new Person ( $_SESSION ['ID'] );
 			if ($person->hasUnansweredTestsToday ()) {
 				$target = PATH . "server/view/TestRunnerView.php";
 			} else {
@@ -18,9 +25,9 @@ class LoginController extends Controller {
 			}
 		} else {
 			// Select queries return a resultset
-			if (Person::hasPermission ( $_POST ["usr"], $_POST ["pwd"])) {
-				$person=new Person($_SESSION['ID']);
-				if ($person->hasUnansweredTestsToday  ()) {
+			if (Person::hasPermission ( $_POST ["usr"], $_POST ["pwd"] )) {
+				$person = new Person ( $_SESSION ['ID'] );
+				if ($person->hasUnansweredTestsToday ()) {
 					$target = PATH . "server/view/TestRunnerView.php";
 				} else {
 					$target = PATH . "server/view/MainView.php";
@@ -32,12 +39,16 @@ class LoginController extends Controller {
 		}
 		header ( "Location: $target" );
 	}
-	private function cleanupSession(){
-		unset($_SESSION ['TestID'] );
-		unset($_SESSION ['TestTemplateID'] );
-		unset($_SESSION ['disableNav']);
-		unset($_SESSION ['index']);
+	
+	/**
+	 * Deletes unused Session Fields
+	 */
+	private function cleanupSession() {
+		unset ( $_SESSION ['TestID'] );
+		unset ( $_SESSION ['TestTemplateID'] );
+		unset ( $_SESSION ['disableNav'] );
+		unset ( $_SESSION ['index'] );
 	}
 }
-new LoginController();
+new LoginController ();
 ?>
