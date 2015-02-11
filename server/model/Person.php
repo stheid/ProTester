@@ -109,7 +109,7 @@ class Person {
 		// find all tests for this person
 		$mysqli = DBController::getConnection ();
 		
-		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $this->_personID . '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date DESC' );
+		$result = $mysqli->query ( 'SELECT TestID FROM Test,TestTemplate WHERE PersonID="' . $this->_personID . '" AND Test.TestTemplateID=TestTemplate.TestTemplateID ORDER BY date' );
 		// delegate the test class to create test objects according testid (call the constructor in a loop)
 		$tests = array ();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {

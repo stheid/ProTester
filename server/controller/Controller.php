@@ -15,10 +15,13 @@ abstract class Controller {
 	
 	/**
 	 *
-	 * @param
-	 *        	@see Test $test
-	 *        	
-	 *        	will calculate the points and upload the result for this test
+	 * will calculate the points and upload the result for this test and return the result
+	 * 
+	 * @param        	
+	 *
+	 * @see Test $test
+	 * @return number : Grade
+	 *        
 	 */
 	public static function calculateResult($test) {
 		$points = 0;
@@ -26,14 +29,16 @@ abstract class Controller {
 			$points += $answer->getPoints ();
 		}
 		Test::updateResult ( $test->getID (), $points );
+		return $points;
 	}
 	
 	/**
+	 * will calculate the grade and upload the result for this test and return the grade
+	 * 
+	 * @param        	
 	 *
-	 * @param
-	 *        	@see Test $test
-	 *        	
-	 *        	will calculate the grade and upload the result for this test
+	 * @see Test $test
+	 * @return number: Grade
 	 */
 	public static function calculateGrade($test) {
 		static::calculateResult ( $test );
@@ -42,7 +47,6 @@ abstract class Controller {
 			$points += $answer->getPoints ();
 		}
 		$maxpoints = $test->getTestTemplate ()->getMaxPoints ();
-		
 		if (2 * $points < $maxpoints) {
 			$grade = 2;
 		} elseif (10 * $points < 6 * $maxpoints) {
@@ -58,5 +62,6 @@ abstract class Controller {
 		}
 		
 		Test::updateGrade ( $test->getID (), $grade );
+		return $grade;
 	}
 }

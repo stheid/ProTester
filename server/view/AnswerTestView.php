@@ -14,7 +14,7 @@ class AnswerTestView extends TestViewer {
 						<div class="col-md-9 col-xs-8">
 						<div class="panel-group">';
 			$i = 0;
-			$questionAnchor = 0;
+			$questionAnchor = "";
 			foreach ( $questions as $question ) {
 				$this->printQuestionHTML ( $question, $test, $i );
 				$questionAnchor .= parent::getQuestionAnchor ( $i + 1 );
@@ -22,7 +22,7 @@ class AnswerTestView extends TestViewer {
 			}
 			
 			echo '</div></div>';
-			$this->printSidebar ();
+			$this->printSidebar ($questionAnchor);
 			$this->printModal ();
 			echo '</form>';
 		} else {
@@ -64,10 +64,10 @@ class AnswerTestView extends TestViewer {
 		}
 		echo '</div></div></div>';
 	}
-	protected function printSidebar($questions = NULL, $buttons = NULL) {
+	protected function printSidebar($questions = "list of all questions", $buttons = NULL) {
 		$buttons = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit">submit</button>';
 		
-		parent::printSidebar ( "list of all questions", $buttons );
+		parent::printSidebar ( $questions, $buttons );
 	}
 	protected function printModal() {
 		echo '<div class="modal fade" id="submit" tabindex="-1" role="dialog"

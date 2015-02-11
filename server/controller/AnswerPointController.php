@@ -48,7 +48,7 @@ class AnswerPointController extends Controller {
 			$test = $testTemplate->getTest ( $person );
 		}
 		
-		parent::calculateResult ( $test );
+		$points = parent::calculateResult ( $test );
 		
 		$_SESSION ['ResultString'] = $points . ' / ' . $testTemplate->getMaxPoints ();
 		$_SESSION ['FinishReason'] = 'you submitted the Test';
