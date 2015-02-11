@@ -43,16 +43,28 @@ abstract class TestViewer extends View {
 		echo '
 				</ul>';
 	}
+	
+	protected function getQuestionAnchor($i){
+		$questionAnchor = '<a class="btn btn-default" href="#question' . $i . '">';
+		$questionAnchor .= $i . '</a>';
+		
+		return $questionAnchor;
+	}
+	
 	protected function printSidebar($questionanchors, $buttons) {
 		echo '
-<div class="col-md-3 col-xs-4" style="height: 300px;">
-	<div style="position: fixed;">
-		<div>';
+<div class="col-md-3 col-xs-4" style="height: 200px;">
+	<div style="position: absolute; top: 0; left: 0;">
+		<div style="position: fixed;">
+			<div>';
 		echo $questionanchors . '
+			</div>
 		</div>
 	</div>
-	<div style="position: absolute; bottom: 0; left: 0;">';
+	<div style="position: absolute; bottom: 0; left: 0;">
+		<div style="position: fixed;">';
 		echo $buttons . '
+		</div>
 	</div>
 </div>';
 	}
@@ -70,7 +82,7 @@ abstract class TestViewer extends View {
 	//
 	protected static function getColorCode($answer, $question) {
 		if ($answer->getPoints () == $question->getMaxPoints ()) {
-			echo 'success"';
+			echo 'success';
 		} elseif ($answer->getPoints () >= ($question->getMaxPoints () / 2)) {
 			echo 'warning';
 		} else {

@@ -13,11 +13,11 @@ class EvaluateTestView extends TestViewer {
 		$person = new Person ( $_SESSION ['ID'] );
 		if ($person->canEvaluate ( $test->getTestTemplate () )) {
 			echo '
-<form action="../controller/EvaluationController.php?TestTemplateID=' . $test->getTestTemplate ()->getID () . '&TestID="' . $test->getID () . '" method="POST">
+<form action="../controller/EvaluationController.php?TestTemplateID=' . $test->getTestTemplate ()->getID () . '&TestID=' . $test->getID () . '" method="POST">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9 col-xs-8">';
-			
+			$questionAnchor = "";
 			// put name of the test owner
 			if ($test->isEvaluated ()) {
 				echo '<h2>' . $test->getPerson ()->getFullName () . '</h2>';
@@ -28,6 +28,7 @@ class EvaluateTestView extends TestViewer {
 				foreach ( $test->getTestTemplate ()->getQuestions () as $question ) {
 					if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
 						$this->printQuestionHtmlCode ( $question, $test, $i );
+						$questionAnchor .= parent::getQuestionAnchor ( $i+1 );
 						$i ++;
 					} else {
 						echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
@@ -42,6 +43,7 @@ class EvaluateTestView extends TestViewer {
 					if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
 						if ($question instanceof OpenQuestion) {
 							$this->printQuestionHtmlCode ( $question, $test, $i );
+							$questionAnchor .= parent::getQuestionAnchor ( $i+1 );
 							$i ++;
 						}
 					} else {
@@ -52,7 +54,7 @@ class EvaluateTestView extends TestViewer {
 			echo '
 			</div>';
 			
-			$this->printSidebar ();
+			$this->printSidebar ( $questionAnchor );
 			echo '
 		</div>
 	</div>
@@ -68,10 +70,15 @@ class EvaluateTestView extends TestViewer {
 		}
 		
 		echo '
-				<div class="panel panel-default">
+				<div class="panel panel-default"';
+		echo ' id="question';
+		echo $i + 1;
+		echo '">
 				<a class="panel-default" data-toggle="collapse"	href="#collapse' . $i . '">
 				  <div class="panel-heading">
-				    <h4 class="panel-title">' . $question->getText () . '</h4>
+					<h4 class="panel-title">';
+		echo $i + 1 . '. ' . $question->getText ();
+		echo '</h4>
 				  </div>
 		        </a>
 		    	<div id="collapse' . $i . '" class="panel-collapse collapse">
@@ -114,17 +121,23 @@ class EvaluateTestView extends TestViewer {
 	 * (non-PHPdoc)
 	 * @see TestViewer::printSidebar()
 	 */
-	protected function printSidebar($questions = NULL, $buttons = NULL) {
+	protected function printSidebar($questions = "list of all questions", $buttons = NULL) {
 		$buttons = $this->getButtonHTML ( 'Back' );
 		$buttons .= $this->getButtonHTML ( 'Next' );
 		$buttons .= '<br>';
 		
 		$buttons .= '<input type="submit" name="Homepage" class="btn btn-default" value="Back To Homepage"/>';
-		parent::printSidebar ( "list of all questions", $buttons );
+		parent::printSidebar ( $questions, $buttons );
 	}
+	
+	/**
+	 *
+	 * @param string $name        	
+	 * @return string
+	 */
 	private function getButtonHTML($name) {
 		$result = '<input style="width:50%" type="submit" name="nav" class="btn btn-default" value="' . $name . '"';
-		$result .= (isset ( $_SESSION ['disableNav'] [$name] ) && $_SESSION ['disableNav'] [$name]) ? 'disabled/>' : '/>';
+		$result .= (isset ( $_SESSION ['disableNav'] [$name] ) && $_SESSION ['disableNav'] [$name]) ? ' disabled/>' : '/>';
 		return $result;
 	}
 }

@@ -16,35 +16,9 @@ class AnswerTestView extends TestViewer {
 						<div class="panel-group">';
 			$i = 0;
 			foreach ( $questions as $question ) {
-				if ( $i++ % 5==0 && $i!=1) {
-					echo '</div>				
-					<div class="panel-group">';
-				}
-				
-				echo  '<div class="panel panel-default">
-				<a class="panel-default" data-toggle="collapse"
-						href="#collapse'.$i.'">
-								<div class="panel-heading">
-								<h4 class="panel-title">'.$question->getText () .'</h4>
-								</div>
-								</a>
-								<div id="collapse'.$i.'" class="panel-collapse collapse">
-								<div class="panel-body">';
-				if ($question instanceof ClosedQuestion){
-					echo '<ul class="input-list">';
-					
-					$j=1;
-					foreach ($question->getAnswerSet() as $answer){
-						echo '<li><label><input type="checkbox" name="answer['.$question->getID().']['.$j.']"> '.$answer.'<label></li>';
-						$j++;
-					}
-					echo '</ul>';
-				} elseif ($question instanceof GapQuestion){
-					echo '<input type="input" name="answer['.$question->getID().']">';
-				} else {
-					echo '<textarea name="answer['.$question->getID().']" style="width: 100%"></textarea>';
-				}
-				echo '</div></div></div>';
+				$this->printQuestionHTML($question, $test, $i);				
+				$questionAnchor .= parent::getQuestionAnchor ( $i+1 );
+				$i++;
 			}
 			
 			echo '</div></div>';
@@ -54,6 +28,42 @@ class AnswerTestView extends TestViewer {
 		} else {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
+	}
+	
+	private function printQuestionHTML( $question, $test, $i ){
+		if ( $i % 5==0 && $i!=0) {
+			echo '</div>
+					<div class="panel-group">';
+		}
+		
+		echo  '<div class="panel panel-default"';
+		echo ' id="question';
+		echo $i + 1;
+		echo '">
+				<a class="panel-default" data-toggle="collapse"	href="#collapse' . $i . '">
+				  <div class="panel-heading">
+					<h4 class="panel-title">';
+		echo $i + 1 . '. ' . $question->getText ();
+		echo '</h4>
+				  </div>
+		        </a>
+								<div id="collapse'.$i.'" class="panel-collapse collapse">
+								<div class="panel-body">';
+		if ($question instanceof ClosedQuestion){
+			echo '<ul class="input-list">';
+				
+			$j=1;
+			foreach ($question->getAnswerSet() as $answer){
+				echo '<li><label><input type="checkbox" name="answer['.$question->getID().']['.$j.']"> '.$answer.'<label></li>';
+				$j++;
+			}
+			echo '</ul>';
+		} elseif ($question instanceof GapQuestion){
+			echo '<input type="input" name="answer['.$question->getID().']">';
+		} else {
+			echo '<textarea name="answer['.$question->getID().']" style="width: 100%"></textarea>';
+		}
+		echo '</div></div></div>';
 	}
 	
 	protected function printSidebar($questions=NULL,$buttons=NULL){

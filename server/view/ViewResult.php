@@ -12,51 +12,63 @@ class ResultView extends TestViewer {
 						<div class="row">
 						<div class="col-md-9 col-xs-8">
 						<div class="panel-group">';
+			
+			$questionAnchor="";
 			$i = 0;
 			foreach ( $questions as $question ) {
-				if ($i ++ % 5 == 0 && $i != 1) {
-					echo '</div>				
-					<div class="panel-group">';
-				}
-				$this->printPanelHead ( $test, $question, $i );
-				echo '<div class="panel-body">';
-				if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
-					if ($question instanceof ClosedQuestion) {
-						parent::printClosedQuestion ( $test, $question );
-					} elseif ($question instanceof GapQuestion) {
-						echo '<input type="input" class="bg-';
-						parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-						echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
-					} else {
-						echo '<textarea style="width: 100%" class="bg-';
-						parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-						echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
-					}
-					echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
-					echo '</div></div></div>';
-				} else {
-					echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
-				}
+				$this->printQuestionHTML($question, $test, $i);
+				$questionAnchor .= parent::getQuestionAnchor ( $i+1 );
+				$i++;
 			}
 			
 			echo '</div></div>';
-			$this->printSidebar ();
+			$this->printSidebar ($questionAnchor);
 			
 			echo '</div></div>';
 		} else {
 			echo "<h1>You have no Permission to see this results, please login again</h1>";
 		}
 	}
+	
+	private function printQuestionHTML( $question, $test, $i ){
+		if ($i % 5 == 0 && $i != 0) {
+			echo '</div>
+					<div class="panel-group">';
+		}
+		$this->printPanelHead ( $test, $question, $i );
+		echo '<div class="panel-body">';
+		if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
+			if ($question instanceof ClosedQuestion) {
+				parent::printClosedQuestion ( $test, $question );
+			} elseif ($question instanceof GapQuestion) {
+				echo '<input type="input" class="bg-';
+				parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+				echo '" value=' . $test->getAnswer ( $question->getID () )->getAnswer () . ' disabled>';
+			} else {
+				echo '<textarea style="width: 100%" class="bg-';
+				parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+				echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
+			}
+			echo '<span style="float:right;">' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . ' / ' . $question->getMaxPoints () . '</span>';
+			echo '</div></div></div>';
+		} else {
+			echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
+		}
+	}
+	
 	private function printPanelHead($test, $question, $i) {
 		echo '<div class="panel panel-';
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
+		echo '" id="question';
+		echo $i + 1;
 		echo '">
 				<a class="panel-';
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
-		echo '" data-toggle="collapse"
-						href="#collapse' . $i . '">
-								<div class="panel-heading">
-								<h4 class="panel-title">' . $question->getText ();
+		echo '" data-toggle="collapse" href="#collapse' . $i . '">
+					<div class="panel-heading">
+					<h4 class="panel-title">';
+		echo $i + 1 ;
+		echo '. '. $question->getText ();
 		static::getGlyphiconCode ( $test->getAnswer ( $question->getID () ), $question );
 		echo '</h4>
 								</div>
@@ -65,10 +77,10 @@ class ResultView extends TestViewer {
 	}
 	
 	//
-	protected function printSidebar($questions = NULL, $buttons = NULL) {
+	protected function printSidebar($questions = "list of all questions", $buttons = NULL) {
 		$buttons = '<a class="btn btn-primary" href="' . PATH . 'server/controller/LoginController.php">Back to Homepage</a>';
 		
-		parent::printSidebar ( "list of all questions", $buttons );
+		parent::printSidebar ($questions , $buttons );
 	}
 	
 	//
