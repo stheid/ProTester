@@ -37,6 +37,23 @@ class Test {
 		
 		$mysqli->close ();
 	}
+	public function areAllAnswerpointsSet() {
+		$resultcode = FALSE;
+		$mysqli = DBController::getConnection ();
+		
+		if ($result = $mysqli->query ( 'SELECT * FROM Test JOIN Answer ON Test.TestID=Answer.TestID WHERE  Points IS NULL AND Test.TestID="' . $this->_iD . '"' )) {
+			if ($result->num_rows == 0) {
+				$resultcode = TRUE;
+			}
+			$result->free ();
+		} else {
+			echo "<script>console.log(\"" . __CLASS__ . "->" . __METHOD__ . " failed DB response\")</script>";
+			return FALSE;
+		}
+		
+		$mysqli->close ();
+		return $resultcode;
+	}
 	
 	//
 	public function getTestTemplate() {
@@ -55,7 +72,7 @@ class Test {
 	
 	//
 	public function isEvaluated() {
-		return isset($this->_grade);
+		return isset ( $this->_grade );
 	}
 	
 	//

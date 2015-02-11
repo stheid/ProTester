@@ -1,7 +1,6 @@
 <?php
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Test.php');
 require_once (realpath ( dirname ( __FILE__ ) ) . '/../model/Person.php');
-
 abstract class Tab {
 	public $id;
 	public $title;
@@ -33,7 +32,7 @@ class ViewResultTab extends Tab {
 			$this->content .= "\n" . '<li class="list-group-item">';
 			$this->content .= '<a class="btn btn-block" href="' . PATH . 'server/view/ViewResult.php?TestID=' . $test->getID () . '">';
 			$this->content .= '<span style="float:right;">' . ( float ) $test->getResult () . ' / ' . $test->getTestTemplate ()->getMaxPoints () . '</span>';
-			$this->content .= $test->getTestTemplate ()->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getTestTemplate ()->getCourse ()->getName ().' '.$test->getTestTemplate ()->getCourse ()->getGroupName ();
+			$this->content .= $test->getTestTemplate ()->getDayMonth () . '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $test->getTestTemplate ()->getCourse ()->getName () . ' ' . $test->getTestTemplate ()->getCourse ()->getGroupName ();
 			$this->content .= '</a></li>';
 		}
 		$this->content .= "\n" . '</ul>';
@@ -49,10 +48,12 @@ class EvaluateTestTab extends Tab {
 		$unevaluatedTemplates = array ();
 		$evaluatedTemplates = array ();
 		foreach ( $testTemplates as $testTempl ) {
-			if ($testTempl->isEvaluated ()) {
-				array_push ( $evaluatedTemplates, $testTempl );
-			} else {
-				array_push ( $unevaluatedTemplates, $testTempl );
+			if (! empty ( $testTempl->getTests () )) {
+				if ($testTempl->isEvaluated ()) {
+					array_push ( $evaluatedTemplates, $testTempl );
+				} else {
+					array_push ( $unevaluatedTemplates, $testTempl );
+				}
 			}
 		}
 		$this->content = "";
@@ -105,7 +106,6 @@ class TestManagementTab extends Tab {
 	public $id = "test_mgr";
 	public $title = "Manage Tests";
 	public $content = '<h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> THIS FEATURE IS STILL UNDER DEVELOPMENT! <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h1>';
-			
 }
 class CourseManagementTab extends Tab {
 	public $id = "course_mgr";

@@ -18,12 +18,15 @@ class EvaluateTestView extends TestViewer {
 		<div class="row">
 			<div class="col-md-9 col-xs-8">';
 			
+			var_dump($_SESSION['indexes']);
+			
 			// put name of the test owner
 			if ($test->isEvaluated ()) {
 				echo '<h2>' . $test->getPerson ()->getFullName () . '</h2>';
 				// display all questions with evaluationcriteria
 				
 				$i = 0;
+				echo '<div class="panel-group">';
 				foreach ( $test->getTestTemplate ()->getQuestions () as $question ) {
 					if (NULL !== (@$test->getAnswer ( $question->getID () ))) {
 						$this->printQuestionHtmlCode ( $question, $test, $i );
@@ -32,6 +35,7 @@ class EvaluateTestView extends TestViewer {
 						echo "<h1>Some Database Problem (This Test seems to have no Answers)</h1>";
 					}
 				}
+				echo '</div>';
 			} else {
 				
 				// display only open questions and their answers and evaluationcriteria
@@ -105,7 +109,7 @@ class EvaluateTestView extends TestViewer {
 		parent::getColorCode ( $test->getAnswer ( $question->getID () ), $question );
 		echo '" disabled>' . $test->getAnswer ( $question->getID () )->getAnswer () . '</textarea>';
 		echo '<textarea style="width: 100%" name="evalRule[' . $question->getID () . ']">' . $question->getSolution () . '</textarea>';
-		echo '<span style="float:right;"><input style="width:40px;" name="points[' . $question->getID () . ']" value="' . ( float ) $test->getAnswer ( $question->getID () )->getPoints () . '"/> / ' . $question->getMaxPoints () . '</span>';
+		echo '<span style="float:right;"><input style="width:40px;" name="points[' . $question->getID () . ']" value="' .  ($test->getAnswer ( $question->getID () )->getPoints () != NULL ? ( float )$test->getAnswer ( $question->getID () )->getPoints ():'') . '"/> / ' . $question->getMaxPoints () . '</span>';
 	}
 	
 	/*
@@ -126,8 +130,9 @@ class EvaluateTestView extends TestViewer {
 		$buttons .= '<input type="submit" name="Homepage" class="btn btn-default" value="Back To Homepage"/>';
 		parent::printSidebar ( "list of all questions", $buttons );
 	}
+	
 	private function getButtonHTML($sessionCode, $name) {
-		$result = '<input type="submit" name="unev" class="btn btn-default" value="' . $name . '"';
+		$result = '<input type="submit" name="'.substr($sessionCode,0,-4).'" class="btn btn-default" value="' . $name . '"';
 		$result .= (isset ( $_SESSION ['disableNav'] [$sessionCode] ) && $_SESSION ['disableNav'] [$sessionCode]) ? 'disabled/>' : '/>';
 		return $result;
 	}

@@ -51,7 +51,7 @@ class Answer {
 	public static function update($testID, $questionID, $points) {
 		$mysqli = DBController::getConnection ();
 		
-		$query = 'UPDATE Answer SET Points=' .(int) $points . '
+		$query = 'UPDATE Answer SET Points=' .(float) $points . '
 				WHERE TestID="' . $testID . '" AND QuestionID="' . $questionID . '";';
 		
 		if ($result = $mysqli->query ( $query )) {
