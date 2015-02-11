@@ -13,6 +13,9 @@ class TestTemplate {
 	 * @AttributeType int
 	 */
 	private $_testTemplateID;
+	/**
+	 * @AttributeType int
+	 */
 	private $_duration;
 	/**
 	 * @AttributeType Date
@@ -23,21 +26,6 @@ class TestTemplate {
 	 * @AssociationMultiplicity 0..1
 	 */
 	public $_course;
-	/**
-	 * @AssociationType Server.Controller.AnswerPointsManager
-	 */
-	public $_unnamed_AnswerPointsManager_;
-	/**
-	 * @AssociationType Server.Model.Test
-	 * @AssociationMultiplicity *
-	 */
-	public $tests = array ();
-	/**
-	 * @AssociationType Server.Model.Question
-	 * @AssociationMultiplicity *
-	 * @AssociationKind Aggregation
-	 */
-	private $questions = array ();
 	public function __construct($id) {
 		$mysqli = DBController::getConnection ();
 		
@@ -57,7 +45,10 @@ class TestTemplate {
 		$mysqli->close ();
 	}
 	
-	//
+	/**
+	 *
+	 * @return @see Question Array for this Template
+	 */
 	public function getQuestions() {
 		$mysqli = DBController::getConnection ();
 		$query = 'SELECT QuestionID FROM Question	WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY QuestionID';
@@ -76,7 +67,10 @@ class TestTemplate {
 		return $questions;
 	}
 	
-	//
+	/**
+	 *
+	 * @return @see Test Array for this Template
+	 */
 	public function getTests() {
 		$mysqli = DBController::getConnection ();
 		$query = 'SELECT TestID FROM Test WHERE TestTemplateID="' . $this->_testTemplateID . '" ORDER BY TestID';
@@ -94,6 +88,14 @@ class TestTemplate {
 		
 		return $tests;
 	}
+	
+	/**
+	 *
+	 * @param        	
+	 *
+	 * @see Person $person
+	 * @return @see Test|NULL
+	 */
 	public function getTest($person) {
 		foreach ( $this->getTests () as $test ) {
 			if ($test->ownedBy ( $person )) {
@@ -103,7 +105,15 @@ class TestTemplate {
 		return NULL;
 	}
 	
-	//
+	/**
+	 *
+	 * checks if given person has answered this template
+	 *
+	 * @param        	
+	 *
+	 * @see Person $person
+	 * @return boolean
+	 */
 	public function isAnsweredFrom($person) {
 		$exitcode = false;
 		foreach ( $this->getTests () as $test ) {
@@ -114,17 +124,28 @@ class TestTemplate {
 		return $exitcode;
 	}
 	
-	//
+	/**
+	 * checks if all tests of this template are already evaluated
+	 *
+	 * @return boolean
+	 */
 	public function isEvaluated() {
 		foreach ( $this->getTests () as $test ) {
-			if (!$test->isEvaluated ()) {
+			if (! $test->isEvaluated ()) {
 				return FALSE;
 			}
 		}
 		return TRUE;
 	}
 	
-	//
+	/**
+	 * Checks if given person can answer this test
+	 *
+	 * @param        	
+	 *
+	 * @see Person $person
+	 * @return boolean
+	 */
 	public function answerableFor($person) {
 		$mysqli = DBController::getConnection ();
 		
@@ -138,26 +159,41 @@ class TestTemplate {
 		}
 	}
 	
-	// read from testtemplate
+	/**
+	 *
+	 * @return date
+	 */
 	public function getDate() {
 		return $this->_date;
 	}
 	
-	// read from testtemplate
+	/**
+	 * return date like "january 2013"
+	 *
+	 * @return string
+	 */
 	public function getMonthYear() {
 		$time = strtotime ( $this->_date );
 		
 		return date ( "F Y", $time );
 	}
 	
-	// read from testtemplate
+	/**
+	 * return date like "1st Feb"
+	 *
+	 * @return string
+	 */
 	public function getDayMonth() {
 		$time = strtotime ( $this->_date );
 		
 		return date ( "jS M", $time );
 	}
 	
-	//
+	/**
+	 * returns total sum of maximum points for all questions
+	 *
+	 * @return number
+	 */
 	public function getMaxPoints() {
 		$questions = $this->getQuestions ();
 		$maxPoints = 0;
@@ -167,17 +203,36 @@ class TestTemplate {
 		return $maxPoints;
 	}
 	
-	// return the course
+	/**
+	 *
+	 * @return @see Course
+	 */
 	public function getCourse() {
 		return $this->_course;
 	}
 	
-	//
+	/**
+	 * checks if two templates are equal
+	 *
+	 * @param        	
+	 *
+	 * @see TestTemplate $template
+	 * @return boolean
+	 */
 	public function equals($template) {
 		return $this->_testTemplateID == $template->getID ();
 	}
 	
-	//
+	/**
+	 *
+	 * @param        	
+	 *
+	 * @see TestTemplate $a
+	 * @param        	
+	 *
+	 * @see TestTemplate $b
+	 * @return 1 when a is later scheduled than b |-1 when b is later scheduled than a |0 when they are scheduled for the same date
+	 */
 	public static function isLater($a, $b) {
 		if (strtotime ( $a->getDate () ) == strtotime ( $b->getDate () )) {
 			return 0;
@@ -185,7 +240,10 @@ class TestTemplate {
 		return (strtotime ( $a->getDate () ) < strtotime ( $b->getDate () )) ? - 1 : 1;
 	}
 	
-	//
+	/**
+	 *
+	 * @return String : id
+	 */
 	public function getID() {
 		return $this->_testTemplateID;
 	}

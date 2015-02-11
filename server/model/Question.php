@@ -13,6 +13,9 @@ class Question {
 	 * @AttributeType int
 	 */
 	private $_questionID;
+	/**
+	 * @AttributeType int
+	 */
 	private $_maxPoints;
 	/**
 	 * @AttributeType String
