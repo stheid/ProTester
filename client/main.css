@@ -16,3 +16,7 @@ div.panel-body>ul {
 	list-style-type: none;
 	padding-left: 0;
 }
+
+.bg-success, .bg-warning, .bg-danger {
+	resize: none;
+}

@@ -36,7 +36,7 @@ class LoginController extends Controller {
 		unset($_SESSION ['TestID'] );
 		unset($_SESSION ['TestTemplateID'] );
 		unset($_SESSION ['disableNav']);
-		unset($_SESSION ['indexes']);
+		unset($_SESSION ['index']);
 	}
 }
 new LoginController();
